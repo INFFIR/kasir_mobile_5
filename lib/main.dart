@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-
-import 'app/routes/app_pages.dart';
+import 'app/modules/home/views/login_page.dart';
 
 void main() {
-  runApp(
-    GetMaterialApp(
-      title: "Application",
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
-    ),
-  );
+  runApp(MyApp());
 }
-// test
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Login Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginPage(),
+    );
+  }
+}
