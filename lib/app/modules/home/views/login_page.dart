@@ -7,11 +7,13 @@ class LoginPage extends StatelessWidget{
   final TextEditingController passwordController = TextEditingController();
   final LoginController controller = LoginController();
 
+  LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -20,21 +22,21 @@ class LoginPage extends StatelessWidget{
           children: [
             TextField(
               controller: usernameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Username',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               controller: passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 User user = User(
@@ -43,7 +45,7 @@ class LoginPage extends StatelessWidget{
                 );
                 controller.login(user, context);
               },
-              child: Text('Login'),
+              child: const Text('Login'),
             )
           ],
         ),
