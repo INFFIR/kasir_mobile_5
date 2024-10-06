@@ -1,0 +1,7 @@
+// settings.gradle
+
+// Menetapkan nama proyek
+rootProject.name = 'kasir_mobile_5'
+
+// Menambahkan modul aplikasi
+include ':app'
