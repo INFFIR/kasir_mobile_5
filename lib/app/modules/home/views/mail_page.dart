@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart'; // Pastikan Anda memiliki halaman HomePage
 
-class ActivityPage extends StatelessWidget {
-  const ActivityPage({super.key});
+class MailPage extends StatelessWidget {
+  const MailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Activity'),
+        automaticallyImplyLeading: false,
+        title: const Text('MAIL'),
         backgroundColor: Colors.blueGrey,
       ),
       body: const Center(
         child: Text(
-          'Halaman Activity Page',
+          'Halaman Activity Mail',
           style: TextStyle(fontSize: 24),
         ),
       ),
-              bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blueGrey,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,

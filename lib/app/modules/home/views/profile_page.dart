@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart'; // P
+import 'home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import 'change_username_page.dart'; // Ganti dengan halaman ganti username
+import 'change_password_page.dart'; // Ganti dengan halaman ganti password
+import 'activity_page.dart'; // Ganti dengan halaman aktivitas Anda
+import 'login_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -8,14 +12,15 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'HALAMAN UTAMA',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blueGrey, // Warna header
+        backgroundColor: Colors.blueGrey,
         actions: [
           IconButton(
-            icon: const Icon(Icons.email), // Ikon email
+            icon: const Icon(Icons.email),
             color: Colors.white,
             onPressed: () {
               // Tambahkan aksi yang diinginkan saat ikon ditekan
@@ -25,28 +30,25 @@ class ProfilePage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/background.png'), // Ganti dengan path gambar Anda
-                fit: BoxFit.cover, // Mengatur agar gambar menutupi seluruh halaman
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          SingleChildScrollView( // Menambahkan SingleChildScrollView
+          SingleChildScrollView(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 50),
-                  // Menampilkan foto profil
-                  CircleAvatar(
-                    radius: 50, // Ukuran lingkaran foto profil
-                    backgroundImage: AssetImage('assets/profile_picture.png'), // Ganti dengan path gambar profil Anda
+                  const CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/profile_picture.jpeg'), // Ganti dengan path gambar profil Anda
                   ),
                   const SizedBox(height: 20),
-                  // Menampilkan nama pengguna
                   const Text(
                     'Nama Pengguna',
                     style: TextStyle(
@@ -55,52 +57,59 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  // Menampilkan informasi pengguna
                   const Text(
-                    'Informasi tambahan pengguna',
+                    'Deskripsi / Bio',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
                       color: Color(0xFF28374C),
                     ),
                   ),
+                  const SizedBox(height: 10),
                   const SizedBox(height: 50),
-                  // Button untuk mengganti username
                   _buildButton(
                     context,
                     icon: Icons.edit,
                     label: 'GANTI USERNAME',
                     onPressed: () {
-                      // Tambahkan aksi yang diinginkan saat tombol ditekan
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ChangeUsernamePage()), // Ganti dengan halaman ganti username
+                      );
                     },
                   ),
                   const SizedBox(height: 20),
-                  // Button untuk ganti password
                   _buildButton(
                     context,
                     icon: Icons.lock,
                     label: 'GANTI PASSWORD',
                     onPressed: () {
-                      // Tambahkan aksi untuk ganti password
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ChangePasswordPage()), // Ganti dengan halaman ganti password
+                      );
                     },
                   ),
                   const SizedBox(height: 20),
-                  // Button untuk aktivitas anda
                   _buildButton(
                     context,
                     icon: Icons.history,
                     label: 'AKTIVITAS ANDA',
                     onPressed: () {
-                      // Tambahkan aksi yang diinginkan saat tombol ditekan
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ActivityPage()), // Ganti dengan halaman aktivitas Anda
+                      );
                     },
                   ),
                   const SizedBox(height: 20),
-                  // Button untuk log out
                   _buildButton(
                     context,
                     icon: Icons.logout,
                     label: 'LOG OUT',
+                    buttonColor: Colors.red, // Ganti warna tombol menjadi merah
                     onPressed: () {
                       // Tambahkan aksi untuk keluar dari akun
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
                     },
                   ),
                 ],
@@ -110,9 +119,9 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blueGrey, // Warna Bottom Navbar
-        selectedItemColor: Colors.white, // Warna item yang dipilih
-        unselectedItemColor: Colors.white70, // Warna item yang tidak dipilih
+        backgroundColor: Colors.blueGrey,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -128,20 +137,17 @@ class ProfilePage extends StatelessWidget {
           ),
         ],
         onTap: (index) {
-          // Menangani navigasi berdasarkan indeks yang ditekan
           switch (index) {
             case 0:
               // Halaman Profile (saat ini aktif)
               break;
             case 1:
-              // Navigasi ke Halaman Home
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
               );
               break;
             case 2:
-              // Aksi untuk tombol Back
               Navigator.pop(context); // Kembali ke halaman sebelumnya
               break;
           }
@@ -150,35 +156,34 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(BuildContext context, {required IconData icon, required String label, required VoidCallback onPressed}) {
+  Widget _buildButton(BuildContext context, {required IconData icon, required String label, required VoidCallback onPressed, Color? buttonColor}) {
     return SizedBox(
       height: 75,
       width: 350,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFD9D9D9), // Warna button
+          backgroundColor: buttonColor ?? const Color(0xFFD9D9D9), // Gunakan buttonColor jika ada
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center, // Memposisikan ikon dan teks di tengah
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Menggunakan Expanded untuk mengatur rasio ukuran
             Expanded(
               flex: 3,
-              child: Icon(icon, color: const Color(0xFF28374C), size: 30), // Ukuran ikon
+              child: Icon(icon, color: const Color(0xFF28374C), size: 30),
             ),
-            const SizedBox(width: 10), // Jarak antara ikon dan teks
+            const SizedBox(width: 10),
             Expanded(
               flex: 7,
               child: Text(
                 label,
-                textAlign: TextAlign.center, // Memastikan teks di tengah
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Color(0xFF28374C),
-                  fontSize: 20, // Ukuran teks
+                  fontSize: 20,
                 ),
               ),
             ),
@@ -188,31 +193,3 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-// lib/
-// ├── app/
-// │   ├── bindings/
-// │   ├── controllers/
-// │   │   └── login_controller.dart
-// │   ├── models/
-// │   │   └── user_model.dart
-// │   ├── views/
-// │   │   ├── home_page.dart
-// │   │   ├── profile_page.dart
-// │   │   ├── change_username_page.dart
-// │   │   ├── change_password_page.dart
-// │   │   └── activity_page.dart
-// │   ├── routes/
-// │   └── main.dart
-// │
-// └── assets/
-//     ├── background.png
-//     └── profile_picture.png
-
