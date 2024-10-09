@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import '../home_page.dart'; // Pastikan Anda memiliki halaman HomePage
 
-class ChangeUsernamePage extends StatefulWidget {
-  const ChangeUsernamePage({super.key});
+class ChangePasswordPage extends StatefulWidget {
+  const ChangePasswordPage({super.key});
 
   @override
-  _ChangeUsernamePageState createState() => _ChangeUsernamePageState();
+  _ChangePasswordPageState createState() => _ChangePasswordPageState();
 }
 
-class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _bioController = TextEditingController();
+class _ChangePasswordPageState extends State<ChangePasswordPage> {
+  final TextEditingController _oldPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
-  void _changeUsername() {
-    // Logika untuk mengubah username
-    // Anda dapat menambahkan logika untuk memproses dan menyimpan username di sini
+  void _changePassword() {
+    // Logika untuk mengubah password
+    // Tambahkan logika untuk memproses dan menyimpan password di sini
 
     // Menampilkan pop-up dialog
     showDialog(
@@ -22,7 +23,7 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Berhasil'),
-          content: const Text('Username berhasil diubah!'),
+          content: const Text('Password berhasil diubah!'),
           actions: [
             TextButton(
               onPressed: () {
@@ -40,7 +41,7 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UBAH USERNAME'),
+        title: const Text('UBAH PASSWORD'),
         backgroundColor: Colors.blueGrey,
       ),
       body: Padding(
@@ -48,9 +49,9 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
         child: Column(
           children: [
             TextField(
-              controller: _usernameController,
+              controller: _oldPasswordController,
               decoration: InputDecoration(
-                labelText: 'Username :',
+                labelText: 'Masukkan Password Lama :',
                 filled: true,
                 fillColor: Colors.grey.shade200,
                 border: OutlineInputBorder(
@@ -58,12 +59,13 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
                   borderSide: BorderSide.none,
                 ),
               ),
+              obscureText: true,
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: _bioController,
+              controller: _newPasswordController,
               decoration: InputDecoration(
-                labelText: 'Bio :',
+                labelText: 'Masukkan Password Baru :',
                 filled: true,
                 fillColor: Colors.grey.shade200,
                 border: OutlineInputBorder(
@@ -71,11 +73,25 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
                   borderSide: BorderSide.none,
                 ),
               ),
-              maxLines: 2,
+              obscureText: true,
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: _confirmPasswordController,
+              decoration: InputDecoration(
+                labelText: 'Ulangi Password Baru :',
+                filled: true,
+                fillColor: Colors.grey.shade200,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              obscureText: true,
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _changeUsername,
+              onPressed: _changePassword,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 minimumSize: const Size(double.infinity, 50),
@@ -83,7 +99,7 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: const Text('Ubah Username'),
+              child: const Text('Ubah Password'),
             ),
           ],
         ),
