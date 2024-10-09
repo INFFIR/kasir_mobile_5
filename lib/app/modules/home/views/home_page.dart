@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'profile_page.dart'; // Pastikan path ini sesuai dengan lokasi file ProfilePage
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -211,26 +213,35 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blueGrey, // Warna Bottom Navbar
-        selectedItemColor: Colors.white, // Warna item yang dipilih
-        unselectedItemColor: Colors.white70, // Warna item yang tidak dipilih
+bottomNavigationBar: BottomNavigationBar(
+  backgroundColor: Colors.blueGrey,
+  selectedItemColor: Colors.white,
+  unselectedItemColor: Colors.white70,
+  items: const [
+    BottomNavigationBarItem(
+      icon: Icon(Icons.person),
+      label: 'Profile',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home),
+      label: 'Home',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.arrow_back_ios_new),
+      label: 'Back',
+    ),
+  ],
+  onTap: (index) {
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfilePage()),
+      );
+    }
+    // Tambahkan navigasi untuk Home dan Back jika diperlukan
+  },
+),
 
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_back_ios_new),
-            label: 'Back',
-          ),
-        ],
-      ),
     );
   }
 }
