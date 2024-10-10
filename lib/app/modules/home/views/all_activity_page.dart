@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import '../home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import 'package:kasir_mobile_5/app/modules/home/views/home_page.dart';
 
-class ActivityPegawaiPage extends StatelessWidget {
-  const ActivityPegawaiPage({super.key});
+
+class AllActivityPage extends StatelessWidget {
+  const AllActivityPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Activity'),
+        title: const Text('ALL ACTIVITY'),
         backgroundColor: Colors.blueGrey,
       ),
       body: Stack(
@@ -51,7 +52,7 @@ class ActivityPegawaiPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Pegawai n',
+                                'Username',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -79,7 +80,7 @@ class ActivityPegawaiPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Pegawai n',
+                                'Username',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -93,7 +94,90 @@ class ActivityPegawaiPage extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 10), // Jarak antar tombol
 
+                    // Tombol ketiga dengan header
+                    ElevatedButton(
+                      onPressed: () {
+                        // Aksi untuk tombol ketiga
+                      },
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
+                        children: [
+                          Row( // Header di dalam tombol
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Username',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '29 - 9 2024 14 : 10 WIB',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20), // Jarak antara header dan teks
+                          Text('Telah melakukan pembaruan produk'), // Teks aktivitas
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10), // Jarak antar tombol
+
+                    // Tombol keempat dengan header
+                    ElevatedButton(
+                      onPressed: () {
+                        // Aksi untuk tombol keempat
+                      },
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
+                        children: [
+                          Row( // Header di dalam tombol
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Username',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '29 - 9 2024 14 : 15 WIB',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20), // Jarak antara header dan teks
+                          Text('Telah melakukan penghapusan pengguna'), // Teks aktivitas
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10), // Jarak antar tombol
+
+                    // Tombol kelima dengan header
+                    ElevatedButton(
+                      onPressed: () {
+                        // Aksi untuk tombol kelima
+                      },
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
+                        children: [
+                          Row( // Header di dalam tombol
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Username',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '29 - 9 2024 14 : 20 WIB',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20), // Jarak antara header dan teks
+                          Text('Telah melakukan pemulihan produk'), // Teks aktivitas
+                        ],
+                      ),
+                    ),
                     const SizedBox(height: 400), // Jarak antar tombol
                   ],
                 ),

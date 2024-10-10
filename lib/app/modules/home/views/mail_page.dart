@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/mail_open_page.dart';
 import 'home_page.dart'; // Pastikan Anda memiliki halaman HomePage
 
 class MailPage extends StatelessWidget {
@@ -28,8 +29,8 @@ class MailPage extends StatelessWidget {
             right: 10, // Jarak dari kanan
             bottom: 10, // Jarak dari bawah
             child: Container(
-              width: double.infinity, // Mengisi lebar penuh dari posisi
-              height: double.infinity, // Mengisi tinggi penuh dari posisi
+
+
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
@@ -49,6 +50,10 @@ class MailPage extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Aksi untuk tombol
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const MailOpenPage()), // Ganti dengan nama kelas Home Anda
+                        );
                       },
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
@@ -272,7 +277,7 @@ class MailPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 500)
+                    const SizedBox(height: 100)
                   ],
                 ),
               ),

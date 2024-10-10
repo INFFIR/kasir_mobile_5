@@ -40,59 +40,6 @@ class ActivityPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch, // Memastikan konten memenuhi lebar
                   children: [
                     // Tombol pertama dengan header
-                    ElevatedButton(
-                      onPressed: () {
-                        // Aksi untuk tombol pertama
-                      },
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
-                        children: [
-                          Row( // Header di dalam tombol
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Username',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                '29 - 9 2024 14 : 00 WIB',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20), // Jarak antara header dan teks
-                          Text('Telah melakukan penghapusan produk'), // Teks aktivitas
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10), // Jarak antar tombol
-
-                    // Tombol kedua dengan header
-                    ElevatedButton(
-                      onPressed: () {
-                        // Aksi untuk tombol kedua
-                      },
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
-                        children: [
-                          Row( // Header di dalam tombol
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Username',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                '29 - 9 2024 14 : 05 WIB',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20), // Jarak antara header dan teks
-                          Text('Telah melakukan penambahan produk'), // Teks aktivitas
-                        ],
-                      ),
-                    ),
                     const SizedBox(height: 10), // Jarak antar tombol
 
                     // Tombol ketiga dengan header
