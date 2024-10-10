@@ -9,6 +9,13 @@ JIKA BAGIAN KALIAN UDAH SELESAI BANTU YANG LAIN TAPI TANYA DLU SAMA YANG PEGANG 
 flutter 4.6.5
 image_picker : ^0.8.7
 
+
+## SEKEDAR TIPS CARA NGERUN FLUTTER
+1. Hapus direktori `android`
+2. Hapus direktori `build`
+3. Di Terminal, ketik `flutter create .` lalu jalankan
+4. Jalankan `flutter run` di terminal
+
 A new Flutter project.
 
 ## Getting Started
@@ -45,3 +52,4 @@ Projek pemrograman mobile kel 5
 // └── assets/
 //     ├── background.png
 //     └── profile_picture.png
+
