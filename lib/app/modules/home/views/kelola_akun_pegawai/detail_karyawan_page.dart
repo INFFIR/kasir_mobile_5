@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/activity_pegawai_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/hapus_akun_page.dart';
 import '../home_page.dart';
-import 'tambah_pegawai_page.dart';
+import '../profile/profile_page.dart';
 
-class OpsiKaryawanPage extends StatelessWidget {
-  const OpsiKaryawanPage({super.key});
+
+class DetailKaryawanPage extends StatelessWidget {
+  const DetailKaryawanPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +35,18 @@ class OpsiKaryawanPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 75),
                   // Button 1: Tambah Akun
                 SizedBox(
-                    height: 150,
+                    height: 100,
                     width: 350,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ActivityPegawaiPage()), // Ganti dengan halaman aktivitas Anda
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
                         shape: RoundedRectangleBorder(
@@ -60,7 +69,7 @@ class OpsiKaryawanPage extends StatelessWidget {
                             flex: 7,
                             child: Center(
                               child: Text(
-                                'PEGAWAI 1 (Username)',
+                                'AKTIVITAS AKUN',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF28374C),
@@ -76,7 +85,7 @@ class OpsiKaryawanPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   // Button 2: Kelola Akun
                   SizedBox(
-                    height: 150,
+                    height: 100,
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {},
@@ -102,7 +111,7 @@ class OpsiKaryawanPage extends StatelessWidget {
                             flex: 7,
                             child: Center(
                               child: Text(
-                                'PEGAWAI 2 (Username)',
+                                'KIRIM PESAN',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF28374C),
@@ -118,10 +127,15 @@ class OpsiKaryawanPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   // Button 3: Hapus Akun
                 SizedBox(
-                    height: 150,
+                    height: 100,
                     width: 350,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HapusAkunPage()), // Ganti dengan halaman aktivitas Anda
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
                         shape: RoundedRectangleBorder(
@@ -144,7 +158,7 @@ class OpsiKaryawanPage extends StatelessWidget {
                             flex: 7,
                             child: Center(
                               child: Text(
-                                'PEGAWAI 3 (Username)',
+                                'HAPUS KARYAWAN',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF28374C),
@@ -164,18 +178,28 @@ class OpsiKaryawanPage extends StatelessWidget {
           ),
           // Floating Action Button (FAB) with '+' icon
           Positioned(
-            bottom: 20,
-            right: 20,
-            child: FloatingActionButton(
-              onPressed: () {
-                // Action saat tombol '+' ditekan
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const TambahPegawaiPage()), // Ganti dengan nama kelas Home Anda
-            );
-              },
-              backgroundColor: const Color(0xFF28374C),
-              child: const Icon(Icons.add, color: Colors.white),
+            top: 15,
+            left: 0,
+            right: 0,
+            child: Align(
+              child: Container(
+                width: 350,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF28374C),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: const Center(
+                  child: Text(
+                    'PEGAWAI n (Username)',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
@@ -201,6 +225,10 @@ class OpsiKaryawanPage extends StatelessWidget {
         onTap: (index) {
           if (index == 0) {
             // Navigasi ke halaman Profile
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
+            );
           } else if (index == 1) {
             Navigator.pushReplacement(
               context,

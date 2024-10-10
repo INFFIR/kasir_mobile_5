@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/detail_karyawan_page.dart';
 import '../home_page.dart';
 import 'tambah_pegawai_page.dart';
 
@@ -32,12 +33,18 @@ class KelolaAkunPegawai extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 10),
                   // Button 1: Tambah Akun
                 SizedBox(
                     height: 150,
                     width: 350,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const DetailKaryawanPage()), // Ganti dengan nama kelas Home Anda
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
                         shape: RoundedRectangleBorder(
@@ -79,7 +86,12 @@ class KelolaAkunPegawai extends StatelessWidget {
                     height: 150,
                     width: 350,
                     child: ElevatedButton(
-                      onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const DetailKaryawanPage()), // Ganti dengan nama kelas Home Anda
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
                         shape: RoundedRectangleBorder(
@@ -121,7 +133,12 @@ class KelolaAkunPegawai extends StatelessWidget {
                     height: 150,
                     width: 350,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const DetailKaryawanPage()), // Ganti dengan nama kelas Home Anda
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
                         shape: RoundedRectangleBorder(

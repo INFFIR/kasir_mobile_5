@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../home_page.dart'; // Pastikan Anda memiliki halaman HomePage
 
-class ActivityPage extends StatelessWidget {
-  const ActivityPage({super.key});
+class ActivityPegawaiPage extends StatelessWidget {
+  const ActivityPegawaiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class ActivityPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Username',
+                                'Pegawai n',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -79,7 +79,7 @@ class ActivityPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Username',
+                                'Pegawai n',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -107,7 +107,7 @@ class ActivityPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Username',
+                                'Pegawai n',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -135,7 +135,7 @@ class ActivityPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Username',
+                                'Pegawai n',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -163,7 +163,7 @@ class ActivityPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Username',
+                                'Pegawai n',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               Text(

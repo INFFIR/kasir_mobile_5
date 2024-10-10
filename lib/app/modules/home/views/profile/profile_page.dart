@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../home_page.dart'; // Pastikan Anda memiliki halaman HomePage
-import 'change_username_page.dart'; // Ganti dengan halaman ganti username
+import 'change_profile_page.dart'; // Ganti dengan halaman ganti username
 import 'change_password_page.dart'; // Ganti dengan halaman ganti password
 import 'activity_page.dart'; // Ganti dengan halaman aktivitas Anda
 import '../login_page.dart';
+import '../mail_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -24,6 +25,10 @@ class ProfilePage extends StatelessWidget {
             color: Colors.white,
             onPressed: () {
               // Tambahkan aksi yang diinginkan saat ikon ditekan
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MailPage()), // Ganti dengan halaman ganti username
+              );
             },
           ),
         ],
@@ -73,7 +78,7 @@ class ProfilePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const ChangeUsernamePage()), // Ganti dengan halaman ganti username
+                        MaterialPageRoute(builder: (context) => const ChangeProfilePage()), // Ganti dengan halaman ganti username
                       );
                     },
                   ),
