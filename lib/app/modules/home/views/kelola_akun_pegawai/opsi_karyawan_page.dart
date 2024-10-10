@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../home_page.dart';
 import 'tambah_pegawai_page.dart';
 
-class KelolaAkunPegawai extends StatelessWidget {
-  const KelolaAkunPegawai({super.key});
+class OpsiKaryawanPage extends StatelessWidget {
+  const OpsiKaryawanPage({super.key});
 
   @override
   Widget build(BuildContext context) {
