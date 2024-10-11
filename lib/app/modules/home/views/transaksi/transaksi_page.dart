@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/transaksi/cek_pembelian_page.dart';
 import '../profile/profile_page.dart';
 import '../homepage/home_page.dart';
 
@@ -35,6 +36,10 @@ class _TransaksiPageState extends State<TransaksiPage> {
             color: Colors.white,
             onPressed: () {
               // Aksi untuk menyimpan item
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CekPembelianPage()),
+            );
             },
           ),
         ],
