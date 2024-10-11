@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/memilih_pembayaran_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/pembayaran%20berhasil_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/transaksi/pembayaran_berhasil_page.dart';
 import '../profile/profile_page.dart';
 import '../homepage/home_page.dart';
 
@@ -199,7 +198,7 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
   }
 
   // Method to build the button section
-  Widget _buildButtonSection({double buttonWidth = 350, double buttonHeight = 50}) {
+  Widget _buildButtonSection({double buttonWidth = 350}) {
     return Container(
       padding: const EdgeInsets.all(16),
       width: buttonWidth,
@@ -216,7 +215,7 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const PembayaranberhasilPage()),
+                MaterialPageRoute(builder: (context) => const PembayaranBerhasilPage()),
               );
             },
           ),

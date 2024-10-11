@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/homepage/home_page.dart';
+import '../profile/profile_page.dart';
 
 
 class AllActivityPage extends StatelessWidget {
@@ -186,7 +187,7 @@ class AllActivityPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blueGrey,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
@@ -205,19 +206,19 @@ class AllActivityPage extends StatelessWidget {
           ),
         ],
         onTap: (index) {
-          switch (index) {
-            case 0:
-              // Halaman Profile (saat ini aktif)
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-              );
-              break;
-            case 2:
-              Navigator.pop(context); // Kembali ke halaman sebelumnya
-              break;
+          if (index == 0) {
+            // Navigasi ke halaman Profile
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
+            );
+          } else if (index == 1) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
+            );
+          } else if (index == 2) {
+            Navigator.pop(context); // Kembali ke halaman sebelumnya
           }
         },
       ),

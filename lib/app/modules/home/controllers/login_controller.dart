@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/login/pilih_mode_page.dart';
 import '../models/user_model.dart';
-import '../views/homepage/home_page.dart'; // Pastikan untuk mengimpor HomePage
+ // Pastikan untuk mengimpor HomePage
 
 class LoginController {
   void login(User user, BuildContext context) {
@@ -9,10 +10,10 @@ class LoginController {
       // Contoh validasi username dan password
       if (user.username == "a" && user.password == "a") {
         // Login berhasil, navigasi ke HomePage
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomePage(),
+            builder: (context) => const PilihModePage(),
           ),
         );
       } else {

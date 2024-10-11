@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/login/lupa_password_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/login/sign_up_page.dart';
 import '../../models/user_model.dart';
 import '../../controllers/login_controller.dart';
-import '../homepage/home_page.dart'; // Pastikan untuk mengimpor HomePage
+// Pastikan untuk mengimpor HomePage
 
 class LoginPage extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
@@ -31,7 +33,7 @@ class LoginPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 125), // Spasi di bagian atas
                   const Text(
-                    "KASIRKU",
+                    "LOGIN",
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -99,6 +101,10 @@ class LoginPage extends StatelessWidget {
                             backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                           ),
                           onPressed: () {
+                              Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignUpPage()),
+                            );
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                           },
                           child: const Text(
@@ -116,6 +122,10 @@ class LoginPage extends StatelessWidget {
                             backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                           ),
                           onPressed: () {
+                              Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LupaPasswordPage()),
+                            );
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
                           },
                           child: const Text(
