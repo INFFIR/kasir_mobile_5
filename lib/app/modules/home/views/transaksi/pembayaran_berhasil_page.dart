@@ -4,18 +4,18 @@ import '../homepage/home_page.dart';
 
 void main() {
   runApp(const MaterialApp(
-    home: PembayaranberhasilPage(),
+    home: PembayaranBerhasilPage(),
   ));
 }
 
-class PembayaranberhasilPage extends StatefulWidget {
-  const PembayaranberhasilPage({super.key});
+class PembayaranBerhasilPage extends StatefulWidget {
+  const PembayaranBerhasilPage({super.key});
 
   @override
   _PembayaranBerhasilPageState createState() => _PembayaranBerhasilPageState();
 }
 
-class _PembayaranBerhasilPageState extends State<PembayaranberhasilPage> {
+class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

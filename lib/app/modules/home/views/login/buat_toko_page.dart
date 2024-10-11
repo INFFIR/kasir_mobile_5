@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import 'package:kasir_mobile_5/app/modules/home/views/login/pilih_toko_page.dart';import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage;
 
 class BuatTokoPage extends StatefulWidget {
   const BuatTokoPage({super.key});
@@ -22,11 +22,15 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Berhasil'),
-          content: const Text('Profile berhasil diubah!'),
+          content: const Text('TOKO BERHASIl DIBUAT!'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Menutup dialog
+                Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) =>  PilihTokoPage()), // Ganti dengan nama kelas Home Anda
+              );
               },
               child: const Text('OK'),
             ),
@@ -40,8 +44,11 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UBAH PROFILE'),
-        backgroundColor: Colors.blueGrey,
+        title: const Text(
+          'BUAT TOKO',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blueGrey, // Warna header
       ),
       body: Stack(
         children: [
@@ -53,6 +60,8 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
             ),
           ),
           // Form and elements with white background
+
+
           Center(
             child: SizedBox(
               width: 350, // Tentukan lebar yang diinginkan
@@ -62,13 +71,22 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
                   color: Colors.white.withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
                   borderRadius: BorderRadius.circular(12), // Sudut membulat
                 ),
+
                 child: Column(
                   mainAxisSize: MainAxisSize.min, // Agar kolom hanya sebesar konten
                   children: [
+                      const Text(
+                    "BUAT TOKO",
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                                    const SizedBox(height: 60),
                     TextField(
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        labelText: 'Masukkan Username:',
+                        labelText: 'NAMA TOKO ANDA:',
                         filled: true,
                         fillColor: Colors.grey.shade200.withOpacity(0.8),
                         border: OutlineInputBorder(
@@ -78,21 +96,9 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
                       ),
                       obscureText: false, // Username tidak perlu disembunyikan
                     ),
+  
+
                     const SizedBox(height: 20),
-                    TextField(
-                      controller: _bioController,
-                      decoration: InputDecoration(
-                        labelText: 'Bio (Optional):',
-                        filled: true,
-                        fillColor: Colors.grey.shade200.withOpacity(0.8),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                      obscureText: false, // Bio juga tidak perlu disembunyikan
-                    ),
-                    const SizedBox(height: 60),
                     ElevatedButton(
                       onPressed: _changeProfile,
                       style: ElevatedButton.styleFrom(
@@ -102,7 +108,7 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: const Text('Ubah Profile'),
+                      child: const Text('BUAT TOKO'),
                     ),
                   ],
                 ),

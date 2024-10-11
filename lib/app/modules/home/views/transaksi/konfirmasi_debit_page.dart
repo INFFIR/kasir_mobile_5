@@ -275,7 +275,7 @@ Widget _buildBankInfoSection() {
   }
 
   // Method to build the button section
-  Widget _buildButtonSection({double buttonWidth = 350, double buttonHeight = 50}) {
+  Widget _buildButtonSection({double buttonWidth = 350}) {
     return Container(
       padding: const EdgeInsets.all(16),
       width: buttonWidth,
@@ -292,7 +292,7 @@ Widget _buildBankInfoSection() {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const PembayaranberhasilPage()),
+                MaterialPageRoute(builder: (context) => const PembayaranBerhasilPage()),
               );
             },
           ),

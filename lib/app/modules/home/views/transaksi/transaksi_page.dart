@@ -61,55 +61,55 @@ class _TransaksiPageState extends State<TransaksiPage> {
                 const SizedBox(height: 50),
                 _buildItemCard(
                   index: 0,
-                  nama_produk: 'BARANG 1',
-                  deksripsi_produk: 'Deskripsi barang 1',
+                  namaProduk: 'BARANG 1',
+                  deksripsiProduk: 'Deskripsi barang 1',
                   jumlahStok: '1000 Pcs',
-                  harga_produk: 'Rp20.000',
+                  hargaProduk: 'Rp20.000',
                   imagePath: 'assets/produk/barang_1.jpeg',
                 ),
                 const SizedBox(height: 10),
                 _buildItemCard(
                   index: 1,
-                  nama_produk: 'BARANG 2',
-                  deksripsi_produk: 'Deskripsi barang 2',
+                  namaProduk: 'BARANG 2',
+                  deksripsiProduk: 'Deskripsi barang 2',
                   jumlahStok: '1000 Pcs',
-                  harga_produk: 'Rp20.000',
+                  hargaProduk: 'Rp20.000',
                   imagePath: 'assets/produk/barang_2.jpeg',
                 ),
                 const SizedBox(height: 10),
                 _buildItemCard(
                   index: 2,
-                  nama_produk: 'BARANG 3',
-                  deksripsi_produk: 'Deskripsi barang 3',
+                  namaProduk: 'BARANG 3',
+                  deksripsiProduk: 'Deskripsi barang 3',
                   jumlahStok: '1000 Pcs',
-                  harga_produk: 'Rp20.000',
+                  hargaProduk: 'Rp20.000',
                   imagePath: 'assets/produk/barang_3.png',
                 ),
                 const SizedBox(height: 10),
                 _buildItemCard(
                   index: 3,
-                  nama_produk: 'BARANG 4',
-                  deksripsi_produk: 'Deskripsi barang 4',
+                  namaProduk: 'BARANG 4',
+                  deksripsiProduk: 'Deskripsi barang 4',
                   jumlahStok: '1000 Pcs',
-                  harga_produk: 'Rp20.000',
+                  hargaProduk: 'Rp20.000',
                   imagePath: 'assets/produk/barang_4.jpeg',
                 ),
                 const SizedBox(height: 10),
                 _buildItemCard(
                   index: 4,
-                  nama_produk: 'BARANG 5',
-                  deksripsi_produk: 'Deskripsi barang 5',
+                  namaProduk: 'BARANG 5',
+                  deksripsiProduk: 'Deskripsi barang 5',
                   jumlahStok: '1000 Pcs',
-                  harga_produk: 'Rp20.000',
+                  hargaProduk: 'Rp20.000',
                   imagePath: 'assets/produk/barang_5.jpg',
                 ),
                 const SizedBox(height: 10),
                 _buildItemCard(
                   index: 5,
-                  nama_produk: 'BARANG 6',
-                  deksripsi_produk: 'Deskripsi barang 6',
+                  namaProduk: 'BARANG 6',
+                  deksripsiProduk: 'Deskripsi barang 6',
                   jumlahStok: '1000 Pcs',
-                  harga_produk: 'Rp20.000',
+                  hargaProduk: 'Rp20.000',
                   imagePath: 'assets/produk/barang_6.jpg',
                 ),
                 const SizedBox(height: 200),
@@ -199,10 +199,10 @@ class _TransaksiPageState extends State<TransaksiPage> {
 
   Widget _buildItemCard({
     required int index,
-    required String nama_produk,
-    required String deksripsi_produk,
+    required String namaProduk,
+    required String deksripsiProduk,
     required String jumlahStok,
-    required String harga_produk,
+    required String hargaProduk,
     required String imagePath,
   }) {
     // Controller untuk input jumlah barang
@@ -235,12 +235,12 @@ class _TransaksiPageState extends State<TransaksiPage> {
                 children: [
                   // Nama barang di kiri atas
                   Text(
-                    nama_produk,
+                    namaProduk,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   // Deskripsi barang di tengah
                   Text(
-                    deksripsi_produk,
+                    deksripsiProduk,
                     style: const TextStyle(color: Colors.grey),
                   ),
                   // Jumlah stok di kiri bawah
@@ -254,7 +254,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
               children: [
                 // Harga di kanan atas
                 Text(
-                  harga_produk,
+                  hargaProduk,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 // Tombol pengurangan dan penambahan jumlah barang

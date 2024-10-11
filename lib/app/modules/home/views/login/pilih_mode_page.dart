@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/login/pilih_tempat_kerja_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/login/pilih_toko_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/konfirmasi_cash_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/konfirmasi_debit_page.dart';
-import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+// Pastikan Anda memiliki halaman HomePage
 
 class PilihModePage extends StatelessWidget {
   const PilihModePage({super.key});
@@ -53,7 +52,7 @@ class PilihModePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const KonfirmasiDebitPage()),
+                        MaterialPageRoute(builder: (context) => const PilihTempatKerjaPage()),
                       );
                     },
                   ),

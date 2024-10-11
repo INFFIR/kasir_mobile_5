@@ -198,7 +198,7 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
   }
 
   // Method to build the button section
-  Widget _buildButtonSection({double buttonWidth = 350, double buttonHeight = 50}) {
+  Widget _buildButtonSection({double buttonWidth = 350}) {
     return Container(
       padding: const EdgeInsets.all(16),
       width: buttonWidth,
@@ -215,7 +215,7 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const PembayaranberhasilPage()),
+                MaterialPageRoute(builder: (context) => const PembayaranBerhasilPage()),
               );
             },
           ),

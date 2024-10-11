@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/mail_open_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/login/terima_undangan_page.dart';
 
 class BukaUndanganPage extends StatelessWidget {
   const BukaUndanganPage({super.key});
@@ -8,9 +8,11 @@ class BukaUndanganPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('MAIL'),
-        backgroundColor: Colors.blueGrey,
+        title: const Text(
+          'UNDANGAN',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blueGrey, // Warna header
       ),
       body: Stack(
         children: [
@@ -51,7 +53,7 @@ class BukaUndanganPage extends StatelessWidget {
                         // Aksi untuk tombol
                           Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const MailOpenPage()), // Ganti dengan nama kelas Home Anda
+                          MaterialPageRoute(builder: (context) => const TerimaUndanganPage()), // Ganti dengan nama kelas Home Anda
                         );
                       },
                       child: const Column(
@@ -61,7 +63,7 @@ class BukaUndanganPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Pegawai n',
+                                'Pemilik Toko x',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -100,6 +102,10 @@ class BukaUndanganPage extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Aksi untuk tombol
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const TerimaUndanganPage()), // Ganti dengan nama kelas Home Anda
+                        );
                       },
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
@@ -108,7 +114,7 @@ class BukaUndanganPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Pegawai n',
+                                'Pemilik toko y',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -137,180 +143,13 @@ class BukaUndanganPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 10), // Jarak antar tombol
 
-                    // Tombol ketiga
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFF7F2FA), // Warna tombol
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0), // Mengatur border radius
-                        ),
-                      ),
-                      onPressed: () {
-                        // Aksi untuk tombol
-                      },
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
-                        children: [
-                          Row( // Header di dalam tombol
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Pegawai n',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Mengubah warna teks menjadi hitam agar terlihat
-                                ),
-                              ),
-                              Text(
-                                '29 - 9 2024 14 : 10 WIB',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Mengubah warna teks menjadi hitam agar terlihat
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20), // Jarak antara header dan teks
-                          Text(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10), // Jarak antar tombol
-
-                    // Tombol keempat
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFF7F2FA), // Warna tombol
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0), // Mengatur border radius
-                        ),
-                      ),
-                      onPressed: () {
-                        // Aksi untuk tombol
-                      },
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
-                        children: [
-                          Row( // Header di dalam tombol
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Pegawai n',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Mengubah warna teks menjadi hitam agar terlihat
-                                ),
-                              ),
-                              Text(
-                                '29 - 9 2024 14 : 15 WIB',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Mengubah warna teks menjadi hitam agar terlihat
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20), // Jarak antara header dan teks
-                          Text(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10), // Jarak antar tombol
-
-                    // Tombol kelima
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFF7F2FA), // Warna tombol
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0), // Mengatur border radius
-                        ),
-                      ),
-                      onPressed: () {
-                        // Aksi untuk tombol
-                      },
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
-                        children: [
-                          Row( // Header di dalam tombol
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Pegawai n',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Mengubah warna teks menjadi hitam agar terlihat
-                                ),
-                              ),
-                              Text(
-                                '29 - 9 2024 14 : 20 WIB',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Mengubah warna teks menjadi hitam agar terlihat
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20), // Jarak antara header dan teks
-                          Text(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 100)
+                    const SizedBox(height: 450)
                   ],
                 ),
               ),
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blueGrey,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_back_ios_new),
-            label: 'Back',
-          ),
-        ],
-        onTap: (index) {
-          if (index == 0) {
-            // Navigasi ke halaman Profile
-          } else if (index == 1) {
-
-          } else if (index == 2) {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
-          }
-        },
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/login/login_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/login/lupa_password_page.dart';
-import '../../models/user_model.dart';
 import '../../controllers/login_controller.dart';
 
 class SignUpPage extends StatelessWidget {

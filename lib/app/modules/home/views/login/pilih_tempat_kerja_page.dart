@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/login/buat_toko_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/login/buka_undangan_page.dart';
 import '../homepage/home_page.dart';
 
 
-class PilihTokoPage extends StatelessWidget {
-  const PilihTokoPage({super.key});
+class PilihTempatKerjaPage extends StatelessWidget {
+  const PilihTempatKerjaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'KELOLA AKUN PEGAWAI',
+          'PEKERJAAN KAMU',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey, // Warna header
@@ -56,7 +57,7 @@ class PilihTokoPage extends StatelessWidget {
                             flex: 3,
                             child: Center(
                               child: Icon(
-                                Icons.manage_accounts,
+                                Icons.business_center,
                                 color: Color(0xFF28374C),
                                 size: 40,
                               ),
@@ -66,7 +67,7 @@ class PilihTokoPage extends StatelessWidget {
                             flex: 7,
                             child: Center(
                               child: Text(
-                                'PEGAWAI 1 (Username)',
+                                'TOKO SUKSES',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF28374C),
@@ -80,100 +81,7 @@ class PilihTokoPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  // Button 2: Kelola Akun
-                  SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.manage_accounts,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'PEGAWAI 2 (Username)',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Button 3: Hapus Akun
-                SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.manage_accounts,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'PEGAWAI 3 (Username)',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 300),
+                  const SizedBox(height: 500),
                 ],
               ),
             ),
@@ -187,7 +95,7 @@ class PilihTokoPage extends StatelessWidget {
                 // Action saat tombol '+' ditekan
               Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const BuatTokoPage()), // Ganti dengan nama kelas Home Anda
+              MaterialPageRoute(builder: (context) => const BukaUndanganPage()), // Ganti dengan nama kelas Home Anda
             );
               },
               backgroundColor: const Color(0xFF28374C),

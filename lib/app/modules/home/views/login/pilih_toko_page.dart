@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/detail_karyawan_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/login/buat_toko_page.dart';
 import '../homepage/home_page.dart';
 
@@ -12,7 +11,7 @@ class PilihTokoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'KELOLA AKUN PEGAWAI',
+          'PILIH TOKO',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey, // Warna header
@@ -57,7 +56,7 @@ class PilihTokoPage extends StatelessWidget {
                             flex: 3,
                             child: Center(
                               child: Icon(
-                                Icons.manage_accounts,
+                                Icons.store,
                                 color: Color(0xFF28374C),
                                 size: 40,
                               ),
@@ -67,7 +66,7 @@ class PilihTokoPage extends StatelessWidget {
                             flex: 7,
                             child: Center(
                               child: Text(
-                                'PEGAWAI 1 (Username)',
+                                'TOKO SUKSES',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF28374C),
@@ -104,7 +103,7 @@ class PilihTokoPage extends StatelessWidget {
                             flex: 3,
                             child: Center(
                               child: Icon(
-                                Icons.manage_accounts,
+                                Icons.store,
                                 color: Color(0xFF28374C),
                                 size: 40,
                               ),
@@ -114,7 +113,7 @@ class PilihTokoPage extends StatelessWidget {
                             flex: 7,
                             child: Center(
                               child: Text(
-                                'PEGAWAI 2 (Username)',
+                                'TOKO UNTUNG',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF28374C),
@@ -151,7 +150,7 @@ class PilihTokoPage extends StatelessWidget {
                             flex: 3,
                             child: Center(
                               child: Icon(
-                                Icons.manage_accounts,
+                                Icons.store,
                                 color: Color(0xFF28374C),
                                 size: 40,
                               ),
@@ -161,7 +160,7 @@ class PilihTokoPage extends StatelessWidget {
                             flex: 7,
                             child: Center(
                               child: Text(
-                                'PEGAWAI 3 (Username)',
+                                'TOKO MAJU',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF28374C),
