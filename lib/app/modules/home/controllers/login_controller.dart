@@ -7,7 +7,7 @@ class LoginController {
     // Cek jika username dan password tidak kosong
     if (user.username.isNotEmpty && user.password.isNotEmpty) {
       // Contoh validasi username dan password
-      if (user.username == "admin" && user.password == "admin123") {
+      if (user.username == "a" && user.password == "a") {
         // Login berhasil, navigasi ke HomePage
         Navigator.pushReplacement(
           context,
