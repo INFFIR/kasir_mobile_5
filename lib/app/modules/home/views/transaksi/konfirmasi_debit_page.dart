@@ -127,12 +127,12 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(30),
         ),
-        child: Column(
+        child: const Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
                   'SEBESAR :',
                   style: TextStyle(
@@ -149,7 +149,7 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
           ],
         ),
       ),

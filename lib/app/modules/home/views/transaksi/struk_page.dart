@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/memilih_pembayaran_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/pembayaran%20berhasil_page.dart';
-import '../profile/profile_page.dart';
 import '../homepage/home_page.dart';
 
 void main() {
@@ -62,11 +59,11 @@ class _StrukPageState extends State<StrukPage> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Center(
+              const Center(
                 child: Text(
                   '(NAMA TOKO)\n(ALAMAT TOKO)',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.blueGrey,
