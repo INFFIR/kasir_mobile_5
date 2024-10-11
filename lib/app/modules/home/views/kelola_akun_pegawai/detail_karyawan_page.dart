@@ -84,47 +84,47 @@ class DetailKaryawanPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   // Button 2: Kelola Akun
-                  SizedBox(
-                    height: 100,
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.manage_accounts,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'KIRIM PESAN',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
+                  // SizedBox(
+                  //   height: 100,
+                  //   width: 350,
+                  //   child: ElevatedButton(
+                  //     onPressed: () {},
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: const Color(0xFFD9D9D9),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(25),
+                  //       ),
+                  //     ),
+                  //     child: const Row(
+                  //       children: [
+                  //         Expanded(
+                  //           flex: 3,
+                  //           child: Center(
+                  //             child: Icon(
+                  //               Icons.manage_accounts,
+                  //               color: Color(0xFF28374C),
+                  //               size: 40,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         Expanded(
+                  //           flex: 7,
+                  //           child: Center(
+                  //             child: Text(
+                  //               'KIRIM PESAN',
+                  //               textAlign: TextAlign.center,
+                  //               style: TextStyle(
+                  //                 color: Color(0xFF28374C),
+                  //                 fontSize: 24,
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 10),
                   // Button 3: Hapus Akun
                 SizedBox(
                     height: 100,
