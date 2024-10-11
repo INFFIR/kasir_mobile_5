@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
-import 'profile/profile_page.dart';
+import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import '../profile/profile_page.dart';
 
 class MailOpenPage extends StatelessWidget {
   const MailOpenPage({super.key});

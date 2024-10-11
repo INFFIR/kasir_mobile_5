@@ -4,7 +4,7 @@ import 'change_profile_page.dart'; // Ganti dengan halaman ganti username
 import 'change_password_page.dart'; // Ganti dengan halaman ganti password
 import 'activity_page.dart'; // Ganti dengan halaman aktivitas Anda
 import '../login/login_page.dart';
-import '../mail_page.dart';
+import '../other/mail_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
