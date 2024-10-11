@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/memilih_pembayaran_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/transaksi/struk_page.dart';
-import '../profile/profile_page.dart';
 import '../homepage/home_page.dart';
 
 void main() {

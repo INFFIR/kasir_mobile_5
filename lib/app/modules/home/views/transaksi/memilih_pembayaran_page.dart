@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/transaksi/konfirmasi_cash_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/transaksi/konfirmasi_debit_page.dart';
 import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
-import '../login/login_page.dart';
-import '../mail_page.dart';
 
 class MemilihPembayaranPage extends StatelessWidget {
   const MemilihPembayaranPage({super.key});
@@ -18,19 +16,6 @@ class MemilihPembayaranPage extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.email),
-            color: Colors.white,
-            onPressed: () {
-              // Tambahkan aksi yang diinginkan saat ikon ditekan
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MailPage()), // Ganti dengan halaman ganti username
-              );
-            },
-          ),
-        ],
       ),
       body: Stack(
         children: [
@@ -48,10 +33,10 @@ class MemilihPembayaranPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 40),
-                  
+
                   _buildButton(
                     context,
-                    icon: Icons.lock,
+                    icon: Icons.attach_money,
                     label: 'PEMBAYARAN MENGGUNAKAN CASH',
                     onPressed: () {
                       Navigator.pushReplacement(
@@ -63,7 +48,7 @@ class MemilihPembayaranPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   _buildButton(
                     context,
-                    icon: Icons.history,
+                    icon: Icons.credit_card,
                     label: 'PEMBAYARAN MENGGUNAKAN DEBIT',
                     onPressed: () {
                       Navigator.push(

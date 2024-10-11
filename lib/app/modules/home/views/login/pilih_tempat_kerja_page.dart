@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/detail_karyawan_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/login/buat_toko_page.dart';
 import '../homepage/home_page.dart';
 
