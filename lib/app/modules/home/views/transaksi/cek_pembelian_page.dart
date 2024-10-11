@@ -26,7 +26,7 @@ class _CekPembelianPage extends State<CekPembelianPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          'KONFIRMASI PEMBAYARAN',
+          'PILIH PEMBAYARAN',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey,
@@ -192,9 +192,9 @@ return Container(
   ),
   child: Column(
     children: [
-      Row(
+      const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           Text(
             'TOTAL PEMBAYARAN',
             style: TextStyle(

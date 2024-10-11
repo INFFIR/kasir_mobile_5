@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/transaksi/konfirmasi_cash_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/transaksi/konfirmasi_debit_page.dart';
 import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
 import '../login/login_page.dart';
 import '../mail_page.dart';
@@ -52,10 +54,10 @@ class MemilihPembayaranPage extends StatelessWidget {
                     icon: Icons.lock,
                     label: 'PEMBAYARAN MENGGUNAKAN CASH',
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => const ChangePasswordPage()), // Ganti dengan halaman ganti password
-                      // );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const KonfirmasiCashPage()), // Ganti dengan nama kelas Home Anda
+                      );
                     },
                   ),
                   const SizedBox(height: 20),
@@ -64,10 +66,10 @@ class MemilihPembayaranPage extends StatelessWidget {
                     icon: Icons.history,
                     label: 'PEMBAYARAN MENGGUNAKAN DEBIT',
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => const ActivityPage()), // Ganti dengan halaman aktivitas Anda
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const KonfirmasiDebitPage()),
+                      );
                     },
                   ),
                   const SizedBox(height: 40),
