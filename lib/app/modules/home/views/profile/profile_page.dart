@@ -3,7 +3,7 @@ import '../home_page.dart'; // Pastikan Anda memiliki halaman HomePage
 import 'change_profile_page.dart'; // Ganti dengan halaman ganti username
 import 'change_password_page.dart'; // Ganti dengan halaman ganti password
 import 'activity_page.dart'; // Ganti dengan halaman aktivitas Anda
-import '../login_page.dart';
+import '../login/login_page.dart';
 import '../mail_page.dart';
 
 class ProfilePage extends StatelessWidget {
