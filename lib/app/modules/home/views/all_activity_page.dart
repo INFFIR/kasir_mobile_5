@@ -33,7 +33,7 @@ class AllActivityPage extends StatelessWidget {
               height: double.infinity, // Mengisi tinggi penuh dari posisi
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
+                color: Colors.white.withOpacity(0.8), // Latar belakang putih dengan sedikit transparansi
                 borderRadius: BorderRadius.circular(12), // Sudut membulat
               ),
               child: SingleChildScrollView( // Membuat konten dapat digulir

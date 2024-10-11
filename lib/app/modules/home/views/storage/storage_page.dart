@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/storage/edit_item_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/storage/edit_produk_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/storage/tambah_produk_page.dart';
+import '../home_page.dart';
+import '../profile/profile_page.dart';
 
 class StoragePage extends StatelessWidget {
   const StoragePage({super.key});
@@ -40,7 +43,7 @@ class StoragePage extends StatelessWidget {
                   itemName: 'Nama Barang 1',
                   itemQuantity: '10 pcs',
                   itemPrice: 'Rp 100.000',
-                  imagePath: 'assets/background.png', // Ganti dengan gambar barang
+                  imagePath: 'assets/produk/barang_1.jpeg', // Ganti dengan gambar barang
                 ),
                 const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 2
@@ -49,7 +52,7 @@ class StoragePage extends StatelessWidget {
                   itemName: 'Nama Barang 2',
                   itemQuantity: '5 pcs',
                   itemPrice: 'Rp 75.000',
-                  imagePath: 'assets/background.png', // Ganti dengan gambar barang
+                  imagePath: 'assets/produk/barang_2.jpeg', // Ganti dengan gambar barang
                 ),
                 const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 3
@@ -58,7 +61,7 @@ class StoragePage extends StatelessWidget {
                   itemName: 'Nama Barang 3',
                   itemQuantity: '20 pcs',
                   itemPrice: 'Rp 200.000',
-                  imagePath: 'assets/background.png', // Ganti dengan gambar barang
+                  imagePath: 'assets/produk/barang_3.png', // Ganti dengan gambar barang
                 ),
                 const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 4
@@ -67,7 +70,7 @@ class StoragePage extends StatelessWidget {
                   itemName: 'Nama Barang 4',
                   itemQuantity: '15 pcs',
                   itemPrice: 'Rp 150.000',
-                  imagePath: 'assets/background.png', // Ganti dengan gambar barang
+                  imagePath: 'assets/produk/barang_4.jpeg', // Ganti dengan gambar barang
                 ),
                 const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 5
@@ -76,7 +79,7 @@ class StoragePage extends StatelessWidget {
                   itemName: 'Nama Barang 5',
                   itemQuantity: '8 pcs',
                   itemPrice: 'Rp 80.000',
-                  imagePath: 'assets/background.png', // Ganti dengan gambar barang
+                  imagePath: 'assets/produk/barang_5.jpg', // Ganti dengan gambar barang
                 ),
                 const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 6
@@ -85,7 +88,7 @@ class StoragePage extends StatelessWidget {
                   itemName: 'Nama Barang 6',
                   itemQuantity: '12 pcs',
                   itemPrice: 'Rp 120.000',
-                  imagePath: 'assets/background.png', // Ganti dengan gambar barang
+                  imagePath: 'assets/produk/barang_6.jpg', // Ganti dengan gambar barang
                 ),
               ],
             ),
@@ -93,11 +96,16 @@ class StoragePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const TambahProdukPage()),
+            );
+        },
         backgroundColor: Colors.blueGrey,
         child: const Icon(Icons.add),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blueGrey,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
@@ -117,7 +125,18 @@ class StoragePage extends StatelessWidget {
         ],
         onTap: (index) {
           if (index == 0) {
-            // Aksi untuk profile
+            // Navigasi ke halaman Profile
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
+            );
+          } else if (index == 1) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
+            );
+          } else if (index == 2) {
+            Navigator.pop(context); // Kembali ke halaman sebelumnya
           }
         },
       ),
@@ -193,7 +212,7 @@ class StoragePage extends StatelessWidget {
                   // Aksi navigasi saat ikon pensil ditekan
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const EditItemPage()), // Ganti dengan halaman yang diinginkan
+                    MaterialPageRoute(builder: (context) => const EditProdukPage()), // Ganti dengan halaman yang diinginkan
                   );
                 },
                 child: const Icon(

@@ -48,6 +48,7 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Button Transaksi
+                  const SizedBox(height: 25),
                   SizedBox(
                     height: 150, // Mengatur tinggi button
                     width: 350,
@@ -229,6 +230,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 200),
                 ],
               ),
             ),
