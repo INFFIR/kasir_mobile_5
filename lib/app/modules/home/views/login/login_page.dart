@@ -3,7 +3,7 @@ import 'package:kasir_mobile_5/app/modules/home/views/login/lupa_password_page.d
 import 'package:kasir_mobile_5/app/modules/home/views/login/sign_up_page.dart';
 import '../../models/user_model.dart';
 import '../../controllers/login_controller.dart';
-import '../homepage/home_page.dart'; // Pastikan untuk mengimpor HomePage
+// Pastikan untuk mengimpor HomePage
 
 class LoginPage extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();

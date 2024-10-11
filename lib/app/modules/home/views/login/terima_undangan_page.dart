@@ -7,7 +7,7 @@ class TerimaUndanganPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Fungsi untuk menampilkan dialog pop-up
-    void _showResponseDialog(BuildContext context, String message, Function onConfirm) {
+    void showResponseDialog(BuildContext context, String message, Function onConfirm) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -114,7 +114,7 @@ class TerimaUndanganPage extends StatelessWidget {
                     // Tombol 1 (Konfirmasi)
                     ElevatedButton(
                       onPressed: () {
-                        _showResponseDialog(context, 'Undangan telah diterima!', () {
+                        showResponseDialog(context, 'Undangan telah diterima!', () {
                           // Navigasi setelah pop-up ditutup
                           Navigator.pushReplacement(
                             context,
@@ -143,7 +143,7 @@ class TerimaUndanganPage extends StatelessWidget {
                     // Tombol 2 (Tolak) yang ditumpuk di bawah
                     ElevatedButton(
                       onPressed: () {
-                        _showResponseDialog(context, 'Undangan telah ditolak!', () {
+                        showResponseDialog(context, 'Undangan telah ditolak!', () {
                           // Navigasi setelah pop-up ditutup
                           Navigator.pushReplacement(
                             context,

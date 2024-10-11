@@ -206,7 +206,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
     required String imagePath,
   }) {
     // Controller untuk input jumlah barang
-    final TextEditingController _jumlahPembelianController =
+    final TextEditingController jumlahPembelianController =
         TextEditingController(text: jumlahPembelianList[index]);
 
     return Card(
@@ -271,7 +271,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                             currentJumlah--;
                             jumlahPembelianList[index] = currentJumlah.toString();
                           }
-                          _jumlahPembelianController.text = jumlahPembelianList[index]; // Update nilai pada controller
+                          jumlahPembelianController.text = jumlahPembelianList[index]; // Update nilai pada controller
                         });
                       },
                     ),
@@ -280,7 +280,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                       width: 50,
                       height: 20,
                       child: TextField(
-                        controller: _jumlahPembelianController,
+                        controller: jumlahPembelianController,
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
                         style: const TextStyle(fontSize: 14),
@@ -304,7 +304,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                           int currentJumlah = int.parse(jumlahPembelianList[index]);
                           currentJumlah++;
                           jumlahPembelianList[index] = currentJumlah.toString();
-                          _jumlahPembelianController.text = jumlahPembelianList[index]; // Update nilai pada controller
+                          jumlahPembelianController.text = jumlahPembelianList[index]; // Update nilai pada controller
                         });
                       },
                     ),

@@ -10,7 +10,6 @@ class BuatTokoPage extends StatefulWidget {
 
 class _BuatTokoPageState extends State<BuatTokoPage> {
   final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _bioController = TextEditingController();
 
   void _changeProfile() {
     // Logika untuk mengubah username
@@ -29,6 +28,7 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
                 Navigator.of(context).pop(); // Menutup dialog
                 Navigator.pushReplacement(
                 context,
+                // ignore: prefer_const_constructors
                 MaterialPageRoute(builder: (context) =>  PilihTokoPage()), // Ganti dengan nama kelas Home Anda
               );
               },

@@ -61,16 +61,16 @@ Container(
                       _buildItemCard(
                         index: 0,
                         namaProduk: 'BARANG 1',
-                        total_produk: 'Rp40.000',
-                        jumlah_pembelian: '2',
+                        totalProduk: 'Rp40.000',
+                        jumlahPembelian: '2',
                         imagePath: 'assets/produk/barang_1.jpeg',
                       ),
                       const SizedBox(height: 10),
                       _buildItemCard(
                         index: 1,
                         namaProduk: 'BARANG 2',
-                        total_produk: 'Rp20.000',
-                        jumlah_pembelian: '1',
+                        totalProduk: 'Rp20.000',
+                        jumlahPembelian: '1',
                         imagePath: 'assets/produk/barang_2.jpeg',
                       ),
                       // Tambahkan lebih banyak item sesuai kebutuhan
@@ -133,8 +133,8 @@ Container(
   Widget _buildItemCard({
     required int index,
     required String namaProduk,
-    required String total_produk,
-    required String jumlah_pembelian,
+    required String totalProduk,
+    required String jumlahPembelian,
     required String imagePath,
   }) {
     return Card(
@@ -170,8 +170,8 @@ Container(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("TOTAL: $total_produk"),
-                      Text("Qty: $jumlah_pembelian"),
+                      Text("TOTAL: $totalProduk"),
+                      Text("Qty: $jumlahPembelian"),
                     ],
                   ),
                 ],

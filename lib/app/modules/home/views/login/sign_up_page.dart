@@ -121,7 +121,7 @@ class SignUpPage extends StatelessWidget {
                           onPressed: () {
                               Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) =>  LupaPasswordPage()),
+                              MaterialPageRoute(builder: (context) =>  const LupaPasswordPage()),
                             );
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
                           },
