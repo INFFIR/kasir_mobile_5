@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/all_activity_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/kelola_akun_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/storage/storage_page.dart';
-import 'profile/profile_page.dart'; // Pastikan path ini sesuai dengan lokasi file ProfilePage
-import 'mail_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/transaksi/transaksi_page.dart';
+import '../profile/profile_page.dart'; // Pastikan path ini sesuai dengan lokasi file ProfilePage
+import '../mail_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -53,7 +54,12 @@ class HomePage extends StatelessWidget {
                     height: 150, // Mengatur tinggi button
                     width: 350,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const TransaksiPage()), // Navigasi ke ActivityPage
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9), // Warna button
                         shape: RoundedRectangleBorder(

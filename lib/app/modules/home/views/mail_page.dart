@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/mail_open_page.dart';
-import 'home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import 'homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
 
 class MailPage extends StatelessWidget {
   const MailPage({super.key});

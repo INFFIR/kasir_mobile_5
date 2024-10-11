@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/detail_karyawan_page.dart';
-import '../home_page.dart';
+import '../homepage/home_page.dart';
 import 'tambah_pegawai_page.dart';
 
 class KelolaAkunPegawai extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/home_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/homepage/home_page.dart';
 
 
 class AllActivityPage extends StatelessWidget {

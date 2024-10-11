@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/storage/edit_produk_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/storage/tambah_produk_page.dart';
-import '../home_page.dart';
+import '../homepage/home_page.dart';
 import '../profile/profile_page.dart';
 
 class StoragePage extends StatelessWidget {

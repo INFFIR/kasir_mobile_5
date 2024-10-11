@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
 
 class ChangeProfilePage extends StatefulWidget {
   const ChangeProfilePage({super.key});

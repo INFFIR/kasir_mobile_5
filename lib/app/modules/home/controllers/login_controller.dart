@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user_model.dart';
-import '../views/home_page.dart'; // Pastikan untuk mengimpor HomePage
+import '../views/homepage/home_page.dart'; // Pastikan untuk mengimpor HomePage
 
 class LoginController {
   void login(User user, BuildContext context) {
