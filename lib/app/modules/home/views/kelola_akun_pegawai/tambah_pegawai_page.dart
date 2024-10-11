@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import '../home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import '../profile/profile_page.dart';
 
-class ChangeUsernamePage extends StatefulWidget {
-  const ChangeUsernamePage({super.key});
+class TambahPegawaiPage extends StatefulWidget {
+  const TambahPegawaiPage({super.key});
 
   @override
-  _ChangeUsernamePageState createState() => _ChangeUsernamePageState();
+  _TambahPegawaiPageState createState() => _TambahPegawaiPageState();
 }
 
-class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
+class _TambahPegawaiPageState extends State<TambahPegawaiPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
 
@@ -22,7 +23,7 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Berhasil'),
-          content: const Text('Username berhasil diubah!'),
+          content: const Text('Undangan Telah Dikirimkan!'),
           actions: [
             TextButton(
               onPressed: () {
@@ -40,7 +41,7 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UBAH USERNAME'),
+        title: const Text('UNDANG PEGAWAI'),
         backgroundColor: Colors.blueGrey,
       ),
       body: Padding(
@@ -63,7 +64,7 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
             TextField(
               controller: _bioController,
               decoration: InputDecoration(
-                labelText: 'Bio :',
+                labelText: 'Pesan (Optional) :',
                 filled: true,
                 fillColor: Colors.grey.shade200,
                 border: OutlineInputBorder(
@@ -71,7 +72,7 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
                   borderSide: BorderSide.none,
                 ),
               ),
-              maxLines: 2,
+              maxLines: 5,
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -83,7 +84,7 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: const Text('Ubah Username'),
+              child: const Text('Undang Pegawai'),
             ),
           ],
         ),
@@ -110,6 +111,10 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
           switch (index) {
             case 0:
               // Halaman Profile (saat ini aktif)
+              Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
               break;
             case 1:
               Navigator.pushReplacement(

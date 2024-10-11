@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/all_activity_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/kelola_akun_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/storage/storage_page.dart';
-import 'profile/profile_page.dart'; // Pastikan path ini sesuai dengan lokasi file ProfilePage
-import 'mail_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/activity_pegawai_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/hapus_akun_page.dart';
+import '../home_page.dart';
+import '../profile/profile_page.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+
+class DetailKaryawanPage extends StatelessWidget {
+  const DetailKaryawanPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,26 +14,14 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false, // Menghilangkan tombol back di pojok kiri atas
         title: const Text(
-          'HALAMAN UTAMA',
+          'KELOLA AKUN PEGAWAI',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey, // Warna header
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.email), // Ikon email
-            color: Colors.white,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MailPage()),
-              );
-            },
-          ),
-        ],
       ),
       body: Stack(
         children: [
-          // Background image
+                    // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -42,110 +30,21 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          SingleChildScrollView( // Menambahkan SingleChildScrollView
+          SingleChildScrollView(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Button Transaksi
-                  const SizedBox(height: 25),
-                  SizedBox(
-                    height: 150, // Mengatur tinggi button
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9), // Warna button
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3, // 30% untuk ikon
-                            child: Center(
-                              child: Icon(
-                                Icons.attach_money,
-                                color: Color(0xFF28374C),
-                                size: 40, // Mengatur ukuran ikon
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7, // 70% untuk teks
-                            child: Center(
-                              child: Text(
-                                'TRANSAKSI',
-                                textAlign: TextAlign.center, // Mengatur teks agar berada di tengah
-                                style: TextStyle(
-                                  color: Color(0xFF28374C), // Mengubah warna teks
-                                  fontSize: 24, // Mengatur ukuran teks
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Button Stok Barang
-                  SizedBox(
-                    height: 150, // Mengatur tinggi button
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-                           Navigator.push(
-                           context,
-                           MaterialPageRoute(builder: (context) => const StoragePage()), // Navigasi ke ActivityPage
-                         );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3, // 30% untuk ikon
-                            child: Center(
-                              child: Icon(
-                                Icons.inventory,
-                                color: Color(0xFF28374C),
-                                size: 40, // Mengatur ukuran ikon
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7, // 70% untuk teks
-                            child: Center(
-                              child: Text(
-                                'STOK BARANG',
-                                textAlign: TextAlign.center, // Mengatur teks agar berada di tengah
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24, // Mengatur ukuran teks
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Button Riwayat
-                  SizedBox(
-                    height: 150, // Mengatur tinggi button
+                  const SizedBox(height: 75),
+                  // Button 1: Tambah Akun
+                SizedBox(
+                    height: 100,
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
                           Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const AllActivityPage()), // Navigasi ke ActivityPage
+                          MaterialPageRoute(builder: (context) => const ActivityPegawaiPage()), // Ganti dengan halaman aktivitas Anda
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -157,24 +56,24 @@ class HomePage extends StatelessWidget {
                       child: const Row(
                         children: [
                           Expanded(
-                            flex: 3, // 30% untuk ikon
+                            flex: 3,
                             child: Center(
                               child: Icon(
-                                Icons.history,
+                                Icons.manage_accounts,
                                 color: Color(0xFF28374C),
-                                size: 40, // Mengatur ukuran ikon
+                                size: 40,
                               ),
                             ),
                           ),
                           Expanded(
-                            flex: 7, // 70% untuk teks
+                            flex: 7,
                             child: Center(
                               child: Text(
-                                'RIWAYAT',
-                                textAlign: TextAlign.center, // Mengatur teks agar berada di tengah
+                                'AKTIVITAS AKUN',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF28374C),
-                                  fontSize: 24, // Mengatur ukuran teks
+                                  fontSize: 24,
                                 ),
                               ),
                             ),
@@ -184,15 +83,57 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  // Button Kelola Akun Pegawai
+                  // Button 2: Kelola Akun
                   SizedBox(
-                    height: 150, // Mengatur tinggi button
+                    height: 100,
+                    width: 350,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFD9D9D9),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                      child: const Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Center(
+                              child: Icon(
+                                Icons.manage_accounts,
+                                color: Color(0xFF28374C),
+                                size: 40,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 7,
+                            child: Center(
+                              child: Text(
+                                'KIRIM PESAN',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF28374C),
+                                  fontSize: 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  // Button 3: Hapus Akun
+                SizedBox(
+                    height: 100,
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
+                          Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const KelolaAkunPegawai()), // Navigasi ke ActivityPage
+                          MaterialPageRoute(builder: (context) => const HapusAkunPage()), // Ganti dengan halaman aktivitas Anda
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -204,24 +145,24 @@ class HomePage extends StatelessWidget {
                       child: const Row(
                         children: [
                           Expanded(
-                            flex: 3, // 30% untuk ikon
+                            flex: 3,
                             child: Center(
                               child: Icon(
-                                Icons.person_add,
+                                Icons.manage_accounts,
                                 color: Color(0xFF28374C),
-                                size: 40, // Mengatur ukuran ikon
+                                size: 40,
                               ),
                             ),
                           ),
                           Expanded(
-                            flex: 7, // 70% untuk teks
+                            flex: 7,
                             child: Center(
                               child: Text(
-                                'KELOLA AKUN PEGAWAI',
-                                textAlign: TextAlign.center, // Mengatur teks agar berada di tengah
+                                'HAPUS KARYAWAN',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF28374C),
-                                  fontSize: 24, // Mengatur ukuran teks
+                                  fontSize: 24,
                                 ),
                               ),
                             ),
@@ -230,8 +171,34 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 200),
+                  const SizedBox(height: 300),
                 ],
+              ),
+            ),
+          ),
+          // Floating Action Button (FAB) with '+' icon
+          Positioned(
+            top: 15,
+            left: 0,
+            right: 0,
+            child: Align(
+              child: Container(
+                width: 350,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF28374C),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: const Center(
+                  child: Text(
+                    'PEGAWAI n (Username)',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -257,10 +224,18 @@ class HomePage extends StatelessWidget {
         ],
         onTap: (index) {
           if (index == 0) {
-            Navigator.push(
+            // Navigasi ke halaman Profile
+              Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ProfilePage()),
             );
+          } else if (index == 1) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
+            );
+          } else if (index == 2) {
+            Navigator.pop(context); // Kembali ke halaman sebelumnya
           }
         },
       ),
