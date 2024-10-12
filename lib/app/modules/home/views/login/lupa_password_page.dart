@@ -78,7 +78,7 @@ class _LupaPasswordPageState extends State<LupaPasswordPage> {
                     ElevatedButton(
                       onPressed: (){
      
-                        Get.offNamed('/LoginPage'); // Mengganti dengan route untuk HomePage
+                        Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,

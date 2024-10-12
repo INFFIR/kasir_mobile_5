@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/pilih_tempat_kerja_page.dart';
 import 'package:get/get.dart';
 class TerimaUndanganPage extends StatelessWidget {
   const TerimaUndanganPage({super.key});
@@ -116,12 +115,8 @@ class TerimaUndanganPage extends StatelessWidget {
                       onPressed: () {
                         showResponseDialog(context, 'Undangan telah diterima!', () {
                           // Navigasi setelah pop-up ditutup
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PilihTempatKerjaPage(), // Sesuaikan halaman tujuan
-                            ),
-                          );
+
+                               Get.offNamed('/PilihTempatKerja'); // Mengganti dengan route untuk HomePage
                         });
                       },
                       style: ElevatedButton.styleFrom(
@@ -146,7 +141,7 @@ class TerimaUndanganPage extends StatelessWidget {
                         showResponseDialog(context, 'Undangan telah ditolak!', () {
                           // Navigasi setelah pop-up ditutup
 
-                            Get.offNamed('/PilihTempatKerjaPage'); // Mengganti dengan route untuk HomePage
+                            Get.offNamed('/PilihTempatKerja'); // Mengganti dengan route untuk HomePage
                         });
                       },
                       style: ElevatedButton.styleFrom(

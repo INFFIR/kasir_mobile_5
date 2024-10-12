@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/login_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/lupa_password_page.dart';
 import '../../controllers/login_controller.dart';
 import 'package:get/get.dart';
 
@@ -77,10 +75,8 @@ class SignUpPage extends StatelessWidget {
                         backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  LoginPage()),
-                        );
+
+                               Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
                       },
                       child: const Text(
                         'Sign Up',
@@ -101,7 +97,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                           onPressed: () {
 
-                               Get.offNamed('/LoginPage'); // Mengganti dengan route untuk HomePage
+                               Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                           },
                           child: const Text(
@@ -119,10 +115,8 @@ class SignUpPage extends StatelessWidget {
                             backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                           ),
                           onPressed: () {
-                              Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (context) =>  const LupaPasswordPage()),
-                            );
+
+                               Get.offNamed('/LupaPassword'); // Mengganti dengan route untuk HomePage
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
                           },
                           child: const Text(

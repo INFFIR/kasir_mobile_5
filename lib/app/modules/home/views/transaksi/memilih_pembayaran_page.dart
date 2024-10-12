@@ -37,7 +37,7 @@ class MemilihPembayaranPage extends StatelessWidget {
                     label: 'PEMBAYARAN MENGGUNAKAN CASH',
                     onPressed: () {
 
-                      Get.offNamed('/KonfirmasiCashPage'); // Mengganti dengan route untuk ProfilePage
+                      Get.offNamed('/KonfirmasiCash'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -47,7 +47,7 @@ class MemilihPembayaranPage extends StatelessWidget {
                     label: 'PEMBAYARAN MENGGUNAKAN DEBIT',
                     onPressed: () {
 
-                      Get.offNamed('/KonfirmasiDebitPage'); // Mengganti dengan route untuk ProfilePage
+                      Get.offNamed('/KonfirmasiDebit'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 40),

@@ -104,7 +104,7 @@ class HapusProdukPage extends StatelessWidget {
                                             actions: <Widget>[
                                               TextButton(
                                                 onPressed: () {
-                                                  Get.offNamed('/HomKelolaAkunPegawaiPageePage'); // Mengganti dengan route untuk ProfilePage
+                                                  Get.offNamed('/HomKelolaAkunPegawaie'); // Mengganti dengan route untuk ProfilePage
                                                 },
                                                 child: const Text('OK'),
                                               ),
@@ -142,7 +142,7 @@ class HapusProdukPage extends StatelessWidget {
                       // Back to Home Button
                       OutlinedButton(
                         onPressed: () {
-                          Get.offNamed('/HomePage'); // Mengganti dengan route untuk ProfilePage
+                          Get.offNamed('/Home'); // Mengganti dengan route untuk ProfilePage
                         },
                         style: OutlinedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 50), // Full width button

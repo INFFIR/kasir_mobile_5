@@ -20,7 +20,7 @@ class ProfilePage extends StatelessWidget {
             onPressed: () {
               // Tambahkan aksi yang diinginkan saat ikon ditekan
 
-                      Get.toNamed('/MailPage'); // Mengganti dengan route untuk ProfilePage
+                      Get.toNamed('/Mail'); // Mengganti dengan route untuk ProfilePage
             },
           ),
         ],
@@ -70,7 +70,7 @@ class ProfilePage extends StatelessWidget {
                     onPressed: () {
 
 
-                      Get.toNamed('/ChangeProfilePage'); // Mengganti dengan route untuk ProfilePage
+                      Get.toNamed('/ChangeProfile'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -80,7 +80,7 @@ class ProfilePage extends StatelessWidget {
                     label: 'GANTI PASSWORD',
                     onPressed: () {
 
-                      Get.toNamed('/ChangePasswordPage'); // Mengganti dengan route untuk ProfilePage
+                      Get.toNamed('/ChangePassword'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -90,7 +90,7 @@ class ProfilePage extends StatelessWidget {
                     label: 'AKTIVITAS ANDA',
                     onPressed: () {
 
-                      Get.toNamed('/ActivityPage'); // Mengganti dengan route untuk ProfilePage
+                      Get.toNamed('/Activity'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -102,7 +102,7 @@ class ProfilePage extends StatelessWidget {
                     onPressed: () {
                       // Tambahkan aksi untuk keluar dari akun
                       
-                      Get.toNamed('/LoginPage'); // Mengganti dengan route untuk ProfilePage
+                      Get.toNamed('/Login'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                 ],

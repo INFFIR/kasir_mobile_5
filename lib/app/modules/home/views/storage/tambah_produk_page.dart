@@ -58,7 +58,7 @@ class _TambahProdukPageState extends State<TambahProdukPage> {
             color: Colors.white,
             onPressed: () {
               // Aksi untuk menyimpan item
-              Get.toNamed('/StoragePage'); // Mengganti dengan route untuk ProfilePage
+              Get.toNamed('/Storage'); // Mengganti dengan route untuk ProfilePage
             },
           ),
         ],

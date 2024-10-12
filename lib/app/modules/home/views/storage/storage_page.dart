@@ -94,7 +94,7 @@ class StoragePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-            Get.toNamed('/TambahProdukPage'); // Mengganti dengan route untuk ProfilePage
+            Get.toNamed('/TambahProduk'); // Mengganti dengan route untuk ProfilePage
         },
         backgroundColor: Colors.blueGrey,
         child: const Icon(Icons.add),
@@ -197,7 +197,7 @@ class StoragePage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   // Aksi navigasi saat ikon pensil ditekan
-                  Get.toNamed('/EditProdukPage'); // Mengganti dengan route untuk ProfilePage
+                  Get.toNamed('/EditProduk'); // Mengganti dengan route untuk ProfilePage
                 },
                 child: const Icon(
                   Icons.edit,

@@ -186,7 +186,7 @@ class _EditProdukPageState extends State<EditProdukPage> {
                       ElevatedButton(
                         onPressed: () {
                           // Aksi saat tombol hapus produk ditekan
-                          Get.toNamed('/hapus_produk_page'); // Mengganti dengan route untuk ProfilePage
+                          Get.toNamed('/hapus_produk_'); // Mengganti dengan route untuk ProfilePage
                         },
                         child: const Text("Hapus Produk"),
                       ),

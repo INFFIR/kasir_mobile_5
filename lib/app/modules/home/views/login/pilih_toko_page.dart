@@ -178,7 +178,7 @@ class PilihTokoPage extends StatelessWidget {
               onPressed: () {
                 // Action saat tombol '+' ditekan
 
-            Get.toNamed('/BuatTokoPage'); // Mengganti dengan route untuk HomePage
+            Get.toNamed('/BuatToko'); // Mengganti dengan route untuk HomePage
               },
               backgroundColor: const Color(0xFF28374C),
               child: const Icon(Icons.add, color: Colors.white),

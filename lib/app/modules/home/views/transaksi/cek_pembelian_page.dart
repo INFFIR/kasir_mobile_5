@@ -217,7 +217,7 @@ return Container(
               ),
               onPressed: () {
                 // Aksi untuk membuat pesanan
-                Get.toNamed('/MemilihPembayaranPage'); // Mengganti dengan route untuk ProfilePage
+                Get.toNamed('/MemilihPembayaran'); // Mengganti dengan route untuk ProfilePage
               },
               child: const Text(
                 'BUAT PESANAN',

@@ -206,7 +206,7 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
             color: Colors.orange,
             onPressed: () {
 
-            Get.toNamed('/PembayaranBerhasilPage'); // Mengganti dengan route untuk ProfilePage
+            Get.toNamed('/PembayaranBerhasil'); // Mengganti dengan route untuk ProfilePage
             },
           ),
           const SizedBox(height: 10),

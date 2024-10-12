@@ -50,7 +50,7 @@ class MailPage extends StatelessWidget {
                       onPressed: () {
                         // Aksi untuk tombol
   
-                        Get.toNamed('/MailOpenPage'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/MailOpen'); // Mengganti dengan route untuk ProfilePage
                       },
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
