@@ -283,7 +283,7 @@ Widget _buildBankInfoSection() {
             color: Colors.orange,
             onPressed: () {
 
-            Get.toNamed('/PembayaranBerhasil'); // Mengganti dengan route untuk ProfilePage
+            Get.toNamed('/pembayaranBerhasil'); // Mengganti dengan route untuk ProfilePage
             },
           ),
           const SizedBox(height: 10),

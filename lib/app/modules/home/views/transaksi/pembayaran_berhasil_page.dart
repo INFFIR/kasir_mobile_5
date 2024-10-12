@@ -144,7 +144,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
           color: Colors.orange,
           onPressed: () {
             // Add your action here
-            Get.offNamed('/Struk'); // Mengganti dengan route untuk ProfilePage
+            Get.offNamed('/struk'); // Mengganti dengan route untuk ProfilePage
           },
         ),
         const SizedBox(height: 10),
@@ -153,7 +153,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
           label: 'KEMBALI KE BERANDA',
           color: Colors.red,
           onPressed: () {
-            Get.offNamed('/Home'); // Mengganti dengan route untuk ProfilePage
+            Get.offNamed('/home'); // Mengganti dengan route untuk ProfilePage
           },
         ),
       ],

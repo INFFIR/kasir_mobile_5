@@ -116,7 +116,7 @@ class TerimaUndanganPage extends StatelessWidget {
                         showResponseDialog(context, 'Undangan telah diterima!', () {
                           // Navigasi setelah pop-up ditutup
 
-                               Get.offNamed('/PilihTempatKerja'); // Mengganti dengan route untuk HomePage
+                               Get.offNamed('/pilihTempatKerja'); // Mengganti dengan route untuk HomePage
                         });
                       },
                       style: ElevatedButton.styleFrom(
@@ -141,7 +141,7 @@ class TerimaUndanganPage extends StatelessWidget {
                         showResponseDialog(context, 'Undangan telah ditolak!', () {
                           // Navigasi setelah pop-up ditutup
 
-                            Get.offNamed('/PilihTempatKerja'); // Mengganti dengan route untuk HomePage
+                            Get.offNamed('/pilihTempatKerja'); // Mengganti dengan route untuk HomePage
                         });
                       },
                       style: ElevatedButton.styleFrom(

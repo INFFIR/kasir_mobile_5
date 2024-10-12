@@ -38,7 +38,7 @@ class PilihModePage extends StatelessWidget {
                     label: 'PEMILIK TOKO',
                     onPressed: () {
 
-                       Get.toNamed('/PilihToko'); // Mengganti dengan route untuk ProfilePage
+                       Get.toNamed('/pilihToko'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -48,7 +48,7 @@ class PilihModePage extends StatelessWidget {
                     label: 'PEGAWAI',
                     onPressed: () {
 
-                       Get.toNamed('/PilihTempatKerja'); // Mengganti dengan route untuk ProfilePage
+                       Get.toNamed('/pilihTempatKerja'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 40),

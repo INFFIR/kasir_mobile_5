@@ -28,7 +28,7 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
               onPressed: () {
                 Navigator.of(context).pop(); // Menutup dialog
 
-                Get.offNamed('/PilihToko'); // Mengganti dengan route untuk HomePage
+                Get.offNamed('/pilihToko'); // Mengganti dengan route untuk HomePage
               },
               child: const Text('OK'),
             ),

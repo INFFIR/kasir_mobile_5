@@ -104,7 +104,7 @@ class HapusProdukPage extends StatelessWidget {
                                             actions: <Widget>[
                                               TextButton(
                                                 onPressed: () {
-                                                  Get.offNamed('/HomKelolaAkunPegawaie'); // Mengganti dengan route untuk ProfilePage
+                                                  Get.offNamed('/homKelolaAkunPegawaie'); // Mengganti dengan route untuk ProfilePage
                                                 },
                                                 child: const Text('OK'),
                                               ),

@@ -138,7 +138,7 @@ class HomePage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
   
-                        Get.toNamed('/AllActivity'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/allActivity'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),

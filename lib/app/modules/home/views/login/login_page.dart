@@ -101,7 +101,7 @@ class LoginPage extends StatelessWidget {
                           ),
                           onPressed: () {
 
-                            Get.offNamed('/SignUp'); // Mengganti dengan route untuk HomePage
+                            Get.offNamed('/signUp'); // Mengganti dengan route untuk HomePage
                           },
                           child: const Text(
                             "Buat Akun",
@@ -119,7 +119,7 @@ class LoginPage extends StatelessWidget {
                           ),
                           onPressed: () {
 
-                            Get.offNamed('/LupaPassword'); // Mengganti dengan route untuk HomePage
+                            Get.offNamed('/supaPassword'); // Mengganti dengan route untuk HomePage
                           },
                           child: const Text(
                             "Lupa Password",

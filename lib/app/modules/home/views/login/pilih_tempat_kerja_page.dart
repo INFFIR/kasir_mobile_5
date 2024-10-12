@@ -89,7 +89,7 @@ class PilihTempatKerjaPage extends StatelessWidget {
               onPressed: () {
                 // Action saat tombol '+' ditekan
 
-               Get.toNamed('/BukaUndangan'); // Mengganti dengan route untuk HomePage
+               Get.toNamed('/bukaUndangan'); // Mengganti dengan route untuk HomePage
               },
               backgroundColor: const Color(0xFF28374C),
               child: const Icon(Icons.add, color: Colors.white),
