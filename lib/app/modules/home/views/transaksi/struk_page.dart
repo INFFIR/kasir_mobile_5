@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../homepage/home_page.dart';
-
+import 'package:get/get.dart';
 void main() {
   runApp(const MaterialApp(
     home: StrukPage(),
@@ -125,7 +124,7 @@ class _StrukPageState extends State<StrukPage> {
           label: 'KEMBALI KE BERANDA',
           color: Colors.orange,
           onPressed: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+            Get.offNamed('/HomePage');
           },
         ),
       ],

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/detail_karyawan_page.dart';
-import '../homepage/home_page.dart';
-import 'tambah_pegawai_page.dart';
+import 'package:get/get.dart';
 
-class KelolaAkunPegawai extends StatelessWidget {
-  const KelolaAkunPegawai({super.key});
+
+class KelolaAkunPegawaiPage extends StatelessWidget {
+  const KelolaAkunPegawaiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +39,8 @@ class KelolaAkunPegawai extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const DetailKaryawanPage()), // Ganti dengan nama kelas Home Anda
-                        );
+  
+                        Get.toNamed('/DetailKaryawanPage'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -87,10 +84,8 @@ class KelolaAkunPegawai extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const DetailKaryawanPage()), // Ganti dengan nama kelas Home Anda
-                        );
+
+                        Get.toNamed('/DetailKaryawanPage'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -134,10 +129,8 @@ class KelolaAkunPegawai extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const DetailKaryawanPage()), // Ganti dengan nama kelas Home Anda
-                        );
+    
+                        Get.toNamed('/DetailKaryawanPage'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -186,10 +179,8 @@ class KelolaAkunPegawai extends StatelessWidget {
             child: FloatingActionButton(
               onPressed: () {
                 // Action saat tombol '+' ditekan
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const TambahPegawaiPage()), // Ganti dengan nama kelas Home Anda
-            );
+
+                Get.toNamed('/TambahPegawaiPage'); // Mengganti dengan route untuk ProfilePage
               },
               backgroundColor: const Color(0xFF28374C),
               child: const Icon(Icons.add, color: Colors.white),
@@ -217,14 +208,11 @@ class KelolaAkunPegawai extends StatelessWidget {
         ],
         onTap: (index) {
           if (index == 0) {
-            // Navigasi ke halaman Profile
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-            );
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),

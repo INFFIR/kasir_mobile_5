@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'app/modules/home/views/login/login_page.dart';
+import './Routes/app_pages.dart'; // Import app_pages
+import './Routes/app_routes.dart'; // Import app_routes
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      initialRoute: AppRoutes.login, // Inisialisasi rute pertama
+      onGenerateRoute: AppPages.generateRoute, // Gunakan route generator
     );
   }
 }

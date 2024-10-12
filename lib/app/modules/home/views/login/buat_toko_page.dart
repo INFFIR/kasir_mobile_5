@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/pilih_toko_page.dart';import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage;
+import 'package:get/get.dart';
+
 
 class BuatTokoPage extends StatefulWidget {
   const BuatTokoPage({super.key});
@@ -26,11 +27,8 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Menutup dialog
-                Navigator.pushReplacement(
-                context,
-                // ignore: prefer_const_constructors
-                MaterialPageRoute(builder: (context) =>  PilihTokoPage()), // Ganti dengan nama kelas Home Anda
-              );
+
+                Get.offNamed('/PilihToko'); // Mengganti dengan route untuk HomePage
               },
               child: const Text('OK'),
             ),
@@ -135,22 +133,7 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
             label: 'Back',
           ),
         ],
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              // Halaman Profile (saat ini aktif)
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-              );
-              break;
-            case 2:
-              Navigator.pop(context); // Kembali ke halaman sebelumnya
-              break;
-          }
-        },
+
       ),
     );
   }

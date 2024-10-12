@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
-import '../profile/profile_page.dart';
+import 'package:get/get.dart';
+
 
 class TambahPegawaiPage extends StatefulWidget {
   const TambahPegawaiPage({super.key});
@@ -108,23 +108,12 @@ class _TambahPegawaiPageState extends State<TambahPegawaiPage> {
           ),
         ],
         onTap: (index) {
-          switch (index) {
-            case 0:
-              // Halaman Profile (saat ini aktif)
-              Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-              );
-              break;
-            case 2:
-              Navigator.pop(context); // Kembali ke halaman sebelumnya
-              break;
+          if (index == 0) {
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
+          } else if (index == 1) {
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
+          } else if (index == 2) {
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),
