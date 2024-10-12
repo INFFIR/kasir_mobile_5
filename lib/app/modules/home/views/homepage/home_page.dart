@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
             color: Colors.white,
             onPressed: () {
 
-                        Get.toNamed('/Mail'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/mail'); // Mengganti dengan route untuk ProfilePage
             },
           ),
         ],
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
 
-                        Get.toNamed('/Transaksi'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/transaksi'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9), // Warna button
@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
 
-                        Get.toNamed('/Storage'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/storage'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -183,7 +183,7 @@ class HomePage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
 
-                        Get.toNamed('/KelolaAkunPegawai'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/kelolaAkunPegawai'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
