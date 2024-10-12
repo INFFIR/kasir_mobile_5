@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/pilih_tempat_kerja_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/pilih_toko_page.dart';
 // Pastikan Anda memiliki halaman HomePage
+import 'package:get/get.dart';
 
 class PilihModePage extends StatelessWidget {
   const PilihModePage({super.key});
@@ -38,10 +37,8 @@ class PilihModePage extends StatelessWidget {
                     icon: Icons.store,
                     label: 'PEMILIK TOKO',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const PilihTokoPage()), // Ganti dengan nama kelas Home Anda
-                      );
+
+                       Get.toNamed('/PilihTokoPage'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -50,10 +47,8 @@ class PilihModePage extends StatelessWidget {
                     icon: Icons.business_center,
                     label: 'PEGAWAI',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const PilihTempatKerjaPage()),
-                      );
+
+                       Get.toNamed('/PilihTempatKerjaPage'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 40),

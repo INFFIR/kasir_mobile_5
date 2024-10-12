@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
-import '../profile/profile_page.dart';
+import 'package:get/get.dart';
 
 class MailOpenPage extends StatelessWidget {
   const MailOpenPage({super.key});
@@ -133,18 +132,11 @@ Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC:
         ],
         onTap: (index) {
           if (index == 0) {
-            // Navigasi ke halaman Profile
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
-            );
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-            );
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),

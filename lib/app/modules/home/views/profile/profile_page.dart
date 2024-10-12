@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
-import 'change_profile_page.dart'; // Ganti dengan halaman ganti username
-import 'change_password_page.dart'; // Ganti dengan halaman ganti password
-import 'activity_page.dart'; // Ganti dengan halaman aktivitas Anda
-import '../login/login_page.dart';
-import '../other/mail_page.dart';
-
+import 'package:get/get.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -25,10 +19,8 @@ class ProfilePage extends StatelessWidget {
             color: Colors.white,
             onPressed: () {
               // Tambahkan aksi yang diinginkan saat ikon ditekan
-                Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MailPage()), // Ganti dengan halaman ganti username
-              );
+
+                      Get.toNamed('/MailPage'); // Mengganti dengan route untuk ProfilePage
             },
           ),
         ],
@@ -76,10 +68,9 @@ class ProfilePage extends StatelessWidget {
                     icon: Icons.edit,
                     label: 'GANTI USERNAME',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ChangeProfilePage()), // Ganti dengan halaman ganti username
-                      );
+
+
+                      Get.toNamed('/ChangeProfilePage'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -88,10 +79,8 @@ class ProfilePage extends StatelessWidget {
                     icon: Icons.lock,
                     label: 'GANTI PASSWORD',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ChangePasswordPage()), // Ganti dengan halaman ganti password
-                      );
+
+                      Get.toNamed('/ChangePasswordPage'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -100,10 +89,8 @@ class ProfilePage extends StatelessWidget {
                     icon: Icons.history,
                     label: 'AKTIVITAS ANDA',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ActivityPage()), // Ganti dengan halaman aktivitas Anda
-                      );
+
+                      Get.toNamed('/ActivityPage'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -114,7 +101,8 @@ class ProfilePage extends StatelessWidget {
                     buttonColor: Colors.red, // Ganti warna tombol menjadi merah
                     onPressed: () {
                       // Tambahkan aksi untuk keluar dari akun
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                      
+                      Get.toNamed('/LoginPage'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                 ],
@@ -142,19 +130,11 @@ class ProfilePage extends StatelessWidget {
           ),
         ],
         onTap: (index) {
-          switch (index) {
-            case 0:
-              // Halaman Profile (saat ini aktif)
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-              );
-              break;
-            case 2:
-              Navigator.pop(context); // Kembali ke halaman sebelumnya
-              break;
+          if (index == 0) {
+          } else if (index == 1) {
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
+          } else if (index == 2) {
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),

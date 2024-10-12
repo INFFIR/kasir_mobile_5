@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/other/mail_open_page.dart';
-import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
+import 'package:get/get.dart';
 
 class MailPage extends StatelessWidget {
   const MailPage({super.key});
@@ -50,10 +49,8 @@ class MailPage extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Aksi untuk tombol
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MailOpenPage()), // Ganti dengan nama kelas Home Anda
-                        );
+  
+                        Get.toNamed('/MailOpenPage'); // Mengganti dengan route untuk ProfilePage
                       },
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
@@ -305,14 +302,11 @@ class MailPage extends StatelessWidget {
         ],
         onTap: (index) {
           if (index == 0) {
-            // Navigasi ke halaman Profile
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-            );
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),

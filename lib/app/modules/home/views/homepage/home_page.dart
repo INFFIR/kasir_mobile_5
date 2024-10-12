@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/other/all_activity_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/kelola_akun_pegawai_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/storage/storage_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/transaksi_page.dart';
-import '../profile/profile_page.dart'; // Pastikan path ini sesuai dengan lokasi file ProfilePage
-import '../other/mail_page.dart';
-
+import 'package:get/get.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -24,10 +18,8 @@ class HomePage extends StatelessWidget {
             icon: const Icon(Icons.email), // Ikon email
             color: Colors.white,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MailPage()),
-              );
+
+                        Get.toNamed('/MailPage'); // Mengganti dengan route untuk ProfilePage
             },
           ),
         ],
@@ -55,10 +47,8 @@ class HomePage extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const TransaksiPage()), // Navigasi ke ActivityPage
-                        );
+
+                        Get.toNamed('/TransaksiPage'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9), // Warna button
@@ -102,10 +92,8 @@ class HomePage extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
-                           Navigator.push(
-                           context,
-                           MaterialPageRoute(builder: (context) => const StoragePage()), // Navigasi ke ActivityPage
-                         );
+
+                        Get.toNamed('/StoragePage'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -149,10 +137,8 @@ class HomePage extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const AllActivityPage()), // Navigasi ke ActivityPage
-                        );
+  
+                        Get.toNamed('/AllActivityPage'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -196,10 +182,8 @@ class HomePage extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const KelolaAkunPegawaiPage()), // Navigasi ke ActivityPage
-                        );
+
+                        Get.toNamed('/KelolaAkunPegawaiPage'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -263,10 +247,8 @@ class HomePage extends StatelessWidget {
         ],
         onTap: (index) {
           if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
-            );
+
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
           }
         },
       ),

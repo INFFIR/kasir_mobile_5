@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/struk_page.dart';
-import '../homepage/home_page.dart';
-
+import 'package:get/get.dart';
 void main() {
   runApp(const MaterialApp(
     home: PembayaranBerhasilPage(),
@@ -146,10 +144,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
           color: Colors.orange,
           onPressed: () {
             // Add your action here
-              Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const StrukPage()),
-            );
+            Get.offNamed('/StrukPage'); // Mengganti dengan route untuk ProfilePage
           },
         ),
         const SizedBox(height: 10),
@@ -158,10 +153,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
           label: 'KEMBALI KE BERANDA',
           color: Colors.red,
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
+            Get.offNamed('/HomePage'); // Mengganti dengan route untuk ProfilePage
           },
         ),
       ],

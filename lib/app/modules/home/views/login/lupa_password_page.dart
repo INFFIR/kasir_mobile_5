@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './login_page.dart';
+import 'package:get/get.dart';
+
 
 class LupaPasswordPage extends StatefulWidget {
   const LupaPasswordPage({super.key});
@@ -76,10 +77,8 @@ class _LupaPasswordPageState extends State<LupaPasswordPage> {
                     const SizedBox(height: 60),
                     ElevatedButton(
                       onPressed: (){
-                          Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  LoginPage()),
-                        );
+     
+                        Get.offNamed('/LoginPage'); // Mengganti dengan route untuk HomePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,

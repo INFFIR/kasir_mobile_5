@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/storage/storage_page.dart';
 import 'dart:io'; // Untuk menggunakan File
-
-import '../homepage/home_page.dart';
-import '../profile/profile_page.dart';
+import 'package:get/get.dart';
 
 class TambahProdukPage extends StatefulWidget {
   const TambahProdukPage({super.key});
@@ -61,10 +58,7 @@ class _TambahProdukPageState extends State<TambahProdukPage> {
             color: Colors.white,
             onPressed: () {
               // Aksi untuk menyimpan item
-              Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const StoragePage()),
-            );
+              Get.toNamed('/StoragePage'); // Mengganti dengan route untuk ProfilePage
             },
           ),
         ],
@@ -216,17 +210,11 @@ class _TambahProdukPageState extends State<TambahProdukPage> {
         ],
         onTap: (index) {
           if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
-            );
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
-            Navigator.pop(context);
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),

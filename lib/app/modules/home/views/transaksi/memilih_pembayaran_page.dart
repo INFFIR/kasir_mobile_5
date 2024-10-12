@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/konfirmasi_cash_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/konfirmasi_debit_page.dart';
-import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
-
+import 'package:get/get.dart';
 class MemilihPembayaranPage extends StatelessWidget {
   const MemilihPembayaranPage({super.key});
 
@@ -39,10 +36,8 @@ class MemilihPembayaranPage extends StatelessWidget {
                     icon: Icons.attach_money,
                     label: 'PEMBAYARAN MENGGUNAKAN CASH',
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const KonfirmasiCashPage()), // Ganti dengan nama kelas Home Anda
-                      );
+
+                      Get.offNamed('/KonfirmasiCashPage'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 20),
@@ -51,10 +46,8 @@ class MemilihPembayaranPage extends StatelessWidget {
                     icon: Icons.credit_card,
                     label: 'PEMBAYARAN MENGGUNAKAN DEBIT',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const KonfirmasiDebitPage()),
-                      );
+
+                      Get.offNamed('/KonfirmasiDebitPage'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
                   const SizedBox(height: 40),
@@ -83,19 +76,12 @@ class MemilihPembayaranPage extends StatelessWidget {
           ),
         ],
         onTap: (index) {
-          switch (index) {
-            case 0:
-              // Halaman Profile (saat ini aktif)
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-              );
-              break;
-            case 2:
-              Navigator.pop(context); // Kembali ke halaman sebelumnya
-              break;
+          if (index == 0) {
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
+          } else if (index == 1) {
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
+          } else if (index == 2) {
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),

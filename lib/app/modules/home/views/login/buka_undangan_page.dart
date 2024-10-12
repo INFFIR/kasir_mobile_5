@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/terima_undangan_page.dart';
+import 'package:get/get.dart';
+
 
 class BukaUndanganPage extends StatelessWidget {
   const BukaUndanganPage({super.key});
@@ -51,10 +52,8 @@ class BukaUndanganPage extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Aksi untuk tombol
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const TerimaUndanganPage()), // Ganti dengan nama kelas Home Anda
-                        );
+
+                        Get.toNamed('/TerimaUndanganPage'); // Mengganti dengan route untuk ProfilePage
                       },
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
@@ -102,10 +101,8 @@ class BukaUndanganPage extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Aksi untuk tombol
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const TerimaUndanganPage()), // Ganti dengan nama kelas Home Anda
-                        );
+
+                        Get.toNamed('/TerimaUndanganPage'); // Mengganti dengan route untuk ProfilePage
                       },
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri

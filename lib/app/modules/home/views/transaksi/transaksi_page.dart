@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/cek_pembelian_page.dart';
-import '../profile/profile_page.dart';
-import '../homepage/home_page.dart';
-
+import 'package:get/get.dart';
 void main() {
   runApp(const MaterialApp(
     home: TransaksiPage(),
@@ -36,10 +33,8 @@ class _TransaksiPageState extends State<TransaksiPage> {
             color: Colors.white,
             onPressed: () {
               // Aksi untuk menyimpan item
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CekPembelianPage()),
-            );
+
+              Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
             },
           ),
         ],
@@ -180,17 +175,11 @@ class _TransaksiPageState extends State<TransaksiPage> {
         ],
         onTap: (index) {
           if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
-            );
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
-            Navigator.pop(context);
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/pembayaran_berhasil_page.dart';
-import '../profile/profile_page.dart';
-import '../homepage/home_page.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -259,19 +257,13 @@ Widget _buildBankInfoSection() {
 
   // Method to handle bottom navigation tap events
   void _onBottomNavigationTap(int index, BuildContext context) {
-    if (index == 0) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ProfilePage()),
-      );
-    } else if (index == 1) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    } else if (index == 2) {
-      Navigator.pop(context);
-    }
+          if (index == 0) {
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
+          } else if (index == 1) {
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
+          } else if (index == 2) {
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
+          }
   }
 
   // Method to build the button section
@@ -290,10 +282,8 @@ Widget _buildBankInfoSection() {
             label: 'KONFIRMASI PEMBAYARAN',
             color: Colors.orange,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PembayaranBerhasilPage()),
-              );
+
+            Get.toNamed('/PembayaranBerhasilPage'); // Mengganti dengan route untuk ProfilePage
             },
           ),
           const SizedBox(height: 10),

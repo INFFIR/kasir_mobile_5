@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/buat_toko_page.dart';
-import '../homepage/home_page.dart';
-
+import 'package:get/get.dart';
 
 class PilihTokoPage extends StatelessWidget {
   const PilihTokoPage({super.key});
@@ -39,10 +37,8 @@ class PilihTokoPage extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-                        );
+ 
+                         Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -86,10 +82,8 @@ class PilihTokoPage extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-                        );
+
+                       Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -133,10 +127,8 @@ class PilihTokoPage extends StatelessWidget {
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-                        );
+
+                        Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -185,10 +177,8 @@ class PilihTokoPage extends StatelessWidget {
             child: FloatingActionButton(
               onPressed: () {
                 // Action saat tombol '+' ditekan
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const BuatTokoPage()), // Ganti dengan nama kelas Home Anda
-            );
+
+            Get.toNamed('/BuatTokoPage'); // Mengganti dengan route untuk HomePage
               },
               backgroundColor: const Color(0xFF28374C),
               child: const Icon(Icons.add, color: Colors.white),

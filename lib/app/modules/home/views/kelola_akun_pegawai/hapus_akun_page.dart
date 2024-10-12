@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/kelola_akun_pegawai_page.dart';
 import '../homepage/home_page.dart';
+import 'package:get/get.dart';
+
+
 
 class HapusAkunPage extends StatelessWidget {
   const HapusAkunPage({super.key});
@@ -106,9 +108,8 @@ class HapusAkunPage extends StatelessWidget {
                                             actions: <Widget>[
                                               TextButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pushReplacement(
-                                                    MaterialPageRoute(builder: (context) => const KelolaAkunPegawaiPage()), // Ganti dengan nama kelas Home Anda
-                                                  );
+                                                  Get.offNamed('/kelolaAkunPegawai'); // Mengganti halaman saat ini dengan KelolaAkunPegawaiPage
+
                                                 },
                                                 child: const Text('OK'),
                                               ),
@@ -202,7 +203,7 @@ class HapusAkunPage extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
             );
           } else if (index == 2) {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
+            Get.back();
           }
         },
       ),

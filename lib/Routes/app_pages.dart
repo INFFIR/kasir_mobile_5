@@ -57,83 +57,83 @@ class AppPages {
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => LoginPage());
       case AppRoutes.lupaPassword:
-        return MaterialPageRoute(builder: (_) => LupaPasswordPage());
+        return MaterialPageRoute(builder: (_) => const LupaPasswordPage());
       case AppRoutes.signUp:
         return MaterialPageRoute(builder: (_) => SignUpPage());
       case AppRoutes.pilihMode:
-        return MaterialPageRoute(builder: (_) => PilihModePage());
+        return MaterialPageRoute(builder: (_) => const PilihModePage());
       case AppRoutes.pilihToko:
-        return MaterialPageRoute(builder: (_) => PilihTokoPage());
+        return MaterialPageRoute(builder: (_) => const PilihTokoPage());
       case AppRoutes.buatToko:
-        return MaterialPageRoute(builder: (_) => BuatTokoPage());
+        return MaterialPageRoute(builder: (_) => const BuatTokoPage());
       case AppRoutes.bukaUndangan:
-        return MaterialPageRoute(builder: (_) => BukaUndanganPage());
+        return MaterialPageRoute(builder: (_) => const BukaUndanganPage());
       case AppRoutes.terimaUndangan:
-        return MaterialPageRoute(builder: (_) => TerimaUndanganPage());
+        return MaterialPageRoute(builder: (_) => const TerimaUndanganPage());
       case AppRoutes.pilihTempatKerja:
-        return MaterialPageRoute(builder: (_) => PilihTempatKerjaPage());
+        return MaterialPageRoute(builder: (_) => const PilihTempatKerjaPage());
 
       // HOMEPAGE
       case AppRoutes.home:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
       // case AppRoutes.homepagePegawai:
       //   return MaterialPageRoute(builder: (_) => HomepagePegawaiPage());
 
       // KELOLA AKUN PEGAWAI
       case AppRoutes.kelolaAkun:
-        return MaterialPageRoute(builder: (_) => KelolaAkunPegawaiPage());
+        return MaterialPageRoute(builder: (_) => const KelolaAkunPegawaiPage());
       case AppRoutes.tambahPegawai:
-        return MaterialPageRoute(builder: (_) => TambahPegawaiPage());
+        return MaterialPageRoute(builder: (_) => const TambahPegawaiPage());
       case AppRoutes.activityPegawai:
-        return MaterialPageRoute(builder: (_) => ActivityPegawaiPage());
+        return MaterialPageRoute(builder: (_) => const ActivityPegawaiPage());
       case AppRoutes.detailKaryawan:
-        return MaterialPageRoute(builder: (_) => DetailKaryawanPage());
+        return MaterialPageRoute(builder: (_) => const DetailKaryawanPage());
       case AppRoutes.hapusAkun:
-        return MaterialPageRoute(builder: (_) => HapusAkunPage());
+        return MaterialPageRoute(builder: (_) => const HapusAkunPage());
 
       // OTHER
       case AppRoutes.allActivity:
-        return MaterialPageRoute(builder: (_) => AllActivityPage());
+        return MaterialPageRoute(builder: (_) => const AllActivityPage());
       case AppRoutes.mailOpen:
-        return MaterialPageRoute(builder: (_) => MailOpenPage());
+        return MaterialPageRoute(builder: (_) => const MailOpenPage());
       case AppRoutes.mail:
-        return MaterialPageRoute(builder: (_) => MailPage());
+        return MaterialPageRoute(builder: (_) => const MailPage());
 
       // PROFILE
       case AppRoutes.profile:
-        return MaterialPageRoute(builder: (_) => ProfilePage());
+        return MaterialPageRoute(builder: (_) => const ProfilePage());
       case AppRoutes.changeProfile:
-        return MaterialPageRoute(builder: (_) => ChangeProfilePage());
+        return MaterialPageRoute(builder: (_) => const ChangeProfilePage());
       case AppRoutes.changePassword:
-        return MaterialPageRoute(builder: (_) => ChangePasswordPage());
+        return MaterialPageRoute(builder: (_) => const ChangePasswordPage());
       case AppRoutes.activityProfile:
-        return MaterialPageRoute(builder: (_) => ActivityPage());
+        return MaterialPageRoute(builder: (_) => const ActivityPage());
 
       // STORAGE
       case AppRoutes.storage:
-        return MaterialPageRoute(builder: (_) => StoragePage());
+        return MaterialPageRoute(builder: (_) => const StoragePage());
       case AppRoutes.editProduk:
-        return MaterialPageRoute(builder: (_) => EditProdukPage());
+        return MaterialPageRoute(builder: (_) => const EditProdukPage());
       case AppRoutes.hapusProduk:
-        return MaterialPageRoute(builder: (_) => HapusProdukPage());
+        return MaterialPageRoute(builder: (_) => const HapusProdukPage());
       case AppRoutes.tambahProduk:
-        return MaterialPageRoute(builder: (_) => TambahProdukPage());
+        return MaterialPageRoute(builder: (_) => const TambahProdukPage());
 
       // TRANSAKSI
       case AppRoutes.cekPembelian:
-        return MaterialPageRoute(builder: (_) => CekPembelianPage());
+        return MaterialPageRoute(builder: (_) => const CekPembelianPage());
       case AppRoutes.konfirmasiCash:
-        return MaterialPageRoute(builder: (_) => KonfirmasiCashPage());
+        return MaterialPageRoute(builder: (_) => const KonfirmasiCashPage());
       case AppRoutes.konfirmasiDebit:
-        return MaterialPageRoute(builder: (_) => KonfirmasiDebitPage());
+        return MaterialPageRoute(builder: (_) => const KonfirmasiDebitPage());
       case AppRoutes.memilihPembayaran:
-        return MaterialPageRoute(builder: (_) => MemilihPembayaranPage());
+        return MaterialPageRoute(builder: (_) => const MemilihPembayaranPage());
       case AppRoutes.pembayaranBerhasil:
-        return MaterialPageRoute(builder: (_) => PembayaranBerhasilPage());
+        return MaterialPageRoute(builder: (_) => const PembayaranBerhasilPage());
       case AppRoutes.struk:
-        return MaterialPageRoute(builder: (_) => StrukPage());
+        return MaterialPageRoute(builder: (_) => const StrukPage());
       case AppRoutes.transaksi:
-        return MaterialPageRoute(builder: (_) => TransaksiPage());
+        return MaterialPageRoute(builder: (_) => const TransaksiPage());
 
       default:
         return MaterialPageRoute(

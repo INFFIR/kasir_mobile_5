@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/transaksi/memilih_pembayaran_page.dart';
-import '../profile/profile_page.dart';
-import '../homepage/home_page.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -113,17 +111,11 @@ Container(
         ],
         onTap: (index) {
           if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
-            );
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
-            Navigator.pop(context);
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),
@@ -225,10 +217,7 @@ return Container(
               ),
               onPressed: () {
                 // Aksi untuk membuat pesanan
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MemilihPembayaranPage()),
-                );
+                Get.toNamed('/MemilihPembayaranPage'); // Mengganti dengan route untuk ProfilePage
               },
               child: const Text(
                 'BUAT PESANAN',

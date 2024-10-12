@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/kelola_akun_pegawai_page.dart';
-import '../homepage/home_page.dart';
-
+import 'package:get/get.dart';
 class HapusProdukPage extends StatelessWidget {
   const HapusProdukPage({super.key});
 
@@ -89,13 +87,13 @@ class HapusProdukPage extends StatelessWidget {
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.of(context).pop(); // Menutup dialog
+                                      Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
                                     },
                                     child: const Text('Batal'),
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.of(context).pop(); // Menutup dialog konfirmasi
+                                       Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
                                       // Menampilkan pop-up berhasil setelah konfirmasi
                                       showDialog(
                                         context: context,
@@ -106,9 +104,7 @@ class HapusProdukPage extends StatelessWidget {
                                             actions: <Widget>[
                                               TextButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pushReplacement(
-                                                    MaterialPageRoute(builder: (context) => const KelolaAkunPegawaiPage()), // Ganti dengan nama kelas Home Anda
-                                                  );
+                                                  Get.offNamed('/HomKelolaAkunPegawaiPageePage'); // Mengganti dengan route untuk ProfilePage
                                                 },
                                                 child: const Text('OK'),
                                               ),
@@ -146,10 +142,7 @@ class HapusProdukPage extends StatelessWidget {
                       // Back to Home Button
                       OutlinedButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-                          );
+                          Get.offNamed('/HomePage'); // Mengganti dengan route untuk ProfilePage
                         },
                         style: OutlinedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 50), // Full width button
@@ -195,14 +188,11 @@ class HapusProdukPage extends StatelessWidget {
         ],
         onTap: (index) {
           if (index == 0) {
-            // Navigasi ke halaman Profile
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-            );
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),

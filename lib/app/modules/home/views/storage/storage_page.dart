@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/storage/edit_produk_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/storage/tambah_produk_page.dart';
-import '../homepage/home_page.dart';
-import '../profile/profile_page.dart';
+import 'package:get/get.dart';
 
 class StoragePage extends StatelessWidget {
   const StoragePage({super.key});
@@ -97,10 +94,7 @@ class StoragePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const TambahProdukPage()),
-            );
+            Get.toNamed('/TambahProdukPage'); // Mengganti dengan route untuk ProfilePage
         },
         backgroundColor: Colors.blueGrey,
         child: const Icon(Icons.add),
@@ -125,18 +119,11 @@ class StoragePage extends StatelessWidget {
         ],
         onTap: (index) {
           if (index == 0) {
-            // Navigasi ke halaman Profile
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()),
-            );
+            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-            );
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),
@@ -210,10 +197,7 @@ class StoragePage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   // Aksi navigasi saat ikon pensil ditekan
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const EditProdukPage()), // Ganti dengan halaman yang diinginkan
-                  );
+                  Get.toNamed('/EditProdukPage'); // Mengganti dengan route untuk ProfilePage
                 },
                 child: const Icon(
                   Icons.edit,

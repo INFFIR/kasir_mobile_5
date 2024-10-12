@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../homepage/home_page.dart'; // Pastikan Anda memiliki halaman HomePage
-
+import 'package:get/get.dart';
 class ActivityPage extends StatelessWidget {
   const ActivityPage({super.key});
 
@@ -151,19 +150,11 @@ class ActivityPage extends StatelessWidget {
           ),
         ],
         onTap: (index) {
-          switch (index) {
-            case 0:
-              // Halaman Profile (saat ini aktif)
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-              );
-              break;
-            case 2:
-              Navigator.pop(context); // Kembali ke halaman sebelumnya
-              break;
+          if (index == 0) {
+          } else if (index == 1) {
+            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
+          } else if (index == 2) {
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),
