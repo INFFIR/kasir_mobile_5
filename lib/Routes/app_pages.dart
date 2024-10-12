@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // LOGIN
 import '../app/modules/home/views/login/login_page.dart';
@@ -13,7 +13,6 @@ import '../app/modules/home/views/login/pilih_tempat_kerja_page.dart';
 
 // HOMEPAGE
 import '../app/modules/home/views/homepage/home_page.dart';
-// import '../app/modules/home/views/homepage/homepage_pegawai_page.dart';
 
 // KELOLA AKUN PEGAWAI
 import '../app/modules/home/views/kelola_akun_pegawai/activity_pegawai_page.dart';
@@ -48,101 +47,55 @@ import '../app/modules/home/views/transaksi/pembayaran_berhasil_page.dart';
 import '../app/modules/home/views/transaksi/struk_page.dart';
 import '../app/modules/home/views/transaksi/transaksi_page.dart';
 
-import 'app_routes.dart'; // Import file rute
+import 'app_routes.dart';
 
 class AppPages {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      // LOGIN
-      case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => LoginPage());
-      case AppRoutes.lupaPassword:
-        return MaterialPageRoute(builder: (_) => const LupaPasswordPage());
-      case AppRoutes.signUp:
-        return MaterialPageRoute(builder: (_) => SignUpPage());
-      case AppRoutes.pilihMode:
-        return MaterialPageRoute(builder: (_) => const PilihModePage());
-      case AppRoutes.pilihToko:
-        return MaterialPageRoute(builder: (_) => const PilihTokoPage());
-      case AppRoutes.buatToko:
-        return MaterialPageRoute(builder: (_) => const BuatTokoPage());
-      case AppRoutes.bukaUndangan:
-        return MaterialPageRoute(builder: (_) => const BukaUndanganPage());
-      case AppRoutes.terimaUndangan:
-        return MaterialPageRoute(builder: (_) => const TerimaUndanganPage());
-      case AppRoutes.pilihTempatKerja:
-        return MaterialPageRoute(builder: (_) => const PilihTempatKerjaPage());
+  static final routes = [
+    // LOGIN
+    GetPage(name: AppRoutes.login, page: () => LoginPage()),
+    GetPage(name: AppRoutes.lupaPassword, page: () => const LupaPasswordPage()),
+    GetPage(name: AppRoutes.signUp, page: () => SignUpPage()),
+    GetPage(name: AppRoutes.pilihMode, page: () => const PilihModePage()),
+    GetPage(name: AppRoutes.pilihToko, page: () => const PilihTokoPage()),
+    GetPage(name: AppRoutes.buatToko, page: () => const BuatTokoPage()),
+    GetPage(name: AppRoutes.bukaUndangan, page: () => const BukaUndanganPage()),
+    GetPage(name: AppRoutes.terimaUndangan, page: () => const TerimaUndanganPage()),
+    GetPage(name: AppRoutes.pilihTempatKerja, page: () => const PilihTempatKerjaPage()),
 
-      // HOMEPAGE
-      case AppRoutes.home:
-        return MaterialPageRoute(builder: (_) => const HomePage());
-      // case AppRoutes.homepagePegawai:
-      //   return MaterialPageRoute(builder: (_) => HomepagePegawaiPage());
+    // HOMEPAGE
+    GetPage(name: AppRoutes.home, page: () => const HomePage()),
 
-      // KELOLA AKUN PEGAWAI
-      case AppRoutes.kelolaAkun:
-        return MaterialPageRoute(builder: (_) => const KelolaAkunPegawaiPage());
-      case AppRoutes.tambahPegawai:
-        return MaterialPageRoute(builder: (_) => const TambahPegawaiPage());
-      case AppRoutes.activityPegawai:
-        return MaterialPageRoute(builder: (_) => const ActivityPegawaiPage());
-      case AppRoutes.detailKaryawan:
-        return MaterialPageRoute(builder: (_) => const DetailKaryawanPage());
-      case AppRoutes.hapusAkun:
-        return MaterialPageRoute(builder: (_) => const HapusAkunPage());
+    // KELOLA AKUN PEGAWAI
+    GetPage(name: AppRoutes.kelolaAkun, page: () => const KelolaAkunPegawaiPage()),
+    GetPage(name: AppRoutes.tambahPegawai, page: () => const TambahPegawaiPage()),
+    GetPage(name: AppRoutes.activityPegawai, page: () => const ActivityPegawaiPage()),
+    GetPage(name: AppRoutes.detailKaryawan, page: () => const DetailKaryawanPage()),
+    GetPage(name: AppRoutes.hapusAkun, page: () => const HapusAkunPage()),
 
-      // OTHER
-      case AppRoutes.allActivity:
-        return MaterialPageRoute(builder: (_) => const AllActivityPage());
-      case AppRoutes.mailOpen:
-        return MaterialPageRoute(builder: (_) => const MailOpenPage());
-      case AppRoutes.mail:
-        return MaterialPageRoute(builder: (_) => const MailPage());
+    // OTHER
+    GetPage(name: AppRoutes.allActivity, page: () => const AllActivityPage()),
+    GetPage(name: AppRoutes.mailOpen, page: () => const MailOpenPage()),
+    GetPage(name: AppRoutes.mail, page: () => const MailPage()),
 
-      // PROFILE
-      case AppRoutes.profile:
-        return MaterialPageRoute(builder: (_) => const ProfilePage());
-      case AppRoutes.changeProfile:
-        return MaterialPageRoute(builder: (_) => const ChangeProfilePage());
-      case AppRoutes.changePassword:
-        return MaterialPageRoute(builder: (_) => const ChangePasswordPage());
-      case AppRoutes.activityProfile:
-        return MaterialPageRoute(builder: (_) => const ActivityPage());
+    // PROFILE
+    GetPage(name: AppRoutes.profile, page: () => const ProfilePage()),
+    GetPage(name: AppRoutes.changeProfile, page: () => const ChangeProfilePage()),
+    GetPage(name: AppRoutes.changePassword, page: () => const ChangePasswordPage()),
+    GetPage(name: AppRoutes.activityProfile, page: () => const ActivityPage()),
 
-      // STORAGE
-      case AppRoutes.storage:
-        return MaterialPageRoute(builder: (_) => const StoragePage());
-      case AppRoutes.editProduk:
-        return MaterialPageRoute(builder: (_) => const EditProdukPage());
-      case AppRoutes.hapusProduk:
-        return MaterialPageRoute(builder: (_) => const HapusProdukPage());
-      case AppRoutes.tambahProduk:
-        return MaterialPageRoute(builder: (_) => const TambahProdukPage());
+    // STORAGE
+    GetPage(name: AppRoutes.storage, page: () => const StoragePage()),
+    GetPage(name: AppRoutes.editProduk, page: () => const EditProdukPage()),
+    GetPage(name: AppRoutes.hapusProduk, page: () => const HapusProdukPage()),
+    GetPage(name: AppRoutes.tambahProduk, page: () => const TambahProdukPage()),
 
-      // TRANSAKSI
-      case AppRoutes.cekPembelian:
-        return MaterialPageRoute(builder: (_) => const CekPembelianPage());
-      case AppRoutes.konfirmasiCash:
-        return MaterialPageRoute(builder: (_) => const KonfirmasiCashPage());
-      case AppRoutes.konfirmasiDebit:
-        return MaterialPageRoute(builder: (_) => const KonfirmasiDebitPage());
-      case AppRoutes.memilihPembayaran:
-        return MaterialPageRoute(builder: (_) => const MemilihPembayaranPage());
-      case AppRoutes.pembayaranBerhasil:
-        return MaterialPageRoute(builder: (_) => const PembayaranBerhasilPage());
-      case AppRoutes.struk:
-        return MaterialPageRoute(builder: (_) => const StrukPage());
-      case AppRoutes.transaksi:
-        return MaterialPageRoute(builder: (_) => const TransaksiPage());
-
-      default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
-          ),
-        );
-    }
-  }
+    // TRANSAKSI
+    GetPage(name: AppRoutes.cekPembelian, page: () => const CekPembelianPage()),
+    GetPage(name: AppRoutes.konfirmasiCash, page: () => const KonfirmasiCashPage()),
+    GetPage(name: AppRoutes.konfirmasiDebit, page: () => const KonfirmasiDebitPage()),
+    GetPage(name: AppRoutes.memilihPembayaran, page: () => const MemilihPembayaranPage()),
+    GetPage(name: AppRoutes.pembayaranBerhasil, page: () => const PembayaranBerhasilPage()),
+    GetPage(name: AppRoutes.struk, page: () => const StrukPage()),
+    GetPage(name: AppRoutes.transaksi, page: () => const TransaksiPage()),
+  ];
 }

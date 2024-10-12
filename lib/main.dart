@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart'; // Import GetX
 import './Routes/app_pages.dart'; // Import app_pages
 import './Routes/app_routes.dart'; // Import app_routes
 
@@ -11,13 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp( // Use GetX's GetMaterialApp
       title: 'Login Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: AppRoutes.login, // Inisialisasi rute pertama
-      onGenerateRoute: AppPages.generateRoute, // Gunakan route generator
+      initialRoute: AppRoutes.login, // Initialize the first route
+      getPages: AppPages.routes, // Use GetX pages for routing
     );
   }
 }
