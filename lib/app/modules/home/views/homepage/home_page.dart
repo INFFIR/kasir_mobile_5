@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/other/all_activity_page.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/kelola_akun_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/kelola_akun_pegawai_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/storage/storage_page.dart';
 import 'package:kasir_mobile_5/app/modules/home/views/transaksi/transaksi_page.dart';
 import '../profile/profile_page.dart'; // Pastikan path ini sesuai dengan lokasi file ProfilePage
@@ -198,7 +198,7 @@ class HomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const KelolaAkunPegawai()), // Navigasi ke ActivityPage
+                          MaterialPageRoute(builder: (context) => const KelolaAkunPegawaiPage()), // Navigasi ke ActivityPage
                         );
                       },
                       style: ElevatedButton.styleFrom(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/login_page.dart';
+import './login_page.dart';
 
 class LupaPasswordPage extends StatefulWidget {
   const LupaPasswordPage({super.key});

@@ -3,8 +3,8 @@ import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/detail
 import '../homepage/home_page.dart';
 import 'tambah_pegawai_page.dart';
 
-class KelolaAkunPegawai extends StatelessWidget {
-  const KelolaAkunPegawai({super.key});
+class KelolaAkunPegawaiPage extends StatelessWidget {
+  const KelolaAkunPegawaiPage({super.key});
 
   @override
   Widget build(BuildContext context) {

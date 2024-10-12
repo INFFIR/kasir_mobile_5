@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/kelola_akun_page.dart';
+import 'package:kasir_mobile_5/app/modules/home/views/kelola_akun_pegawai/kelola_akun_pegawai_page.dart';
 import '../homepage/home_page.dart';
 
 class HapusAkunPage extends StatelessWidget {
@@ -107,7 +107,7 @@ class HapusAkunPage extends StatelessWidget {
                                               TextButton(
                                                 onPressed: () {
                                                   Navigator.of(context).pushReplacement(
-                                                    MaterialPageRoute(builder: (context) => const KelolaAkunPegawai()), // Ganti dengan nama kelas Home Anda
+                                                    MaterialPageRoute(builder: (context) => const KelolaAkunPegawaiPage()), // Ganti dengan nama kelas Home Anda
                                                   );
                                                 },
                                                 child: const Text('OK'),
