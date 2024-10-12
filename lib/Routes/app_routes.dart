@@ -1,71 +1,50 @@
 class AppRoutes {
 
-
   // LOGIN
-
-
   static const String login = '/login';
-  static const String lupa_password = '/lupa_password';
-  static const String sign_up = '/sign_up';
-  static const String pilih_mode = '/pilih_mode';
-  static const String pilih_toko = '/pilih_toko';
-  static const String buat_toko = '/buat_toko';
-  static const String buka_undangan = '/buka_undangan';
-  static const String terima_undangan = '/terima_undangan';
-  static const String pilih_tempat_kerja = '/pilih_tempat_kerja';
-
+  static const String lupaPassword = '/lupa_password';
+  static const String signUp = '/sign_up';
+  static const String pilihMode = '/pilih_mode';
+  static const String pilihToko = '/pilih_toko';
+  static const String buatToko = '/buat_toko';
+  static const String bukaUndangan = '/buka_undangan';
+  static const String terimaUndangan = '/terima_undangan';
+  static const String pilihTempatKerja = '/pilih_tempat_kerja';
 
   // HOMEPAGE
-
-
   static const String home = '/home';
-  // static const String homepage_pegawai = '/homepage_pegawai';
-
+  // static const String homepagePegawai = '/homepage_pegawai';
 
   // KELOLA AKUN PEGAWAI
-
-
-  static const String kelola_akun = '/kelola_akun';
-  static const String tambah_pegawai = '/tambah_pegawai';
-  static const String activity_pegawai = '/activity_pegawai';
-  static const String detail_karyawan = '/detail_karyawan';
-  static const String hapus_akun = '/hapus_akun';
-
+  static const String kelolaAkun = '/kelola_akun';
+  static const String tambahPegawai = '/tambah_pegawai';
+  static const String activityPegawai = '/activity_pegawai';
+  static const String detailKaryawan = '/detail_karyawan';
+  static const String hapusAkun = '/hapus_akun';
 
   // OTHER
-
-
-  static const String all_activity = '/all_activity';
-  static const String mail_open = '/mail_open';
+  static const String allActivity = '/all_activity';
+  static const String mailOpen = '/mail_open';
   static const String mail = '/mail';
 
-
   // PROFILE
-
-
   static const String profile = '/profile';
-  static const String change_profile = '/change_profile';
-  static const String change_password = '/change_password';
-  static const String activity_profile = '/activity_profile';
-
+  static const String changeProfile = '/change_profile';
+  static const String changePassword = '/change_password';
+  static const String activityProfile = '/activity_profile';
 
   // STORAGE
-
-
   static const String storage = '/storage';
-  static const String edit_produk = '/edit_produk';
-  static const String hapus_produk = '/hapus_produk';
-  static const String tambah_produk = '/tambah_produk';
-
+  static const String editProduk = '/edit_produk';
+  static const String hapusProduk = '/hapus_produk';
+  static const String tambahProduk = '/tambah_produk';
 
   // TRANSAKSI
-
-  
-  static const String cek_pembelian = '/cek_pembelian';
-  static const String konfirmasi_cash = '/konfirmasi_cash';
-  static const String konfirmasi_debit = '/konfirmasi_debit';
-  static const String memilih_pembayaran = '/memilih_pembayaran';
-  static const String pembayaran_berhasil = '/pembayaran_berhasil';
+  static const String cekPembelian = '/cek_pembelian';
+  static const String konfirmasiCash = '/konfirmasi_cash';
+  static const String konfirmasiDebit = '/konfirmasi_debit';
+  static const String memilihPembayaran = '/memilih_pembayaran';
+  static const String pembayaranBerhasil = '/pembayaran_berhasil';
   static const String struk = '/struk';
   static const String transaksi = '/transaksi';
 }
