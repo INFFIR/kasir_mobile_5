@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../controllers/login_controller.dart';
+import '../../home/models/user_model.dart';
+import '../../home/controllers/login_controller.dart';
 import 'package:get/get.dart';
+// Pastikan untuk mengimpor HomePage
 
-
-class SignUpPage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final LoginController controller = LoginController();
 
-  SignUpPage({super.key});
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class SignUpPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 125), // Spasi di bagian atas
                   const Text(
-                    "SIGN UP",
+                    "LOGIN",
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -75,11 +76,14 @@ class SignUpPage extends StatelessWidget {
                         backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                       ),
                       onPressed: () {
-
-                               Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
+                        User user = User(
+                          username: usernameController.text,
+                          password: passwordController.text,
+                        );
+                        controller.login(user, context);
                       },
                       child: const Text(
-                        'Sign Up',
+                        'Login',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -97,11 +101,10 @@ class SignUpPage extends StatelessWidget {
                           ),
                           onPressed: () {
 
-                               Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                            Get.offNamed('/sign_up'); // Mengganti dengan route untuk HomePage
                           },
                           child: const Text(
-                            "Login",
+                            "Buat Akun",
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -116,8 +119,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                           onPressed: () {
 
-                               Get.offNamed('/LupaPassword'); // Mengganti dengan route untuk HomePage
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+                            Get.offNamed('/lupa_password'); // Mengganti dengan route untuk HomePage
                           },
                           child: const Text(
                             "Lupa Password",

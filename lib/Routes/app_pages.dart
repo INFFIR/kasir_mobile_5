@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 // LOGIN
-import '../app/modules/home/views/login/login_page.dart';
-import '../app/modules/home/views/login/lupa_password_page.dart';
-import '../app/modules/home/views/login/sign_up_page.dart';
-import '../app/modules/home/views/login/pilih_mode_page.dart';
-import '../app/modules/home/views/login/pilih_toko_page.dart';
-import '../app/modules/home/views/login/buat_toko_page.dart';
-import '../app/modules/home/views/login/buka_undangan_page.dart';
-import '../app/modules/home/views/login/terima_undangan_page.dart';
-import '../app/modules/home/views/login/pilih_tempat_kerja_page.dart';
+import '../app/modules/login/views/login_page.dart';
+import '../app/modules/login/views/lupa_password_page.dart';
+import '../app/modules/login/views/sign_up_page.dart';
+import '../app/modules/landing_page/views/pilih_mode_page.dart';
+import '../app/modules/landing_page/views/pilih_toko_page.dart';
+import '../app/modules/landing_page/views/buat_toko_page.dart';
+import '../app/modules/landing_page/views/buka_undangan_page.dart';
+import '../app/modules/landing_page/views/terima_undangan_page.dart';
+import '../app/modules/landing_page/views/pilih_tempat_kerja_page.dart';
 
 // HOMEPAGE
-import '../app/modules/home/views/homepage/home_page.dart';
+import '../app/modules/home/views/home_page.dart';
 // import '../app/modules/home/views/homepage/homepage_pegawai_page.dart';
 
 // KELOLA AKUN PEGAWAI

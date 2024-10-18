@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/home/views/login/pilih_mode_page.dart';
+import 'package:kasir_mobile_5/app/modules/landing_page/views/pilih_mode_page.dart';
 import '../models/user_model.dart';
  // Pastikan untuk mengimpor HomePage
 

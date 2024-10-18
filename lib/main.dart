@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './Routes/app_pages.dart'; // Import app_pages
 import './Routes/app_routes.dart'; // Import app_routes
+import 'package:get/get.dart'; // Import GetX
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Login Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
