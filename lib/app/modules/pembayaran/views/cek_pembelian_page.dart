@@ -111,9 +111,9 @@ Container(
         ],
         onTap: (index) {
           if (index == 0) {
-            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
+            Get.toNamed('/Profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
+            Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
             Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }

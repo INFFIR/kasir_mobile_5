@@ -124,7 +124,7 @@ class _StrukPageState extends State<StrukPage> {
           label: 'KEMBALI KE BERANDA',
           color: Colors.orange,
           onPressed: () {
-            Get.offNamed('/HomePage');
+            Get.offNamed('/Home');
           },
         ),
       ],

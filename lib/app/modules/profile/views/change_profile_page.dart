@@ -131,7 +131,7 @@ class _ChangeProfilePageState extends State<ChangeProfilePage> {
         onTap: (index) {
           if (index == 0) {
           } else if (index == 1) {
-            Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
+            Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
             Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
