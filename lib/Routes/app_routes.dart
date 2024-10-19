@@ -16,7 +16,7 @@ class AppRoutes {
   // static const String homepagePegawai = '/homepage_pegawai';
 
   // KELOLA AKUN PEGAWAI
-  static const String kelolaAkun = '/KelolaAkun';
+  static const String kelolaAkun = '/KelolaAkunPegawai';
   static const String tambahPegawai = '/TambahPegawai';
   static const String activityPegawai = '/ActivityPegawai';
   static const String detailKaryawan = '/DetailKaryawan';

@@ -40,7 +40,7 @@ class KelolaAkunPegawaiPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
   
-                        Get.toNamed('/DetailKaryawanPage'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/DetailKaryawan'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -85,7 +85,7 @@ class KelolaAkunPegawaiPage extends StatelessWidget {
                     child: ElevatedButton(
                     onPressed: () {
 
-                        Get.toNamed('/DetailKaryawanPage'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/DetailKaryawan'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -130,7 +130,7 @@ class KelolaAkunPegawaiPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
     
-                        Get.toNamed('/DetailKaryawanPage'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/DetailKaryawan'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -180,7 +180,7 @@ class KelolaAkunPegawaiPage extends StatelessWidget {
               onPressed: () {
                 // Action saat tombol '+' ditekan
 
-                Get.toNamed('/TambahPegawaiPage'); // Mengganti dengan route untuk ProfilePage
+                Get.toNamed('/TambahPegawai'); // Mengganti dengan route untuk ProfilePage
               },
               backgroundColor: const Color(0xFF28374C),
               child: const Icon(Icons.add, color: Colors.white),

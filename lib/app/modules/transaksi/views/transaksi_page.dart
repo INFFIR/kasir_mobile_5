@@ -34,7 +34,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
             onPressed: () {
               // Aksi untuk menyimpan item
 
-              Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
+              Get.toNamed('/CekPembelian'); // Mengganti dengan route untuk ProfilePage
             },
           ),
         ],

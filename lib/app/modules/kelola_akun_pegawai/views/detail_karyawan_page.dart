@@ -39,7 +39,7 @@ class DetailKaryawanPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
 
-                        Get.toNamed('/ActivityPegawaiPage'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/ActivityPegawai'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
@@ -126,7 +126,7 @@ class DetailKaryawanPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
    
-                        Get.toNamed('/HapusAkunPage'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/HapusAkun'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),
