@@ -76,7 +76,7 @@ class SignUpPage extends StatelessWidget {
                       ),
                       onPressed: () {
 
-                               Get.offNamed('/login'); // Mengganti dengan route untuk HomePage
+                               Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
                       },
                       child: const Text(
                         'Sign Up',
@@ -97,7 +97,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                           onPressed: () {
 
-                               Get.offNamed('/login'); // Mengganti dengan route untuk HomePage
+                               Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                           },
                           child: const Text(
@@ -116,7 +116,7 @@ class SignUpPage extends StatelessWidget {
                           ),
                           onPressed: () {
 
-                               Get.offNamed('/lupa_password'); // Mengganti dengan route untuk HomePage
+                               Get.offNamed('/LupaPassword'); // Mengganti dengan route untuk HomePage
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
                           },
                           child: const Text(

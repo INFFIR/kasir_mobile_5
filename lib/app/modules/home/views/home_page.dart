@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
 
-                        Get.toNamed('/transaksi'); // Mengganti dengan route untuk ProfilePage
+                        Get.toNamed('/Transaksi'); // Mengganti dengan route untuk ProfilePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9), // Warna button
@@ -248,7 +248,7 @@ class HomePage extends StatelessWidget {
         onTap: (index) {
           if (index == 0) {
 
-            Get.toNamed('/profile'); // Mengganti dengan route untuk ProfilePage
+            Get.toNamed('/Profile'); // Mengganti dengan route untuk ProfilePage
           }
         },
       ),

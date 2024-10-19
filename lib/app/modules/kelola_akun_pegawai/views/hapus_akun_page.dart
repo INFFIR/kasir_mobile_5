@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../home_page.dart';
+import '../../home/views/home_page.dart';
 import 'package:get/get.dart';
 
 
@@ -108,7 +108,7 @@ class HapusAkunPage extends StatelessWidget {
                                             actions: <Widget>[
                                               TextButton(
                                                 onPressed: () {
-                                                  Get.offNamed('/kelolaAkunPegawai'); // Mengganti halaman saat ini dengan KelolaAkunPegawaiPage
+                                                  Get.offNamed('/KelolaAkunPegawai'); // Mengganti halaman saat ini dengan KelolaAkunPegawaiPage
 
                                                 },
                                                 child: const Text('OK'),
@@ -196,14 +196,11 @@ class HapusAkunPage extends StatelessWidget {
         ],
         onTap: (index) {
           if (index == 0) {
-            // Navigasi ke halaman Profile
+            Get.toNamed('/Profile'); // Mengganti dengan route untuk ProfilePage
           } else if (index == 1) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()), // Ganti dengan nama kelas Home Anda
-            );
+            Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
           } else if (index == 2) {
-            Get.back();
+            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
           }
         },
       ),

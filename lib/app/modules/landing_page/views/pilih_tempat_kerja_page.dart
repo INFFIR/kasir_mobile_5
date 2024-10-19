@@ -38,7 +38,7 @@ class PilihTempatKerjaPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
 
-                         Get.offNamed('/home'); // Mengganti dengan route untuk HomePage
+                         Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFD9D9D9),

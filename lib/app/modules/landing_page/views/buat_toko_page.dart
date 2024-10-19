@@ -28,7 +28,7 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
               onPressed: () {
                 Navigator.of(context).pop(); // Menutup dialog
 
-                Get.offNamed('/pilihToko'); // Mengganti dengan route untuk HomePage
+                Get.offNamed('/PilihToko'); // Mengganti dengan route untuk HomePage
               },
               child: const Text('OK'),
             ),
@@ -115,26 +115,7 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blueGrey,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_back_ios_new),
-            label: 'Back',
-          ),
-        ],
 
-      ),
     );
   }
 }

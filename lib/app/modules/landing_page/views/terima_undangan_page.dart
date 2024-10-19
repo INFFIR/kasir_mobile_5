@@ -33,7 +33,6 @@ class TerimaUndanganPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text('MAIL'),
         backgroundColor: Colors.blueGrey,
       ),
