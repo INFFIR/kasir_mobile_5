@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "807834015008",
+    "project_id": "projectmobilekel5sem5-a25f4",
+    "storage_bucket": "projectmobilekel5sem5-a25f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807834015008:android:a6c3320fba1e7e8a79b345",
+        "android_client_info": {
+          "package_name": "com.example.kasir_mobile_5"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCydHZKa0wPbXd8HpfPM6cF_O7olWkoYso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
