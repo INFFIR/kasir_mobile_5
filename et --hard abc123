@@ -1,0 +1,65 @@
+* [33m1eae04c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/backup_error_routes[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mbackup_error_routes[m[33m)[m disuruh comit chache sama putcleanup
+* [33m0add12f[m[33m ([m[1;31morigin/updates_routes[m[33m, [m[1;32mupdates_routes[m[33m)[m dah selesai bugnya
+* [33mae87a09[m bismilah gaada error
+* [33m0bc228f[m udah debug sampai login
+* [33ma2c427b[m udah dipindah tapi belum diganti routesnya
+* [33m98feef6[m aku ingin pindah branch
+* [33m683100a[m  bismilah gaada yang kelewat
+* [33mdabd517[m udah di routes tapi ada beberapa salah nama, hampir semua sih aslinya
+* [33m8dacacd[m nambah sedikit
+* [33m250bc93[m routes telah di setup tinggal di pasang di view
+[31m|[m * [33m2c9747f[m[33m ([m[1;31morigin/backup_error[m[33m, [m[1;32mbackup_error[m[33m)[m kumpul dulu lah
+[31m|[m * [33m4fc41b2[m kumpul dulu lah
+[31m|[m * [33m66414fc[m kelupaan hapus nonaktifin fitur pesan, otw ada tapi sekarang blum siap
+[31m|[m[31m/[m  
+*   [33m244cb9b[m Merge branch 'login_page' bismilah aman
+[33m|[m[34m\[m  
+[33m|[m * [33m3205025[m[33m ([m[1;31morigin/login_page[m[33m, [m[1;32mlogin_page[m[33m)[m kok bisaa ada aja yang ga keikut loh harus coba tutup tab nyadlu kah baru commit
+[33m|[m * [33m4a98419[m ada yang ketinggalan jadi yaa gitu sama aku bikin file other buat ga berhamburan
+[33m|[m * [33m8d5fadf[m  semua nya sudah kelarr tinggal di poles dan di routes dan binding beserta kurang 1 fitur pesan mungkin nnanti ku hapus dulu
+[33m|[m * [33m1921026[m buat akun dan lupa password selesai
+[33m|[m * [33m552ba29[m asal diisi tapi bentuknya mirip mirip ngerjain login
+* [34m|[m [33m80269dd[m ganti pw login jadi a
+[34m|[m[34m/[m  
+* [33mb9b82bd[m[33m ([m[1;31morigin/menu_transaksi[m[33m, [m[1;32mmenu_transaksi[m[33m)[m trandakdi udah selesai
+* [33ma4e6b3f[m pemilihan pembayaran selesai
+* [33m57e28f5[m setelah sekian lama page transaksi kelar sisa sisanya
+* [33m0c5122f[m aku melakukan merge dari login page ke clonning main untung aman aku gatau ini kebetulan berhasil atau aku memang berhasil tidak mengubah versi apapun disini
+* [33m5bcec82[m dipikir pikir cape juga kalo login jadi duluan bakal cape waktu reset masuk lagi jadi aku sudahin disini merge ke branch baru buat ngerjain transaksi
+* [33ma64acd2[m Bismillah gaada error lagi setelah penggabungan belum di coba di main file tambahan baru / yang di pull cuma 1 dari login_page seingatku tidak ada file lain lagi, sekarang lanjut bikin login page nyalagi
+* [33m31a6871[m mencoba merge kodingan login page ke kodinganku
+*   [33mb9e1750[m Merge branch 'menu_storage' into login_page
+[35m|[m[36m\[m  
+[35m|[m * [33m4987829[m[33m ([m[1;32mmenu_storage[m[33m)[m harusnnya storage selesaigit push
+[35m|[m * [33mac2b732[m[33m ([m[1;31morigin/menu_storage[m[33m)[m di jadi jadiin edit barang masih belum cantik
+[35m|[m * [33m0c35250[m gatau tiba tiba ada keubah bismilah ga error
+[35m|[m * [33m9e1844a[m[33m ([m[1;31morigin/menu_kelola_akun[m[33m, [m[1;32mmenu_kelola_akun[m[33m)[m secara cepat di selesaikan  nanti di debug ulang, menu pesan belum berfungsi
+[35m|[m * [33m96f34d1[m banyak melakukan perubahan dari kelola akun profile sampai mail
+[35m|[m * [33md5421ad[m tambah / undang pegawai selesai
+[35m|[m * [33m02b4398[m kerangka dikit beru dikerjain
+* [36m|[m   [33mb368aa5[m Merge pull request #2 from TitidTerbang/main
+[36m|[m[1;32m\[m [36m\[m  
+[36m|[m [1;32m|[m[36m/[m  
+[36m|[m[36m/[m[1;32m|[m   
+[36m|[m *   [33m7fc4459[m Merge branch 'login_page' into main
+[36m|[m [1;33m|[m[36m\[m  
+[36m|[m [1;33m|[m[36m/[m  
+[36m|[m[36m/[m[1;33m|[m   
+* [1;33m|[m [33m0d4c5a3[m[33m ([m[1;31morigin/menu_profile[m[33m)[m gajadi di routes dan binding error aku nyerah, ini cuma menyelesaikan profil
+* [1;33m|[m [33m7a7ee41[m aku lupa menambhakan ap saja tapi ini untuk jaga jaga sebelum aku melakukan routes dan binding
+* [1;33m|[m [33m228a1fc[m[33m ([m[1;31morigin/menu_utama[m[33m)[m Sepertinya Halaman utama nya udah lumayan dan bisa dibilang jadi tinggal dipoles nanti
+[1;34m|[m * [33mc204226[m menghapus boilerplate, mengubah yaml,login_page ✓
+[1;34m|[m[1;34m/[m  
+* [33m497cdfe[m menghilangkan warning problem menggunakan smart fix vs code, dari yang kuamati cuma menambahkan key pada class class lalu menambah kan const juga aku kurang tau detailnya tapi itu yang berubah
+* [33m7b072ec[m (Aku buat struktur sederhana dari login bebas password, sampai ke halaman utama(kosong)
+*   [33m6a3b771[m mindahin semua problem yang sudah di fix di main ke menu_utama
+[1;35m|[m[1;36m\[m  
+[1;35m|[m * [33ma94db3e[m harusnya sepaket tadi entah kenapa ketinggalan perasaan dah di git add
+[1;35m|[m * [33m8e1bbbe[m ngefix problem gatau gimana tiba tiba hilang aja semua masalah yang merah, aku nambahin gradle-wrapper.properties gradle.bat gradlew sama settings.gradle seharusnya ini aja yang ku ubah atau yang kutambahin banyak trial and error sebelumnya soalnya
+* [1;36m|[m [33m5bae007[m test
+[1;36m|[m[1;36m/[m  
+* [33mecc07f2[m menambahkan depedency dan melakukan get init
+*   [33m0e2e7ef[m ketinggalan
+[31m|[m[32m\[m  
+[31m|[m * [33mc038cfe[m Initial commit
+* [33mc7fbdb2[m Comit Pertama
