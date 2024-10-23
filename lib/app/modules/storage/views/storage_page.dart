@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
+import 'package:kasir_mobile_5/app/modules/storage/widgets/card_storage.dart'; // Tambahkan ini
 
 class StoragePage extends StatelessWidget {
   const StoragePage({super.key});
@@ -30,64 +31,54 @@ class StoragePage extends StatelessWidget {
             fit: BoxFit.cover, // Mengatur agar gambar menutupi seluruh halaman
           ),
         ),
-        child: SingleChildScrollView(
+        child: const SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Item Barang 1
-                _buildItemCard(
-                  context,
+                CardStorage(
                   itemName: 'Nama Barang 1',
                   itemQuantity: '10 pcs',
                   itemPrice: 'Rp 100.000',
                   imagePath: 'assets/produk/barang_1.jpeg', // Ganti dengan gambar barang
                 ),
-                const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 2
-                _buildItemCard(
-                  context,
+                CardStorage(
                   itemName: 'Nama Barang 2',
                   itemQuantity: '5 pcs',
                   itemPrice: 'Rp 75.000',
                   imagePath: 'assets/produk/barang_2.jpeg', // Ganti dengan gambar barang
                 ),
-                const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 3
-                _buildItemCard(
-                  context,
+                CardStorage(
                   itemName: 'Nama Barang 3',
                   itemQuantity: '20 pcs',
                   itemPrice: 'Rp 200.000',
                   imagePath: 'assets/produk/barang_3.png', // Ganti dengan gambar barang
                 ),
-                const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 4
-                _buildItemCard(
-                  context,
+                CardStorage(
                   itemName: 'Nama Barang 4',
                   itemQuantity: '15 pcs',
                   itemPrice: 'Rp 150.000',
                   imagePath: 'assets/produk/barang_4.jpeg', // Ganti dengan gambar barang
                 ),
-                const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 5
-                _buildItemCard(
-                  context,
+                CardStorage(
                   itemName: 'Nama Barang 5',
                   itemQuantity: '8 pcs',
                   itemPrice: 'Rp 80.000',
                   imagePath: 'assets/produk/barang_5.jpg', // Ganti dengan gambar barang
                 ),
-                const SizedBox(height: 10), // Jarak antar card
                 // Item Barang 6
-                _buildItemCard(
-                  context,
+                CardStorage(
                   itemName: 'Nama Barang 6',
                   itemQuantity: '12 pcs',
                   itemPrice: 'Rp 120.000',
                   imagePath: 'assets/produk/barang_6.jpg', // Ganti dengan gambar barang
                 ),
+                SizedBox(height: 200), // Jarak antar card
               ],
             ),
           ),
@@ -98,106 +89,10 @@ class StoragePage extends StatelessWidget {
             Get.toNamed('/TambahProduk'); // Mengganti dengan route untuk ProfilePage
         },
         backgroundColor: Colors.blueGrey,
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white,),
+        
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
-
-  // Fungsi untuk membangun card barang
-  Widget _buildItemCard(BuildContext context, {
-    required String itemName,
-    required String itemQuantity,
-    required String itemPrice,
-    required String imagePath,
-  }) {
-    return SizedBox(
-      height: 150, // Tinggi card
-      width: 350, // Lebar card
-      child: Card(
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Stack(
-          children: [
-            Row(
-              children: [
-                // Gambar barang
-                Expanded(
-                  flex: 3, // 30% lebar untuk gambar
-                  child: Center(
-                    child: Image(
-                      image: AssetImage(imagePath), // Ganti dengan gambar barang
-                      height: 60,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 7, // 70% lebar untuk teks dan info
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0), // Padding untuk lebih rapi
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Nama barang di kiri atas
-                        Text(
-                          itemName,
-                          style: const TextStyle(
-                            color: Color(0xFF28374C),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(), // Jeda untuk memposisikan jumlah di bawah
-                        // Jumlah barang di kiri bawah
-                        Text(
-                          itemQuantity,
-                          style: const TextStyle(
-                            color: Color(0xFF28374C),
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            // Icon pensil di pojok kanan atas
-            Positioned(
-              top: 10,
-              right: 10,
-              child: GestureDetector(
-                onTap: () {
-                  // Aksi navigasi saat ikon pensil ditekan
-                  Get.toNamed('/EditProduk'); // Mengganti dengan route untuk ProfilePage
-                },
-                child: const Icon(
-                  Icons.edit,
-                  color: Color(0xFF28374C),
-                  size: 24,
-                ),
-              ),
-            ),
-            // Harga di kanan bawah, di bawah icon pensil
-            Positioned(
-              bottom: 10,
-              right: 10,
-              child: Text(
-                itemPrice,
-                style: const TextStyle(
-                  color: Color(0xFF28374C),
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
-
-
