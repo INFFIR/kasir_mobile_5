@@ -24,18 +24,20 @@ flutter:
   uses-material-design: true
   assets:
 
-    - assets/images/
-    - assets/background.png
-    - assets/profile_picture.jpeg
-    - assets/google.png
-    - assets/orang_kosong.jpg
-    - assets/tambah_gambar.png
-    - assets/produk/barang_1.jpeg
-    - assets/produk/barang_2.jpeg
-    - assets/produk/barang_3.png
-    - assets/produk/barang_4.jpeg
-    - assets/produk/barang_5.jpg
-    - assets/produk/barang_6.jpg
+    # - assets/images/
+    # - assets/background.png
+    # - assets/profile_picture.jpeg
+    # - assets/google.png
+    # - assets/orang_kosong.jpg
+    # - assets/tambah_gambar.png
+    # - assets/produk/barang_1.jpeg
+    # - assets/produk/barang_2.jpeg
+    # - assets/produk/barang_3.png
+    # - assets/produk/barang_4.jpeg
+    # - assets/produk/barang_5.jpg
+    # - assets/produk/barang_6.jpg
+    - assets/
+    - assets/produk/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
