@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
+import 'package:kasir_mobile_5/app/modules/profile/widgets/button_profile.dart'; // Tambahkan impor ini
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -19,9 +21,7 @@ class ProfilePage extends StatelessWidget {
             icon: const Icon(Icons.email),
             color: Colors.white,
             onPressed: () {
-              // Tambahkan aksi yang diinginkan saat ikon ditekan
-
-                      Get.toNamed('/Mail'); // Mengganti dengan route untuk ProfilePage
+              Get.toNamed('/Mail'); // Mengganti dengan route untuk ProfilePage
             },
           ),
         ],
@@ -62,50 +62,37 @@ class ProfilePage extends StatelessWidget {
                       color: Color(0xFF28374C),
                     ),
                   ),
-                  const SizedBox(height: 10),
                   const SizedBox(height: 50),
-                  _buildButton(
-                    context,
+                  ButtonProfile(
                     icon: Icons.edit,
                     label: 'GANTI USERNAME',
                     onPressed: () {
-
-
                       Get.toNamed('/ChangeProfile'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
-                  const SizedBox(height: 20),
-                  _buildButton(
-                    context,
+                  ButtonProfile(
                     icon: Icons.lock,
                     label: 'GANTI PASSWORD',
                     onPressed: () {
-
                       Get.toNamed('/ChangePassword'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
-                  const SizedBox(height: 20),
-                  _buildButton(
-                    context,
+                  ButtonProfile(
                     icon: Icons.history,
                     label: 'AKTIVITAS ANDA',
                     onPressed: () {
-
                       Get.toNamed('/ActivityProfile'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
-                  const SizedBox(height: 20),
-                  _buildButton(
-                    context,
+                  ButtonProfile(
                     icon: Icons.logout,
                     label: 'LOG OUT',
                     buttonColor: Colors.red, // Ganti warna tombol menjadi merah
                     onPressed: () {
-                      // Tambahkan aksi untuk keluar dari akun
-                      
                       Get.toNamed('/Login'); // Mengganti dengan route untuk ProfilePage
                     },
                   ),
+                  const SizedBox(height: 200),
                 ],
               ),
             ),
@@ -113,43 +100,6 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
-    );
-  }
-
-  Widget _buildButton(BuildContext context, {required IconData icon, required String label, required VoidCallback onPressed, Color? buttonColor}) {
-    return SizedBox(
-      height: 75,
-      width: 350,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColor ?? const Color(0xFFD9D9D9), // Gunakan buttonColor jika ada
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 3,
-              child: Icon(icon, color: const Color(0xFF28374C), size: 30),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              flex: 7,
-              child: Text(
-                label,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Color(0xFF28374C),
-                  fontSize: 20,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
