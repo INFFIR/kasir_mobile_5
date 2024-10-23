@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -32,7 +33,7 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
           _buildContent(context),
         ],
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(context),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 
@@ -228,43 +229,6 @@ Widget _buildBankInfoSection() {
   );
 }
 
-
-  // Method to build the bottom navigation bar
-  BottomNavigationBar _buildBottomNavigationBar(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.blueGrey,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white70,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.arrow_back_ios_new),
-          label: 'Back',
-        ),
-      ],
-      onTap: (index) {
-        _onBottomNavigationTap(index, context);
-      },
-    );
-  }
-
-  // Method to handle bottom navigation tap events
-  void _onBottomNavigationTap(int index, BuildContext context) {
-          if (index == 0) {
-            Get.toNamed('/Profile'); // Mengganti dengan route untuk ProfilePage
-          } else if (index == 1) {
-            Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
-          } else if (index == 2) {
-            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
-          }
-  }
 
   // Method to build the button section
   Widget _buildButtonSection({double buttonWidth = 350}) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
 class ChangeProfilePage extends StatefulWidget {
   const ChangeProfilePage({super.key});
 
@@ -26,6 +27,7 @@ class _ChangeProfilePageState extends State<ChangeProfilePage> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Menutup dialog
+                Get.back(); 
               },
               child: const Text('OK'),
             ),
@@ -93,7 +95,8 @@ class _ChangeProfilePageState extends State<ChangeProfilePage> {
                     ),
                     const SizedBox(height: 60),
                     ElevatedButton(
-                      onPressed: _changeProfile,
+                      onPressed: _changeProfile ,
+                      
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         minimumSize: const Size(double.infinity, 50),
@@ -110,33 +113,7 @@ class _ChangeProfilePageState extends State<ChangeProfilePage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blueGrey,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_back_ios_new),
-            label: 'Back',
-          ),
-        ],
-        onTap: (index) {
-          if (index == 0) {
-          } else if (index == 1) {
-            Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
-          } else if (index == 2) {
-            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
-          }
-        },
-      ),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

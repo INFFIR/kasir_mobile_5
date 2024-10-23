@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../home/models/user_model.dart';
-import '../../home/controllers/login_controller.dart';
+import '../models/user_model.dart';
+import '../controllers/login_controller.dart';
 import 'package:get/get.dart';
 // Pastikan untuk mengimpor HomePage
 

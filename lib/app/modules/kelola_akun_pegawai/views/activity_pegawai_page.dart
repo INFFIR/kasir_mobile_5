@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
 
 
 class ActivityPegawaiPage extends StatelessWidget {
@@ -103,34 +103,7 @@ class ActivityPegawaiPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blueGrey,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_back_ios_new),
-            label: 'Back',
-          ),
-        ],
-        onTap: (index) {
-          if (index == 0) {
-            Get.toNamed('/Profile'); // Mengganti dengan route untuk ProfilePage
-          } else if (index == 1) {
-            Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
-          } else if (index == 2) {
-            Get.back(); // Menggunakan Get.back() untuk kembali ke halaman sebelumnya
-          }
-        },
-      ),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }
