@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
+import 'package:kasir_mobile_5/app/modules/home/widgets/button_home.dart'; // Import CustomButton
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -8,220 +10,58 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Menghilangkan tombol back di pojok kiri atas
+        automaticallyImplyLeading: false,
         title: const Text(
           'HALAMAN UTAMA',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blueGrey, // Warna header
+        backgroundColor: Colors.blueGrey,
         actions: [
           IconButton(
-            icon: const Icon(Icons.email), // Ikon email
+            icon: const Icon(Icons.email),
             color: Colors.white,
             onPressed: () {
-
-                        Get.toNamed('/Mail'); // Mengganti dengan route untuk ProfilePage
+              Get.toNamed('/Mail');
             },
           ),
         ],
       ),
       body: Stack(
         children: [
-          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'), // Ganti dengan path gambar Anda
-                fit: BoxFit.cover, // Mengatur agar gambar menutupi seluruh halaman
+                image: AssetImage('assets/background.png'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          SingleChildScrollView( // Menambahkan SingleChildScrollView
+          const SingleChildScrollView(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Button Transaksi
-                  const SizedBox(height: 25),
-                  SizedBox(
-                    height: 150, // Mengatur tinggi button
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-
-                        Get.toNamed('/Transaksi'); // Mengganti dengan route untuk ProfilePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9), // Warna button
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3, // 30% untuk ikon
-                            child: Center(
-                              child: Icon(
-                                Icons.attach_money,
-                                color: Color(0xFF28374C),
-                                size: 40, // Mengatur ukuran ikon
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7, // 70% untuk teks
-                            child: Center(
-                              child: Text(
-                                'TRANSAKSI',
-                                textAlign: TextAlign.center, // Mengatur teks agar berada di tengah
-                                style: TextStyle(
-                                  color: Color(0xFF28374C), // Mengubah warna teks
-                                  fontSize: 24, // Mengatur ukuran teks
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  ButtonHome(
+                    label: 'TRANSAKSI',
+                    icon: Icons.attach_money,
+                    routeName: '/Transaksi',
                   ),
-                  const SizedBox(height: 10),
-                  // Button Stok Barang
-                  SizedBox(
-                    height: 150, // Mengatur tinggi button
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-
-                        Get.toNamed('/Storage'); // Mengganti dengan route untuk ProfilePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3, // 30% untuk ikon
-                            child: Center(
-                              child: Icon(
-                                Icons.inventory,
-                                color: Color(0xFF28374C),
-                                size: 40, // Mengatur ukuran ikon
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7, // 70% untuk teks
-                            child: Center(
-                              child: Text(
-                                'STOK BARANG',
-                                textAlign: TextAlign.center, // Mengatur teks agar berada di tengah
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24, // Mengatur ukuran teks
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  ButtonHome(
+                    label: 'STOK BARANG',
+                    icon: Icons.inventory,
+                    routeName: '/Storage',
                   ),
-                  const SizedBox(height: 10),
-                  // Button Riwayat
-                  SizedBox(
-                    height: 150, // Mengatur tinggi button
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-  
-                        Get.toNamed('/AllActivity'); // Mengganti dengan route untuk ProfilePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3, // 30% untuk ikon
-                            child: Center(
-                              child: Icon(
-                                Icons.history,
-                                color: Color(0xFF28374C),
-                                size: 40, // Mengatur ukuran ikon
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7, // 70% untuk teks
-                            child: Center(
-                              child: Text(
-                                'RIWAYAT',
-                                textAlign: TextAlign.center, // Mengatur teks agar berada di tengah
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24, // Mengatur ukuran teks
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  ButtonHome(
+                    label: 'RIWAYAT',
+                    icon: Icons.history,
+                    routeName: '/AllActivity',
                   ),
-                  const SizedBox(height: 10),
-                  // Button Kelola Akun Pegawai
-                  SizedBox(
-                    height: 150, // Mengatur tinggi button
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-
-                        Get.toNamed('/KelolaAkunPegawai'); // Mengganti dengan route untuk ProfilePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3, // 30% untuk ikon
-                            child: Center(
-                              child: Icon(
-                                Icons.person_add,
-                                color: Color(0xFF28374C),
-                                size: 40, // Mengatur ukuran ikon
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7, // 70% untuk teks
-                            child: Center(
-                              child: Text(
-                                'KELOLA AKUN PEGAWAI',
-                                textAlign: TextAlign.center, // Mengatur teks agar berada di tengah
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24, // Mengatur ukuran teks
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  ButtonHome(
+                    label: 'KELOLA AKUN PEGAWAI',
+                    icon: Icons.person_add,
+                    routeName: '/KelolaAkunPegawai',
                   ),
-                  const SizedBox(height: 200),
+                  SizedBox(height: 200),
                 ],
               ),
             ),
