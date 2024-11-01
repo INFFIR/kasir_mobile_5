@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
-import 'package:kasir_mobile_5/app/modules/home/widgets/button_home.dart'; // Import CustomButton
+import '../../components/bottom_nav_bar.dart';
+import '../controllers/home_controller.dart';
+import '../widgets/button_home.dart'; // Import CustomBottomNavigationBar
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.find<HomeController>();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -28,6 +31,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Stack(
         children: [
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -36,7 +40,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          const SingleChildScrollView(
+          // Content
+          SingleChildScrollView(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -45,23 +50,27 @@ class HomePage extends StatelessWidget {
                     label: 'TRANSAKSI',
                     icon: Icons.attach_money,
                     routeName: '/Transaksi',
+                    arguments: {'shopId': controller.shopId},
                   ),
                   ButtonHome(
                     label: 'STOK BARANG',
                     icon: Icons.inventory,
                     routeName: '/Storage',
+                    arguments: {'shopId': controller.shopId},
                   ),
                   ButtonHome(
                     label: 'RIWAYAT',
                     icon: Icons.history,
                     routeName: '/AllActivity',
+                    arguments: {'shopId': controller.shopId},
                   ),
                   ButtonHome(
                     label: 'KELOLA AKUN PEGAWAI',
                     icon: Icons.person_add,
                     routeName: '/KelolaAkunPegawai',
+                    arguments: {'shopId': controller.shopId},
                   ),
-                  SizedBox(height: 200),
+                  const SizedBox(height: 200),
                 ],
               ),
             ),

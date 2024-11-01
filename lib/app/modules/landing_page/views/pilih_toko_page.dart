@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class PilihTokoPage extends StatefulWidget {
-  const PilihTokoPage({super.key}); // Menggunakan 'const'
+  const PilihTokoPage({super.key});
 
   @override
   _PilihTokoPageState createState() => _PilihTokoPageState();
@@ -19,11 +19,14 @@ class _PilihTokoPageState extends State<PilihTokoPage> {
     return _firestore
         .collection('shops')
         .where('ownerId', isEqualTo: userId)
+        .orderBy('createdAt', descending: true)
         .snapshots();
   }
 
-  void _konfirmasiHapusToko(BuildContext context, String shopId, String shopName) {
-    final TextEditingController confirmationController = TextEditingController(); // Menghapus '_'
+  void _konfirmasiHapusToko(
+      BuildContext context, String shopId, String shopName) {
+    final TextEditingController confirmationController =
+        TextEditingController();
 
     showDialog(
       context: context,
@@ -33,7 +36,8 @@ class _PilihTokoPageState extends State<PilihTokoPage> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('Ketikkan ulang nama toko untuk mengonfirmasi penghapusan:'),
+              const Text(
+                  'Ketikkan ulang nama toko untuk mengonfirmasi penghapusan:'),
               const SizedBox(height: 10),
               TextField(
                 controller: confirmationController,
@@ -56,7 +60,8 @@ class _PilihTokoPageState extends State<PilihTokoPage> {
                 String inputName = confirmationController.text.trim();
                 if (inputName == shopName) {
                   _hapusToko(shopId);
-                  Navigator.of(context).pop(); // Menutup dialog setelah penghapusan
+                  Navigator.of(context)
+                      .pop(); // Menutup dialog setelah penghapusan
                 } else {
                   Get.snackbar(
                     'Error',
@@ -110,10 +115,11 @@ class _PilihTokoPageState extends State<PilihTokoPage> {
       ),
       body: Stack(
         children: [
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'),
+                image: AssetImage('assets/background.png'), // Background image
                 fit: BoxFit.cover,
               ),
             ),
@@ -139,12 +145,14 @@ class _PilihTokoPageState extends State<PilihTokoPage> {
                   return Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
-                      side: const BorderSide(color: Colors.blueGrey, width: 1),
+                      side:
+                          const BorderSide(color: Colors.blueGrey, width: 1),
                     ),
                     child: ListTile(
-                      leading: const Icon(Icons.store, color: Color(0xFF28374C)),
+                      leading:
+                          const Icon(Icons.store, color: Color(0xFF28374C)),
                       title: Text(
-                        shop['name'],
+                        shop['name'] ?? 'Tidak ada nama toko',
                         style: const TextStyle(
                           color: Color(0xFF28374C),
                           fontSize: 20,
@@ -157,7 +165,10 @@ class _PilihTokoPageState extends State<PilihTokoPage> {
                         },
                       ),
                       onTap: () {
-                        Get.toNamed('/Home', arguments: shop.id);
+                        Get.toNamed(
+                          '/Home',
+                          arguments: {'shopId': shop.id},
+                        );
                       },
                     ),
                   );

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class BuatTokoPage extends StatefulWidget {
-  const BuatTokoPage({super.key}); // Menggunakan 'const'
+  const BuatTokoPage({super.key});
 
   @override
   _BuatTokoPageState createState() => _BuatTokoPageState();
@@ -91,7 +91,8 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
               child: Container(
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
+                  color: Colors.white
+                      .withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
                   borderRadius: BorderRadius.circular(12), // Sudut membulat
                 ),
                 child: Column(

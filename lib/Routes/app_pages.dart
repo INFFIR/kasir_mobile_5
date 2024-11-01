@@ -1,8 +1,11 @@
 // lib/routes/app_pages.dart
 import 'package:get/get.dart';
+import 'package:kasir_mobile_5/app/modules/home/bindings/bindings/home_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/login_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/lupa_password_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/sign_up_binding.dart';
+import 'package:kasir_mobile_5/app/modules/storage/binding/storage_binding.dart';
+import 'package:kasir_mobile_5/app/modules/storage/binding/tambah_produk_binding.dart';
 
 // IMPORT SEMUA HALAMAN
 // LOGIN
@@ -38,6 +41,7 @@ import '../app/modules/profile/views/change_profile_page.dart';
 import '../app/modules/profile/views/profile_page.dart';
 
 // STORAGE
+import '../app/modules/storage/binding/edit_produk_binding.dart';
 import '../app/modules/storage/views/edit_produk_page.dart';
 import '../app/modules/storage/views/hapus_produk_page.dart';
 import '../app/modules/storage/views/storage_page.dart';
@@ -101,6 +105,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.home,
       page: () => const HomePage(),
+      binding: HomeBinding()
     ),
 
     // KELOLA AKUN PEGAWAI
@@ -161,10 +166,12 @@ class AppPages {
     GetPage(
       name: AppRoutes.storage,
       page: () => const StoragePage(),
+      binding: StorageBinding()
     ),
     GetPage(
       name: AppRoutes.editProduk,
       page: () => const EditProdukPage(),
+      binding: EditProdukBinding(),
     ),
     GetPage(
       name: AppRoutes.hapusProduk,
@@ -173,6 +180,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.tambahProduk,
       page: () => const TambahProdukPage(),
+      binding: TambahProdukBinding(),
     ),
 
     // TRANSAKSI

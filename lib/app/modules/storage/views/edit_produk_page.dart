@@ -1,122 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io'; // Untuk menggunakan File
 import 'package:get/get.dart';
-import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
+import '../controllers/edit_produk_controller.dart';
+import '../utils/storage_exception_handler.dart';
 
-class EditProdukPage extends StatefulWidget {
+class EditProdukPage extends StatelessWidget {
   const EditProdukPage({super.key});
 
   @override
-  _EditProdukPageState createState() => _EditProdukPageState();
-}
-
-class _EditProdukPageState extends State<EditProdukPage> {
-  // TextEditingController untuk mengelola isi awal dari setiap TextField
-  final TextEditingController _namaController = TextEditingController(text: 'Nama Barang 1');
-  final TextEditingController _deskripsiController = TextEditingController(text: '');
-  final TextEditingController _hargaController = TextEditingController(text: '100000');
-  final TextEditingController _jumlahController = TextEditingController();
-  final TextEditingController _tambahJumlahController = TextEditingController(); // Kolom kedua untuk menambah jumlah
-
-  // Variabel untuk menyimpan jumlah barang
-  int jumlahBarang = 10;
-
-  // Variabel untuk menyimpan gambar yang dipilih
-  File? _imageFile;
-
-  // Fungsi untuk memilih gambar dari galeri
-  Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path); // Simpan gambar yang dipilih
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // Set nilai awal untuk jumlah barang
-    _jumlahController.text = jumlahBarang.toString();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final EditProdukController controller = Get.find<EditProdukController>();
+
+    ImageProvider<Object> getImageProvider() {
+      if (controller.imageFile != null) {
+        return FileImage(controller.imageFile!);
+      } else if (controller.imageUrl != null &&
+          controller.imageUrl!.isNotEmpty) {
+        return NetworkImage(controller.imageUrl!);
+      } else {
+        return const AssetImage('assets/default.png');
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(
-          'EDIT PRODUK',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('EDIT PRODUK', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blueGrey,
         actions: [
           IconButton(
             icon: const Icon(Icons.check),
             color: Colors.white,
-            onPressed: () {
-              // Aksi untuk menyimpan item
-              Get.toNamed('/Profile'); // Mengganti dengan route untuk ProfilePage
-            },
+            onPressed: controller.updateProduct,
           ),
         ],
       ),
       body: Stack(
         children: [
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'), // Ganti dengan path gambar Anda
-                fit: BoxFit.cover, // Mengatur agar gambar menutupi seluruh halaman
+                image: AssetImage('assets/background.png'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
+          // Form
           SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Form fields
                 Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.8), // Transparansi
-                    borderRadius: BorderRadius.circular(10),
-                  ),
                   padding: const EdgeInsets.all(20),
                   margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: Column(
                     children: [
                       Stack(
-                        alignment: Alignment.topRight, // Menempatkan ikon pensil di kanan atas
+                        alignment: Alignment.topRight,
                         children: [
-                          Center( // Menggunakan Center untuk memusatkan gambar
+                          Center(
                             child: Container(
                               width: 100,
                               height: 100,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: _imageFile != null
-                                      ? FileImage(_imageFile!) // Menampilkan gambar yang dipilih jika ada
-                                      : const AssetImage('assets/produk/barang_1.jpeg') as ImageProvider, // Ganti dengan path gambar kamu
+                                  image: getImageProvider(),
                                   fit: BoxFit.cover,
                                 ),
-                                borderRadius: BorderRadius.circular(10), // Radius sudut agar terlihat rapi
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0.0, 0, 0.0, 0.0),
-                            child: IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: _pickImage, // Memanggil fungsi untuk memilih gambar
-                            ),
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: controller.pickImage,
                           ),
                         ],
                       ),
                       const SizedBox(height: 20),
                       TextField(
-                        controller: _namaController,
+                        controller: controller.namaController,
                         decoration: const InputDecoration(
                           labelText: 'Nama Barang',
                           border: OutlineInputBorder(),
@@ -124,7 +90,7 @@ class _EditProdukPageState extends State<EditProdukPage> {
                       ),
                       const SizedBox(height: 10),
                       TextField(
-                        controller: _deskripsiController,
+                        controller: controller.deskripsiController,
                         decoration: const InputDecoration(
                           labelText: 'Deskripsi',
                           border: OutlineInputBorder(),
@@ -132,21 +98,19 @@ class _EditProdukPageState extends State<EditProdukPage> {
                       ),
                       const SizedBox(height: 10),
                       TextField(
-                        controller: _hargaController,
+                        controller: controller.hargaController,
                         decoration: const InputDecoration(
                           labelText: 'Harga',
                           border: OutlineInputBorder(),
                         ),
+                        keyboardType: TextInputType.number,
                       ),
                       const SizedBox(height: 10),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // Kolom untuk jumlah barang saat ini
                           Expanded(
                             child: TextField(
-                              controller: _jumlahController,
-                              keyboardType: TextInputType.number,
+                              controller: controller.jumlahController,
                               decoration: const InputDecoration(
                                 labelText: 'Jumlah Barang',
                                 border: OutlineInputBorder(),
@@ -155,15 +119,14 @@ class _EditProdukPageState extends State<EditProdukPage> {
                             ),
                           ),
                           const SizedBox(width: 10),
-                          // Kolom kedua untuk menambah jumlah barang
                           Expanded(
                             child: TextField(
-                              controller: _tambahJumlahController,
-                              keyboardType: TextInputType.number,
+                              controller: controller.tambahJumlahController,
                               decoration: const InputDecoration(
                                 labelText: 'Tambah Jumlah',
                                 border: OutlineInputBorder(),
                               ),
+                              keyboardType: TextInputType.number,
                             ),
                           ),
                         ],
@@ -171,24 +134,72 @@ class _EditProdukPageState extends State<EditProdukPage> {
                       const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
-                          // Menjumlahkan nilai dari kolom kedua ke kolom pertama
-                          setState(() {
-                            int tambahJumlah = int.tryParse(_tambahJumlahController.text) ?? 0;
-                            jumlahBarang += tambahJumlah;
-                            _jumlahController.text = jumlahBarang.toString();
-                            _tambahJumlahController.clear(); // Kosongkan kolom kedua setelah dijumlahkan
-                          });
+                          int tambahJumlah =
+                              int.tryParse(controller.tambahJumlahController.text) ??
+                                  0;
+                          controller.jumlahBarang.value += tambahJumlah;
+                          controller.jumlahController.text =
+                              controller.jumlahBarang.value.toString();
+                          controller.tambahJumlahController.clear();
                         },
                         child: const Text('Tambah ke Jumlah Barang'),
                       ),
                       const SizedBox(height: 20),
-
-                      const SizedBox(height: 60),
                       ElevatedButton(
                         onPressed: () {
-                          // Aksi saat tombol hapus produk ditekan
-                          Get.toNamed('/HapusProduk'); // Mengganti dengan route untuk ProfilePage
+                          final TextEditingController confirmationController =
+                              TextEditingController();
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Konfirmasi Penghapusan'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Text(
+                                        'Ketikkan ulang nama produk untuk mengonfirmasi penghapusan:'),
+                                    const SizedBox(height: 10),
+                                    TextField(
+                                      controller: confirmationController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Nama Produk',
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); // Menutup dialog
+                                    },
+                                    child: const Text('Batal'),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      String inputName =
+                                          confirmationController.text.trim();
+                                      if (inputName ==
+                                          controller.namaController.text.trim()) {
+                                        controller.deleteProduct();
+                                        Navigator.of(context)
+                                            .pop(); // Menutup dialog setelah penghapusan
+                                      } else {
+                                        handleException('Nama produk tidak cocok');
+                                      }
+                                    },
+                                    child: const Text('Hapus'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                        ),
                         child: const Text("Hapus Produk"),
                       ),
                     ],
@@ -199,7 +210,6 @@ class _EditProdukPageState extends State<EditProdukPage> {
           ),
         ],
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }

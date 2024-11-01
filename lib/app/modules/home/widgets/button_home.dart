@@ -1,4 +1,3 @@
-// lib/app/modules/components/custom_button.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,6 +5,7 @@ class ButtonHome extends StatelessWidget {
   final String label;
   final IconData icon;
   final String routeName;
+  final Map<String, dynamic>? arguments;
   final Color backgroundColor;
 
   const ButtonHome({
@@ -13,6 +13,7 @@ class ButtonHome extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.routeName,
+    this.arguments,
     this.backgroundColor = const Color(0xFFD9D9D9),
   });
 
@@ -25,7 +26,7 @@ class ButtonHome extends StatelessWidget {
         width: 350,
         child: ElevatedButton(
           onPressed: () {
-            Get.toNamed(routeName);
+            Get.toNamed(routeName, arguments: arguments);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: backgroundColor,

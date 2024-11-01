@@ -1,27 +1,29 @@
+// views/card_storage.dart
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CardStorage extends StatelessWidget {
   final String itemName;
   final String itemQuantity;
   final String itemPrice;
-  final String imagePath;
+  final String imageUrl;
+  final VoidCallback onEdit;
 
   const CardStorage({
     super.key,
     required this.itemName,
     required this.itemQuantity,
     required this.itemPrice,
-    required this.imagePath,
+    required this.imageUrl,
+    required this.onEdit,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container( // Tambahkan Container di sini untuk menambahkan margin
-      margin: const EdgeInsets.all(10), // Margin 20 di setiap sisi
+    return Container(
+      margin: const EdgeInsets.all(10),
       child: SizedBox(
-        height: 150, // Tinggi card
-        width: 350, // Lebar card
+        height: 150,
+        width: 350,
         child: Card(
           elevation: 5,
           shape: RoundedRectangleBorder(
@@ -31,36 +33,39 @@ class CardStorage extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  // Gambar barang
                   Expanded(
-                    flex: 3, // 30% lebar untuk gambar
+                    flex: 3,
                     child: Center(
-                      child: Image(
-                        image: AssetImage(imagePath), // Ganti dengan gambar barang
-                        height: 60,
-                      ),
+                      child: imageUrl.isNotEmpty
+                          ? Image.network(
+                              imageUrl,
+                              height: 60,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.asset('assets/default.png',
+                                    height: 60);
+                              },
+                            )
+                          : Image.asset('assets/default.png', height: 60),
                     ),
                   ),
                   Expanded(
-                    flex: 7, // 70% lebar untuk teks dan info
+                    flex: 7,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0), // Padding untuk lebih rapi
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Nama barang di kiri atas
                           Text(
-                            itemName,
+                            itemName.isNotEmpty ? itemName : 'Tanpa Nama',
                             style: const TextStyle(
                               color: Color(0xFF28374C),
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const Spacer(), // Jeda untuk memposisikan jumlah di bawah
-                          // Jumlah barang di kiri bawah
+                          const Spacer(),
                           Text(
-                            itemQuantity,
+                            itemQuantity.isNotEmpty ? itemQuantity : '0 pcs',
                             style: const TextStyle(
                               color: Color(0xFF28374C),
                               fontSize: 16,
@@ -72,15 +77,11 @@ class CardStorage extends StatelessWidget {
                   ),
                 ],
               ),
-              // Icon pensil di pojok kanan atas
               Positioned(
                 top: 10,
                 right: 10,
                 child: GestureDetector(
-                  onTap: () {
-                    // Aksi navigasi saat ikon pensil ditekan
-                    Get.toNamed('/EditProduk'); // Mengganti dengan route untuk ProfilePage
-                  },
+                  onTap: onEdit,
                   child: const Icon(
                     Icons.edit,
                     color: Color(0xFF28374C),
@@ -88,12 +89,11 @@ class CardStorage extends StatelessWidget {
                   ),
                 ),
               ),
-              // Harga di kanan bawah, di bawah icon pensil
               Positioned(
                 bottom: 10,
                 right: 10,
                 child: Text(
-                  itemPrice,
+                  itemPrice.isNotEmpty ? itemPrice : 'Rp 0',
                   style: const TextStyle(
                     color: Color(0xFF28374C),
                     fontSize: 18,
