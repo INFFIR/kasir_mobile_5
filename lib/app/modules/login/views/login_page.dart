@@ -1,21 +1,36 @@
+// lib/modules/login/views/login_page.dart
 import 'package:flutter/material.dart';
-import '../models/user_model.dart';
-import '../controllers/login_controller.dart';
 import 'package:get/get.dart';
-// Pastikan untuk mengimpor HomePage
+import '../controllers/login_controller.dart';
+import '../models/user_model.dart';
 
-class LoginPage extends StatelessWidget {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final LoginController controller = LoginController();
-
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final LoginController controller = Get.find<LoginController>();
+
+  @override
+  void initState() {
+    super.initState();
+    // Mendengarkan perubahan pada savedEmail dan mengisi emailController
+    ever(controller.savedEmail, (String email) {
+      emailController.text = email;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -24,6 +39,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
+          // Form and elements
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -39,20 +55,23 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 32),
+                  // Field Email
                   SizedBox(
                     width: 350,
                     child: TextField(
-                      controller: usernameController,
+                      controller: emailController,
                       decoration: const InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Email',
                         border: OutlineInputBorder(),
                         filled: true,
                         fillColor: Colors.white,
-                        prefixIcon: Icon(Icons.person),
+                        prefixIcon: Icon(Icons.email),
                       ),
+                      keyboardType: TextInputType.emailAddress,
                     ),
                   ),
                   const SizedBox(height: 16),
+                  // Field Password
                   SizedBox(
                     width: 350,
                     child: TextField(
@@ -68,6 +87,20 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
+                  // Remember Me Checkbox
+                  Obx(() => CheckboxListTile(
+                        title: const Text("Remember Me"),
+                        value: controller.rememberMe.value,
+                        onChanged: (bool? value) {
+                          if (value != null) {
+                            controller.rememberMe.value = value;
+                          }
+                        },
+                        controlAffinity: ListTileControlAffinity.leading,
+                        contentPadding: EdgeInsets.zero,
+                      )),
+                  const SizedBox(height: 16),
+                  // Tombol Login
                   SizedBox(
                     width: 350,
                     height: 50,
@@ -76,11 +109,11 @@ class LoginPage extends StatelessWidget {
                         backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                       ),
                       onPressed: () {
-                        User user = User(
-                          username: usernameController.text,
-                          password: passwordController.text,
+                        UserModel user = UserModel(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
                         );
-                        controller.login(user, context);
+                        controller.login(user);
                       },
                       child: const Text(
                         'Login',
@@ -89,6 +122,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
+                  // Tombol Buat Akun dan Lupa Password
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -100,8 +134,7 @@ class LoginPage extends StatelessWidget {
                             backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                           ),
                           onPressed: () {
-
-                            Get.offNamed('/SignUp'); // Mengganti dengan route untuk HomePage
+                            Get.offNamed("/SignUp"); // Pastikan route sesuai
                           },
                           child: const Text(
                             "Buat Akun",
@@ -118,8 +151,7 @@ class LoginPage extends StatelessWidget {
                             backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                           ),
                           onPressed: () {
-
-                            Get.offNamed('/LupaPassword'); // Mengganti dengan route untuk HomePage
+                            Get.toNamed("/LupaPassword"); // Pastikan route sesuai
                           },
                           child: const Text(
                             "Lupa Password",
@@ -130,6 +162,7 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 125), // Jarak antar tombol dan tombol persegi
+                  // Tombol Login dengan Google (contoh)
                   SizedBox(
                     width: 75, // Ukuran persegi
                     height: 75,
@@ -141,7 +174,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        // Aksi untuk tombol persegi
+                        // Aksi untuk tombol persegi (misalnya login dengan Google)
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(200), // Pastikan gambar juga mengikuti sudut melengkung

@@ -1,9 +1,16 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
-import './Routes/app_pages.dart'; // Import app_pages
-import './Routes/app_routes.dart'; // Import app_routes
-import 'package:get/get.dart'; // Import GetX
+import 'package:get/get.dart';
+import 'routes/app_pages.dart';
+import 'routes/app_routes.dart';
+import 'package:firebase_core/firebase_core.dart'; // Import Firebase Core
+import 'firebase_options.dart'; // Import konfigurasi Firebase (dihasilkan oleh Firebase CLI)
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform, // Sesuaikan dengan konfigurasi Firebase kamu
+  );
   runApp(const MyApp());
 }
 
@@ -13,12 +20,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Login Example',
+      title: 'Store App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       initialRoute: AppRoutes.login, // Inisialisasi rute pertama
-      onGenerateRoute: AppPages.generateRoute, // Gunakan route generator
+      getPages: AppPages.pages, // Daftar rute
+      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -1,14 +1,13 @@
+// lib/modules/sign_up/sign_up_page.dart
 import 'package:flutter/material.dart';
-import '../controllers/login_controller.dart';
 import 'package:get/get.dart';
+import '../controllers/sign_up_controller.dart';
 
 
 class SignUpPage extends StatelessWidget {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final LoginController controller = LoginController();
-
   SignUpPage({super.key});
+
+  final SignUpController controller = Get.find<SignUpController>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class SignUpPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 125), // Spasi di bagian atas
+                  const SizedBox(height: 125),
                   const Text(
                     "SIGN UP",
                     style: TextStyle(
@@ -41,7 +40,7 @@ class SignUpPage extends StatelessWidget {
                   SizedBox(
                     width: 350,
                     child: TextField(
-                      controller: usernameController,
+                      controller: controller.usernameController,
                       decoration: const InputDecoration(
                         labelText: 'Username',
                         border: OutlineInputBorder(),
@@ -55,7 +54,22 @@ class SignUpPage extends StatelessWidget {
                   SizedBox(
                     width: 350,
                     child: TextField(
-                      controller: passwordController,
+                      controller: controller.emailController,
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        fillColor: Colors.white,
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: 350,
+                    child: TextField(
+                      controller: controller.passwordController,
                       obscureText: true,
                       decoration: const InputDecoration(
                         labelText: 'Password',
@@ -74,10 +88,7 @@ class SignUpPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                       ),
-                      onPressed: () {
-
-                               Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
-                      },
+                      onPressed: controller.register,
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.white),
@@ -96,9 +107,7 @@ class SignUpPage extends StatelessWidget {
                             backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                           ),
                           onPressed: () {
-
-                               Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                            Get.offNamed('/Login');
                           },
                           child: const Text(
                             "Login",
@@ -115,9 +124,7 @@ class SignUpPage extends StatelessWidget {
                             backgroundColor: const Color.fromRGBO(21, 173, 180, 1),
                           ),
                           onPressed: () {
-
-                               Get.offNamed('/LupaPassword'); // Mengganti dengan route untuk HomePage
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+                            Get.toNamed('/LupaPassword');
                           },
                           child: const Text(
                             "Lupa Password",
@@ -127,25 +134,25 @@ class SignUpPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 125), // Jarak antar tombol dan tombol persegi
+                  const SizedBox(height: 125),
                   SizedBox(
-                    width: 75, // Ukuran persegi
+                    width: 75,
                     height: 75,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero, // Hilangkan padding agar gambar memenuhi tombol
+                        padding: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(200), // Sudut melengkung
+                          borderRadius: BorderRadius.circular(200),
                         ),
                       ),
                       onPressed: () {
-                        // Aksi untuk tombol persegi
+                        // Aksi untuk tombol persegi (misalnya login dengan Google)
                       },
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(200), // Pastikan gambar juga mengikuti sudut melengkung
+                        borderRadius: BorderRadius.circular(200),
                         child: Image.asset(
-                          'assets/google.png', // Gambar untuk tombol
-                          fit: BoxFit.cover, // Mengatur gambar memenuhi tombol
+                          'assets/google.png',
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

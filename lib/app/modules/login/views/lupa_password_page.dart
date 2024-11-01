@@ -1,18 +1,13 @@
+// lib/modules/lupa_password/lupa_password_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/lupa_password_controller.dart';
 
 
-class LupaPasswordPage extends StatefulWidget {
-  const LupaPasswordPage({super.key});
+class LupaPasswordPage extends StatelessWidget {
+  LupaPasswordPage({super.key});
 
-  @override
-  _LupaPasswordPageState createState() => _LupaPasswordPageState();
-}
-
-class _LupaPasswordPageState extends State<LupaPasswordPage> {
-  final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-
+  final LupaPasswordController controller = Get.find<LupaPasswordController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,47 +34,31 @@ class _LupaPasswordPageState extends State<LupaPasswordPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min, // Agar kolom hanya sebesar konten
                   children: [
-                  const Text(
-                    "Lupa Password",
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                    const Text(
+                      "Lupa Password",
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
                     const SizedBox(height: 20),
                     TextField(
-                      controller: _newPasswordController,
+                      controller: controller.emailController,
                       decoration: InputDecoration(
-                        labelText: 'Masukkan Email :',
+                        labelText: 'Masukkan Email:',
                         filled: true,
                         fillColor: Colors.grey.shade200.withOpacity(0.8),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide.none,
                         ),
+                        prefixIcon: const Icon(Icons.email),
                       ),
-                      obscureText: true,
+                      keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(height: 20),
-                    TextField(
-                      controller: _confirmPasswordController,
-                      decoration: InputDecoration(
-                        labelText: 'Masukkan Username :',
-                        filled: true,
-                        fillColor: Colors.grey.shade200.withOpacity(0.8),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 60),
                     ElevatedButton(
-                      onPressed: (){
-     
-                        Get.offNamed('/Login'); // Mengganti dengan route untuk HomePage
-                      },
+                      onPressed: controller.sendResetEmail,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         minimumSize: const Size(double.infinity, 50),
@@ -88,6 +67,19 @@ class _LupaPasswordPageState extends State<LupaPasswordPage> {
                         ),
                       ),
                       child: const Text('Kirim'),
+                    ),
+                    const SizedBox(height: 10),
+                    TextButton(
+                      onPressed: () {
+                        Get.offNamed('/Login');
+                      },
+                      child: const Text(
+                        "Kembali ke Login",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
                     ),
                   ],
                 ),

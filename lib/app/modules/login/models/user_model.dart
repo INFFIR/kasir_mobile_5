@@ -1,6 +1,7 @@
-class User {
-  String username;
+// lib/models/user_model.dart
+class UserModel {
+  String email;
   String password;
 
-  User({required this.username, required this.password});
+  UserModel({required this.email, required this.password});
 }
