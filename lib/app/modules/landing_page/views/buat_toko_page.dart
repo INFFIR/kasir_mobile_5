@@ -1,41 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BuatTokoPage extends StatefulWidget {
-  const BuatTokoPage({super.key});
+  const BuatTokoPage({super.key}); // Menggunakan 'const'
 
   @override
   _BuatTokoPageState createState() => _BuatTokoPageState();
 }
 
 class _BuatTokoPageState extends State<BuatTokoPage> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _namaTokoController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  void _changeProfile() {
-    // Logika untuk mengubah username
-    // Tambahkan logika untuk memproses dan menyimpan username di sini
+  void _buatToko() async {
+    String namaToko = _namaTokoController.text.trim();
+    if (namaToko.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Nama toko tidak boleh kosong',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
 
-    // Menampilkan pop-up dialog
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Berhasil'),
-          content: const Text('TOKO BERHASIl DIBUAT!'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Menutup dialog
+    String userId = _auth.currentUser!.uid;
 
-                Get.offNamed('/PilihToko'); // Mengganti dengan route untuk HomePage
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
+    try {
+      await _firestore.collection('shops').add({
+        'name': namaToko,
+        'ownerId': userId,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
+      if (!mounted) return;
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Berhasil'),
+            content: const Text('TOKO BERHASIL DIBUAT!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Menutup dialog
+                  Get.offNamed('/PilihToko');
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      if (!mounted) return;
+      Get.snackbar(
+        'Error',
+        'Gagal membuat toko: $e',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 
   @override
@@ -58,8 +85,6 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
             ),
           ),
           // Form and elements with white background
-
-
           Center(
             child: SizedBox(
               width: 350, // Tentukan lebar yang diinginkan
@@ -69,20 +94,19 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
                   color: Colors.white.withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
                   borderRadius: BorderRadius.circular(12), // Sudut membulat
                 ),
-
                 child: Column(
                   mainAxisSize: MainAxisSize.min, // Agar kolom hanya sebesar konten
                   children: [
-                      const Text(
-                    "BUAT TOKO",
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                    const Text(
+                      "BUAT TOKO",
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                                    const SizedBox(height: 60),
+                    const SizedBox(height: 60),
                     TextField(
-                      controller: _usernameController,
+                      controller: _namaTokoController,
                       decoration: InputDecoration(
                         labelText: 'NAMA TOKO ANDA:',
                         filled: true,
@@ -94,11 +118,9 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
                       ),
                       obscureText: false, // Username tidak perlu disembunyikan
                     ),
-  
-
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: _changeProfile,
+                      onPressed: _buatToko,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         minimumSize: const Size(double.infinity, 50),
@@ -115,7 +137,6 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
           ),
         ],
       ),
-
     );
   }
 }

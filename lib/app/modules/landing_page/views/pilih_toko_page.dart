@@ -1,8 +1,102 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class PilihTokoPage extends StatelessWidget {
-  const PilihTokoPage({super.key});
+class PilihTokoPage extends StatefulWidget {
+  const PilihTokoPage({super.key}); // Menggunakan 'const'
+
+  @override
+  _PilihTokoPageState createState() => _PilihTokoPageState();
+}
+
+class _PilihTokoPageState extends State<PilihTokoPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Stream<QuerySnapshot> _getShops() {
+    String userId = _auth.currentUser!.uid;
+    return _firestore
+        .collection('shops')
+        .where('ownerId', isEqualTo: userId)
+        .snapshots();
+  }
+
+  void _konfirmasiHapusToko(BuildContext context, String shopId, String shopName) {
+    final TextEditingController confirmationController = TextEditingController(); // Menghapus '_'
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi Penghapusan'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Ketikkan ulang nama toko untuk mengonfirmasi penghapusan:'),
+              const SizedBox(height: 10),
+              TextField(
+                controller: confirmationController,
+                decoration: const InputDecoration(
+                  labelText: 'Nama Toko',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Menutup dialog
+              },
+              child: const Text('Batal'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                String inputName = confirmationController.text.trim();
+                if (inputName == shopName) {
+                  _hapusToko(shopId);
+                  Navigator.of(context).pop(); // Menutup dialog setelah penghapusan
+                } else {
+                  Get.snackbar(
+                    'Error',
+                    'Nama toko tidak cocok',
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.redAccent,
+                    colorText: Colors.white,
+                  );
+                }
+              },
+              child: const Text('Hapus'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _hapusToko(String shopId) async {
+    try {
+      await _firestore.collection('shops').doc(shopId).delete();
+      if (!mounted) return; // Memeriksa apakah widget masih terpasang
+      Get.snackbar(
+        'Berhasil',
+        'Toko dihapus',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    } catch (e) {
+      if (!mounted) return; // Memeriksa apakah widget masih terpasang
+      Get.snackbar(
+        'Error',
+        'Gagal menghapus toko: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,173 +106,71 @@ class PilihTokoPage extends StatelessWidget {
           'PILIH TOKO',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blueGrey, // Warna header
+        backgroundColor: Colors.blueGrey,
       ),
       body: Stack(
         children: [
-                    // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'), // Ganti dengan path gambar Anda
-                fit: BoxFit.cover, // Mengatur agar gambar menutupi seluruh halaman
+                image: AssetImage('assets/background.png'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 10),
-                  // Button 1: Tambah Akun
-                SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
- 
-                         Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+          StreamBuilder<QuerySnapshot>(
+            stream: _getShops(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              final shops = snapshot.data!.docs;
+              if (shops.isEmpty) {
+                return const Center(child: Text('Anda belum memiliki toko.'));
+              }
+              return ListView.builder(
+                padding: const EdgeInsets.all(16.0),
+                itemCount: shops.length,
+                itemBuilder: (context, index) {
+                  var shop = shops[index];
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      side: const BorderSide(color: Colors.blueGrey, width: 1),
+                    ),
+                    child: ListTile(
+                      leading: const Icon(Icons.store, color: Color(0xFF28374C)),
+                      title: Text(
+                        shop['name'],
+                        style: const TextStyle(
+                          color: Color(0xFF28374C),
+                          fontSize: 20,
                         ),
                       ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.store,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'TOKO SUKSES',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        onPressed: () {
+                          _konfirmasiHapusToko(context, shop.id, shop['name']);
+                        },
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Button 2: Kelola Akun
-                  SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: ElevatedButton(
-                    onPressed: () {
-
-                       Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
+                      onTap: () {
+                        Get.toNamed('/Home', arguments: shop.id);
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.store,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'TOKO UNTUNG',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Button 3: Hapus Akun
-                SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-
-                        Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.store,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'TOKO MAJU',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 300),
-                ],
-              ),
-            ),
+                  );
+                },
+              );
+            },
           ),
-          // Floating Action Button (FAB) with '+' icon
           Positioned(
             bottom: 20,
             right: 20,
             child: FloatingActionButton(
               onPressed: () {
-                // Action saat tombol '+' ditekan
-
-            Get.toNamed('/BuatToko'); // Mengganti dengan route untuk HomePage
+                Get.toNamed('/BuatToko');
               },
               backgroundColor: const Color(0xFF28374C),
               child: const Icon(Icons.add, color: Colors.white),

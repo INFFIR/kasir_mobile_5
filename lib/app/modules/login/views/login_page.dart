@@ -5,7 +5,7 @@ import '../controllers/login_controller.dart';
 import '../models/user_model.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();

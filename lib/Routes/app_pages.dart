@@ -59,7 +59,7 @@ class AppPages {
     // LOGIN
     GetPage(
       name: AppRoutes.login,
-      page: () => LoginPage(),
+      page: () => const LoginPage(),
       binding: LoginBinding()
     ),
     GetPage(
@@ -78,11 +78,11 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.pilihToko,
-      page: () => const PilihTokoPage(),
+      page: () =>  const PilihTokoPage(),
     ),
     GetPage(
       name: AppRoutes.buatToko,
-      page: () => const BuatTokoPage(),
+      page: () =>  const BuatTokoPage(),
     ),
     GetPage(
       name: AppRoutes.bukaUndangan,
