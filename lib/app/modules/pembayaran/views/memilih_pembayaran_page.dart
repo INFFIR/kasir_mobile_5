@@ -1,22 +1,49 @@
+// views/memilih_pembayaran_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
+import '../../components/widgets/button_large.dart';
+import '../../storage/models/product_model.dart';
+
 class MemilihPembayaranPage extends StatelessWidget {
   const MemilihPembayaranPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final args = Get.arguments as Map<String, dynamic>?;
+
+    if (args == null ||
+        args['shopId'] == null ||
+        args['cartItems'] == null ||
+        args['selectedProducts'] == null ||
+        args['totalPembayaran'] == null) {
+      Get.snackbar(
+        'Error',
+        'Data pembayaran tidak lengkap.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      Get.back();
+      return Container();
+    }
+
+    final String shopId = args['shopId'];
+    final Map<String, int> cartItems = Map<String, int>.from(args['cartItems']);
+    final List<ProductModel> selectedProducts = List<ProductModel>.from(args['selectedProducts']);
+    final int totalPembayaran = args['totalPembayaran'];
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          'HALAMAN UTAMA',
+          'PILIH METODE PEMBAYARAN',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey,
       ),
       body: Stack(
         children: [
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -25,30 +52,38 @@ class MemilihPembayaranPage extends StatelessWidget {
               ),
             ),
           ),
+          // Content
           SingleChildScrollView(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 40),
-
-                  _buildButton(
-                    context,
+                  ButtonLarge(
                     icon: Icons.attach_money,
                     label: 'PEMBAYARAN MENGGUNAKAN CASH',
                     onPressed: () {
-
-                      Get.offNamed('/KonfirmasiCash'); // Mengganti dengan route untuk ProfilePage
+                      Get.toNamed('/KonfirmasiCash', arguments: {
+                        'shopId': shopId,
+                        'cartItems': cartItems,
+                        'selectedProducts': selectedProducts,
+                        'totalPembayaran': totalPembayaran,
+                        'paymentMethod': 'CASH',
+                      });
                     },
                   ),
                   const SizedBox(height: 20),
-                  _buildButton(
-                    context,
+                  ButtonLarge(
                     icon: Icons.credit_card,
                     label: 'PEMBAYARAN MENGGUNAKAN DEBIT',
                     onPressed: () {
-
-                      Get.offNamed('/KonfirmasiDebit'); // Mengganti dengan route untuk ProfilePage
+                      Get.toNamed('/KonfirmasiDebit', arguments: {
+                        'shopId': shopId,
+                        'cartItems': cartItems,
+                        'selectedProducts': selectedProducts,
+                        'totalPembayaran': totalPembayaran,
+                        'paymentMethod': 'DEBIT',
+                      });
                     },
                   ),
                   const SizedBox(height: 40),
@@ -58,44 +93,6 @@ class MemilihPembayaranPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
-
-Widget _buildButton(BuildContext context, {required IconData icon, required String label, required VoidCallback onPressed, Color? buttonColor}) {
-  return SizedBox(
-    height: 250, // Menentukan tinggi tombol
-    width: 350,  // Menentukan lebar tombol
-    child: ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: buttonColor ?? const Color(0xFFD9D9D9), // Mengatur warna tombol
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25), // Mengatur radius sudut border tombol
-        ),
-        side: const BorderSide(
-          color: Colors.blueGrey, // Mengatur warna border
-          width: 2, // Mengatur ketebalan border
-        ),
-        minimumSize: const Size(200, 60), // Mengatur ukuran minimum tombol
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: const Color(0xFF28374C), size: 40),
-          const SizedBox(height: 10),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF28374C),
-              fontSize: 18,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
 }

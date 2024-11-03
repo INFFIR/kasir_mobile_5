@@ -1,38 +1,54 @@
+// views/cek_pembelian_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-void main() {
-  runApp(const MaterialApp(
-    home: CekPembelianPage(),
-  ));
-}
-
-class CekPembelianPage extends StatefulWidget {
+import '../../storage/models/product_model.dart';
+class CekPembelianPage extends StatelessWidget {
   const CekPembelianPage({super.key});
 
   @override
-  _CekPembelianPage createState() => _CekPembelianPage();
-}
-
-class _CekPembelianPage extends State<CekPembelianPage> {
-  // List untuk menyimpan jumlah pembelian sebagai string
-  List<String> jumlahPembelianList = List.filled(2, '1'); // Menginisialisasi dengan 2 item
-
-  @override
   Widget build(BuildContext context) {
+    final args = Get.arguments as Map<String, dynamic>?;
+
+    if (args == null || args['cartItems'] == null || args['products'] == null) {
+      Get.snackbar(
+        'Error',
+        'Data pembelian tidak ditemukan.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      Get.back();
+      return Container();
+    }
+
+    final String shopId = args['shopId'];
+    final Map<String, int> cartItems = Map<String, int>.from(args['cartItems']);
+    final List<ProductModel> products = List<ProductModel>.from(args['products']);
+
+    // Filter produk yang ada di cartItems
+    final List<ProductModel> selectedProducts = products
+        .where((product) => cartItems.keys.contains(product.id))
+        .toList();
+
+    // Hitung total pembayaran
+    int totalPembayaran = 0;
+    for (var product in selectedProducts) {
+      int quantity = cartItems[product.id] ?? 0;
+      totalPembayaran += product.price * quantity;
+    }
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          'PILIH PEMBAYARAN',
+          'CEK PEMBELIAN',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey,
-
       ),
-      
       body: Stack(
         children: [
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -41,57 +57,41 @@ class _CekPembelianPage extends State<CekPembelianPage> {
               ),
             ),
           ),
-Container(
-  margin: const EdgeInsets.all(20), // Margin 10 di setiap sudut
-  color: const Color(0xFFDDE6ED).withOpacity(0.9), // Warna latar belakang opsional
-  child: Padding(
-    padding: const EdgeInsets.all(8.0), // Padding dalam container
-    child: Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      _buildItemCard(
-                        index: 0,
-                        namaProduk: 'BARANG 1',
-                        totalProduk: 'Rp40.000',
-                        jumlahPembelian: '2',
-                        imagePath: 'assets/produk/barang_1.jpeg',
-                      ),
-                      const SizedBox(height: 10),
-                      _buildItemCard(
-                        index: 1,
-                        namaProduk: 'BARANG 2',
-                        totalProduk: 'Rp20.000',
-                        jumlahPembelian: '1',
-                        imagePath: 'assets/produk/barang_2.jpeg',
-                      ),
-                      // Tambahkan lebih banyak item sesuai kebutuhan
-                      const SizedBox(height: 300),
-                    ],
+          // Content
+          Container(
+            margin: const EdgeInsets.all(20), // Margin 20 di setiap sudut
+            color: const Color(0xFFDDE6ED).withOpacity(0.9),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0), // Padding dalam container
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: selectedProducts.length,
+                      itemBuilder: (context, index) {
+                        var product = selectedProducts[index];
+                        int quantity = cartItems[product.id] ?? 0;
+                        return _buildItemCard(
+                          product: product,
+                          quantity: quantity,
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 10),
+                  _buildTotalPembayaranSection(
+                    totalPembayaran,
+                    cartItems,
+                    selectedProducts,
+                    shopId,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 10),
-        _buildTotalPembayaranSection(),
-      ],
-    ),
-  ),
-)
-
-
-
         ],
       ),
-            bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blueGrey,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
@@ -123,12 +123,11 @@ Container(
   }
 
   Widget _buildItemCard({
-    required int index,
-    required String namaProduk,
-    required String totalProduk,
-    required String jumlahPembelian,
-    required String imagePath,
+    required ProductModel product,
+    required int quantity,
   }) {
+    int totalHarga = product.price * quantity;
+
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -141,12 +140,27 @@ Container(
             // Gambar produk
             ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.asset(
-                imagePath,
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
-              ),
+              child: product.imageUrl.isNotEmpty
+                  ? Image.network(
+                      product.imageUrl,
+                      width: 60,
+                      height: 60,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/default.png',
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    )
+                  : Image.asset(
+                      'assets/default.png',
+                      width: 60,
+                      height: 60,
+                      fit: BoxFit.cover,
+                    ),
             ),
             const SizedBox(width: 16),
             // Informasi produk
@@ -155,15 +169,15 @@ Container(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    namaProduk,
+                    product.name,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("TOTAL: $totalProduk"),
-                      Text("Qty: $jumlahPembelian"),
+                      Text("TOTAL: Rp$totalHarga"),
+                      Text("Qty: $quantity"),
                     ],
                   ),
                 ],
@@ -175,65 +189,74 @@ Container(
     );
   }
 
-  Widget _buildTotalPembayaranSection() {
-return Container(
-  padding: const EdgeInsets.all(16),
-  decoration: BoxDecoration(
-    color: Colors.white, // Warna background putih
-    borderRadius: BorderRadius.circular(30), // Border radius yang membulat
-  ),
-  child: Column(
-    children: [
-      const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'TOTAL PEMBAYARAN',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            'Rp60.000',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
+  Widget _buildTotalPembayaranSection(
+    int totalPembayaran,
+    Map<String, int> cartItems,
+    List<ProductModel> selectedProducts,
+    String shopId,
+  ) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white, // Warna background putih
+        borderRadius: BorderRadius.circular(30), // Border radius yang membulat
       ),
-      const SizedBox(height: 20),
-      Row(
+      child: Column(
         children: [
-          Expanded(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange, // Warna tombol
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Border radius untuk tombol
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 16), // Padding untuk tombol
-              ),
-              onPressed: () {
-                // Aksi untuk membuat pesanan
-                Get.toNamed('/MemilihPembayaran'); // Mengganti dengan route untuk ProfilePage
-              },
-              child: const Text(
-                'BUAT PESANAN',
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'TOTAL PEMBAYARAN',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white, // Warna teks tombol
                 ),
               ),
-            ),
+              Text(
+                'Rp$totalPembayaran',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange, // Warna tombol
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10), // Border radius untuk tombol
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16), // Padding untuk tombol
+                  ),
+                  onPressed: () {
+                    // Aksi untuk membuat pesanan
+                    Get.toNamed('/MemilihPembayaran', arguments: {
+                      'shopId': shopId,
+                      'cartItems': cartItems,
+                      'selectedProducts': selectedProducts,
+                      'totalPembayaran': totalPembayaran,
+                    });
+                  },
+                  child: const Text(
+                    'BUAT PESANAN',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, // Warna teks tombol
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
-    ],
-  ),
-);
-
+    );
   }
 }

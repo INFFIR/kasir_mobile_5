@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
+import 'package:kasir_mobile_5/app/modules/components/widgets/bottom_nav_bar.dart';
 class ActivityPage extends StatelessWidget {
   const ActivityPage({super.key});
 

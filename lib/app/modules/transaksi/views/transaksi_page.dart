@@ -1,30 +1,25 @@
+// views/transaksi_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../components/bottom_nav_bar.dart';
-void main() {
-  runApp(const MaterialApp(
-    home: TransaksiPage(),
-  ));
-}
+import '../../components/widgets/bottom_nav_bar.dart';
+import '../../components/widgets/search_bar_widget.dart';
+import '../../storage/models/product_model.dart';
+import '../controllers/transkaksi_controller.dart';
 
-class TransaksiPage extends StatefulWidget {
+
+class TransaksiPage extends StatelessWidget {
   const TransaksiPage({super.key});
 
   @override
-  _TransaksiPageState createState() => _TransaksiPageState();
-}
-
-class _TransaksiPageState extends State<TransaksiPage> {
-  // List untuk menyimpan jumlah pembelian sebagai string
-  List<String> jumlahPembelianList = List.filled(6, '0'); // Menginisialisasi dengan 6 item
-
-  @override
   Widget build(BuildContext context) {
+    final TransaksiController controller = Get.find<TransaksiController>();
+    final TextEditingController searchController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          'EDIT PRODUK',
+          'TRANSAKSI',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey,
@@ -34,14 +29,28 @@ class _TransaksiPageState extends State<TransaksiPage> {
             color: Colors.white,
             onPressed: () {
               // Aksi untuk menyimpan item
-
-              Get.toNamed('/CekPembelian'); // Mengganti dengan route untuk ProfilePage
+              if (controller.cartItems.isNotEmpty) {
+                Get.toNamed('/CekPembelian', arguments: {
+                  'shopId': controller.shopId,
+                  'cartItems': controller.cartItems,
+                  'products': controller.products,
+                });
+              } else {
+                Get.snackbar(
+                  'Peringatan',
+                  'Anda belum memilih produk apa pun.',
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.orangeAccent,
+                  colorText: Colors.white,
+                );
+              }
             },
           ),
         ],
       ),
       body: Stack(
         children: [
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -50,109 +59,43 @@ class _TransaksiPageState extends State<TransaksiPage> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                const SizedBox(height: 50),
-                _buildItemCard(
-                  index: 0,
-                  namaProduk: 'BARANG 1',
-                  deksripsiProduk: 'Deskripsi barang 1',
-                  jumlahStok: '1000 Pcs',
-                  hargaProduk: 'Rp20.000',
-                  imagePath: 'assets/produk/barang_1.jpeg',
-                ),
-                const SizedBox(height: 10),
-                _buildItemCard(
-                  index: 1,
-                  namaProduk: 'BARANG 2',
-                  deksripsiProduk: 'Deskripsi barang 2',
-                  jumlahStok: '1000 Pcs',
-                  hargaProduk: 'Rp20.000',
-                  imagePath: 'assets/produk/barang_2.jpeg',
-                ),
-                const SizedBox(height: 10),
-                _buildItemCard(
-                  index: 2,
-                  namaProduk: 'BARANG 3',
-                  deksripsiProduk: 'Deskripsi barang 3',
-                  jumlahStok: '1000 Pcs',
-                  hargaProduk: 'Rp20.000',
-                  imagePath: 'assets/produk/barang_3.png',
-                ),
-                const SizedBox(height: 10),
-                _buildItemCard(
-                  index: 3,
-                  namaProduk: 'BARANG 4',
-                  deksripsiProduk: 'Deskripsi barang 4',
-                  jumlahStok: '1000 Pcs',
-                  hargaProduk: 'Rp20.000',
-                  imagePath: 'assets/produk/barang_4.jpeg',
-                ),
-                const SizedBox(height: 10),
-                _buildItemCard(
-                  index: 4,
-                  namaProduk: 'BARANG 5',
-                  deksripsiProduk: 'Deskripsi barang 5',
-                  jumlahStok: '1000 Pcs',
-                  hargaProduk: 'Rp20.000',
-                  imagePath: 'assets/produk/barang_5.jpg',
-                ),
-                const SizedBox(height: 10),
-                _buildItemCard(
-                  index: 5,
-                  namaProduk: 'BARANG 6',
-                  deksripsiProduk: 'Deskripsi barang 6',
-                  jumlahStok: '1000 Pcs',
-                  hargaProduk: 'Rp20.000',
-                  imagePath: 'assets/produk/barang_6.jpg',
-                ),
-                const SizedBox(height: 200),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 15,
-            left: 0,
-            right: 0,
-            child: Align(
-              child: Container(
-                width: 350,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF28374C).withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 16),
-                    const Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Cari...',
-                          hintStyle: TextStyle(
-                            color: Colors.white70,
-                          ),
-                          border: InputBorder.none,
-                        ),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        // Tambahkan fungsionalitas pencarian di sini
-                      },
-                    ),
-                    const SizedBox(width: 16),
-                  ],
+          // Content
+          Column(
+            children: [
+              // Menggunakan SearchBarWidget
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SearchBarWidget(
+                  controller: searchController,
+                  onChanged: (value) {
+                    controller.searchQuery.value = value;
+                  },
+                  onClear: () {
+                    searchController.clear();
+                    controller.searchQuery.value = '';
+                  },
                 ),
               ),
-            ),
+              // List of products
+              Expanded(
+                child: Obx(() {
+                  if (controller.filteredProducts.isEmpty) {
+                    return const Center(child: Text('Produk tidak ditemukan.'));
+                  }
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: controller.filteredProducts.length,
+                    itemBuilder: (context, index) {
+                      var product = controller.filteredProducts[index];
+                      return _buildItemCard(
+                        controller: controller,
+                        product: product,
+                      );
+                    },
+                  );
+                }),
+              ),
+            ],
           ),
         ],
       ),
@@ -161,16 +104,12 @@ class _TransaksiPageState extends State<TransaksiPage> {
   }
 
   Widget _buildItemCard({
-    required int index,
-    required String namaProduk,
-    required String deksripsiProduk,
-    required String jumlahStok,
-    required String hargaProduk,
-    required String imagePath,
+    required TransaksiController controller,
+    required ProductModel product,
   }) {
-    // Controller untuk input jumlah barang
-    final TextEditingController jumlahPembelianController =
-        TextEditingController(text: jumlahPembelianList[index]);
+    final TextEditingController jumlahPembelianController = TextEditingController(
+      text: controller.cartItems[product.id]?.toString() ?? '0',
+    );
 
     return Card(
       shape: RoundedRectangleBorder(
@@ -183,12 +122,27 @@ class _TransaksiPageState extends State<TransaksiPage> {
             // Gambar produk
             ClipRRect(
               borderRadius: BorderRadius.circular(10.0), // Atur radius gambar di sini
-              child: Image.asset(
-                imagePath,
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-              ),
+              child: product.imageUrl.isNotEmpty
+                  ? Image.network(
+                      product.imageUrl,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/default.png',
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    )
+                  : Image.asset(
+                      'assets/default.png',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
             ),
             const SizedBox(width: 16),
             // Informasi produk
@@ -198,16 +152,16 @@ class _TransaksiPageState extends State<TransaksiPage> {
                 children: [
                   // Nama barang di kiri atas
                   Text(
-                    namaProduk,
+                    product.name,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   // Deskripsi barang di tengah
                   Text(
-                    deksripsiProduk,
+                    product.description,
                     style: const TextStyle(color: Colors.grey),
                   ),
                   // Jumlah stok di kiri bawah
-                  Text(jumlahStok),
+                  Text('${product.quantity} pcs'),
                 ],
               ),
             ),
@@ -217,7 +171,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
               children: [
                 // Harga di kanan atas
                 Text(
-                  hargaProduk,
+                  'Rp ${product.price}',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 // Tombol pengurangan dan penambahan jumlah barang
@@ -227,15 +181,13 @@ class _TransaksiPageState extends State<TransaksiPage> {
                     IconButton(
                       icon: const Icon(Icons.remove),
                       onPressed: () {
-                        setState(() {
-                          // Mengurangi jumlah barang
-                          int currentJumlah = int.parse(jumlahPembelianList[index]);
-                          if (currentJumlah > 0) {
-                            currentJumlah--;
-                            jumlahPembelianList[index] = currentJumlah.toString();
-                          }
-                          jumlahPembelianController.text = jumlahPembelianList[index]; // Update nilai pada controller
-                        });
+                        int currentJumlah =
+                            int.tryParse(jumlahPembelianController.text) ?? 0;
+                        if (currentJumlah > 0) {
+                          currentJumlah--;
+                          jumlahPembelianController.text = currentJumlah.toString();
+                          controller.addToCart(product.id, currentJumlah);
+                        }
                       },
                     ),
                     // TextField untuk input jumlah barang
@@ -252,9 +204,8 @@ class _TransaksiPageState extends State<TransaksiPage> {
                           contentPadding: EdgeInsets.symmetric(vertical: 0),
                         ),
                         onChanged: (value) {
-                          setState(() {
-                            jumlahPembelianList[index] = value; // Update nilai pada list
-                          });
+                          int quantity = int.tryParse(value) ?? 0;
+                          controller.addToCart(product.id, quantity);
                         },
                       ),
                     ),
@@ -262,13 +213,11 @@ class _TransaksiPageState extends State<TransaksiPage> {
                     IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
-                        setState(() {
-                          // Menambah jumlah barang
-                          int currentJumlah = int.parse(jumlahPembelianList[index]);
-                          currentJumlah++;
-                          jumlahPembelianList[index] = currentJumlah.toString();
-                          jumlahPembelianController.text = jumlahPembelianList[index]; // Update nilai pada controller
-                        });
+                        int currentJumlah =
+                            int.tryParse(jumlahPembelianController.text) ?? 0;
+                        currentJumlah++;
+                        jumlahPembelianController.text = currentJumlah.toString();
+                        controller.addToCart(product.id, currentJumlah);
                       },
                     ),
                   ],

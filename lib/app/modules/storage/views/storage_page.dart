@@ -41,11 +41,11 @@ class StoragePage extends StatelessWidget {
             }
             final products = snapshot.data ?? [];
             if (products.isEmpty) {
-              return Center(
+              return const Center(
                 child: Text(
                   'Belum ada produk di toko ini.\nTekan tombol "+" untuk menambahkan produk.',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18),
                 ),
               );
             }

@@ -1,12 +1,9 @@
+// views/konfirmasi_debit_page.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
-
-void main() {
-  runApp(const MaterialApp(
-    home: KonfirmasiDebitPage(),
-  ));
-}
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../storage/models/product_model.dart';
 
 class KonfirmasiDebitPage extends StatefulWidget {
   const KonfirmasiDebitPage({super.key});
@@ -16,6 +13,79 @@ class KonfirmasiDebitPage extends StatefulWidget {
 }
 
 class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
+  late String shopId;
+  late Map<String, int> cartItems;
+  late List<ProductModel> selectedProducts;
+  late int totalPembayaran;
+  late String paymentMethod;
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    final args = Get.arguments as Map<String, dynamic>?;
+
+    if (args == null ||
+        args['shopId'] == null ||
+        args['cartItems'] == null ||
+        args['selectedProducts'] == null ||
+        args['totalPembayaran'] == null ||
+        args['paymentMethod'] == null) {
+      Get.snackbar(
+        'Error',
+        'Data pembayaran tidak lengkap.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      Get.back();
+    } else {
+      shopId = args['shopId'];
+      cartItems = Map<String, int>.from(args['cartItems']);
+      selectedProducts = List<ProductModel>.from(args['selectedProducts']);
+      totalPembayaran = args['totalPembayaran'];
+      paymentMethod = args['paymentMethod'];
+    }
+  }
+
+  Future<void> processPayment() async {
+    try {
+      // Memperbarui stok produk
+      for (var product in selectedProducts) {
+        int purchasedQuantity = cartItems[product.id] ?? 0;
+        int newQuantity = product.quantity - purchasedQuantity;
+
+        await _firestore
+            .collection('shops')
+            .doc(shopId)
+            .collection('products')
+            .doc(product.id)
+            .update({'quantity': newQuantity});
+      }
+
+      // Menyimpan transaksi (opsional)
+      // Anda bisa menambahkan logika untuk menyimpan detail transaksi ke Firestore
+
+      // Navigasi ke halaman pembayaran berhasil
+      Get.offNamed('/PembayaranBerhasil', arguments: {
+        'shopId': shopId,
+        'selectedProducts': selectedProducts,
+        'cartItems': cartItems,
+        'totalPembayaran': totalPembayaran,
+        'paymentMethod': paymentMethod,
+      });
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Terjadi kesalahan saat memproses pembayaran.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +103,6 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
           _buildContent(context),
         ],
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 
@@ -126,109 +195,110 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(30),
         ),
-        child: const Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'SEBESAR :',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Rp60.000',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            const Text(
+              'SEBESAR :',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            SizedBox(height: 10),
+            Text(
+              'Rp$totalPembayaran',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-// Method to build the bank info section
-Widget _buildBankInfoSection() {
-  return Center(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'BANK : XXX',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'NO REKENING :',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        // This is the white box containing the account number and "SALIN" button
-        Container(
-          width: 350,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  const Expanded(
-                    child: Text(
-                      'XXXX XXXX XXXX XXXX',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  TextButton(
-                    onPressed: () {
-                      // Add copy functionality if needed
-                    },
-                    child: const Text(
-                      'SALIN',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                ],
+  // Method to build the bank info section
+  Widget _buildBankInfoSection() {
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'BANK : BCA',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
-            ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
+          const SizedBox(height: 10),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'NO REKENING :',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          // This is the white box containing the account number and "SALIN" button
+          Container(
+            width: 350,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        '1234 5678 9012 3456',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    TextButton(
+                      onPressed: () {
+                        // Add copy functionality
+                        Clipboard.setData(const ClipboardData(text: '1234567890123456'));
+                        Get.snackbar(
+                          'Info',
+                          'Nomor rekening telah disalin',
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.green,
+                          colorText: Colors.white,
+                        );
+                      },
+                      child: const Text(
+                        'SALIN',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   // Method to build the button section
   Widget _buildButtonSection({double buttonWidth = 350}) {
@@ -246,8 +316,7 @@ Widget _buildBankInfoSection() {
             label: 'KONFIRMASI PEMBAYARAN',
             color: Colors.orange,
             onPressed: () {
-
-            Get.toNamed('/PembayaranBerhasil'); // Mengganti dengan route untuk ProfilePage
+              processPayment();
             },
           ),
           const SizedBox(height: 10),

@@ -1,3 +1,5 @@
+// pages/edit_produk_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/edit_produk_controller.dart';
@@ -134,12 +136,18 @@ class EditProdukPage extends StatelessWidget {
                       const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
-                          int tambahJumlah =
-                              int.tryParse(controller.tambahJumlahController.text) ??
-                                  0;
-                          controller.jumlahBarang.value += tambahJumlah;
+                          int tambahJumlah = int.tryParse(
+                                  controller.tambahJumlahController.text) ??
+                              0;
+                          int newJumlah =
+                              controller.jumlahBarang.value + tambahJumlah;
+                          if (newJumlah < 0) {
+                            handleException('Jumlah barang tidak boleh negatif');
+                            return;
+                          }
+                          controller.jumlahBarang.value = newJumlah;
                           controller.jumlahController.text =
-                              controller.jumlahBarang.value.toString();
+                              newJumlah.toString();
                           controller.tambahJumlahController.clear();
                         },
                         child: const Text('Tambah ke Jumlah Barang'),
@@ -172,22 +180,23 @@ class EditProdukPage extends StatelessWidget {
                                 actions: [
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(); // Menutup dialog
+                                      Navigator.of(context).pop();
                                     },
                                     child: const Text('Batal'),
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      String inputName =
-                                          confirmationController.text.trim();
+                                      String inputName = confirmationController
+                                          .text
+                                          .trim();
                                       if (inputName ==
-                                          controller.namaController.text.trim()) {
+                                          controller.namaController.text
+                                              .trim()) {
                                         controller.deleteProduct();
-                                        Navigator.of(context)
-                                            .pop(); // Menutup dialog setelah penghapusan
+                                        Navigator.of(context).pop();
                                       } else {
-                                        handleException('Nama produk tidak cocok');
+                                        handleException(
+                                            'Nama produk tidak cocok');
                                       }
                                     },
                                     child: const Text('Hapus'),

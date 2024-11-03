@@ -1,26 +1,40 @@
+// views/pembayaran_berhasil_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-void main() {
-  runApp(const MaterialApp(
-    home: PembayaranBerhasilPage(),
-  ));
-}
 
-class PembayaranBerhasilPage extends StatefulWidget {
+
+class PembayaranBerhasilPage extends StatelessWidget {
   const PembayaranBerhasilPage({super.key});
 
   @override
-  _PembayaranBerhasilPageState createState() => _PembayaranBerhasilPageState();
-}
-
-class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
-  @override
   Widget build(BuildContext context) {
+    final args = Get.arguments as Map<String, dynamic>?;
+
+    if (args == null ||
+        args['shopId'] == null ||
+        args['selectedProducts'] == null ||
+        args['cartItems'] == null ||
+        args['totalPembayaran'] == null ||
+        args['paymentMethod'] == null) {
+      Get.snackbar(
+        'Error',
+        'Data transaksi tidak lengkap.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      Get.offNamed('/Home');
+      return Container();
+    }
+
+    final String paymentMethod = args['paymentMethod'];
+    final int totalPembayaran = args['totalPembayaran'];
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          'KONFIRMASI PEMBAYARAN CASH',
+          'PEMBAYARAN BERHASIL',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey,
@@ -28,7 +42,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
       body: Stack(
         children: [
           _buildBackground(),
-          _buildContent(context),
+          _buildContent(context, paymentMethod, totalPembayaran),
         ],
       ),
     );
@@ -47,7 +61,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
   }
 
   // Method to build the main content of the page
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context, String paymentMethod, int totalPembayaran) {
     return Center(
       child: Container(
         width: 350,
@@ -77,18 +91,18 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'PEMBAYARAN MENGGUNAKAN CASH',
+            Text(
+              'PEMBAYARAN MENGGUNAKAN $paymentMethod',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 color: Colors.black54,
               ),
             ),
             const SizedBox(height: 40),
-            _buildTotalPaymentSection(),
+            _buildTotalPaymentSection(totalPembayaran),
             const SizedBox(height: 30),
-            _buildButtonSection(),
+            _buildButtonSection(context),
           ],
         ),
       ),
@@ -96,7 +110,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
   }
 
   // Method to build the total payment section
-  Widget _buildTotalPaymentSection() {
+  Widget _buildTotalPaymentSection(int totalPembayaran) {
     return Center(
       child: Container(
         width: 350,
@@ -105,29 +119,24 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(30),
         ),
-        child: const Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'SEBESAR:',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Rp60.000',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            const Text(
+              'SEBESAR:',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            SizedBox(height: 1),
+            Text(
+              'Rp$totalPembayaran',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 1),
           ],
         ),
       ),
@@ -135,7 +144,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
   }
 
   // Method to build the button section
-  Widget _buildButtonSection() {
+  Widget _buildButtonSection(BuildContext context) {
     return Column(
       children: [
         _buildActionButton(
@@ -144,7 +153,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
           color: Colors.orange,
           onPressed: () {
             // Add your action here
-            Get.offNamed('/Struk'); // Mengganti dengan route untuk ProfilePage
+            Get.offNamed('/Struk', arguments: Get.arguments);
           },
         ),
         const SizedBox(height: 10),
@@ -153,7 +162,7 @@ class _PembayaranBerhasilPageState extends State<PembayaranBerhasilPage> {
           label: 'KEMBALI KE BERANDA',
           color: Colors.red,
           onPressed: () {
-            Get.offNamed('/Home'); // Mengganti dengan route untuk ProfilePage
+            Get.offNamed('/Home');
           },
         ),
       ],

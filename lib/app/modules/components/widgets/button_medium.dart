@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ButtonHome extends StatelessWidget {
+class ButtonMedium extends StatelessWidget {
   final String label;
   final IconData icon;
   final String routeName;
   final Map<String, dynamic>? arguments;
   final Color backgroundColor;
 
-  const ButtonHome({
+  const ButtonMedium({
     super.key,
     required this.label,
     required this.icon,
@@ -20,7 +20,7 @@ class ButtonHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10), // Menggunakan margin yang diberikan
+      margin: const EdgeInsets.all(10),
       child: SizedBox(
         height: 150,
         width: 350,

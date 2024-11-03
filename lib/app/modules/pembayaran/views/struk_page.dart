@@ -1,26 +1,47 @@
+// views/struk_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-void main() {
-  runApp(const MaterialApp(
-    home: StrukPage(),
-  ));
-}
+import '../../storage/models/product_model.dart';
 
-class StrukPage extends StatefulWidget {
+
+class StrukPage extends StatelessWidget {
   const StrukPage({super.key});
 
   @override
-  _StrukPageState createState() => _StrukPageState();
-}
-
-class _StrukPageState extends State<StrukPage> {
-  @override
   Widget build(BuildContext context) {
+    final args = Get.arguments as Map<String, dynamic>?;
+
+    if (args == null ||
+        args['shopId'] == null ||
+        args['selectedProducts'] == null ||
+        args['cartItems'] == null ||
+        args['totalPembayaran'] == null ||
+        args['paymentMethod'] == null) {
+      Get.snackbar(
+        'Error',
+        'Data transaksi tidak lengkap.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      Get.offNamed('/Home');
+      return Container();
+    }
+
+    final String paymentMethod = args['paymentMethod'];
+    final int totalPembayaran = args['totalPembayaran'];
+    final Map<String, int> cartItems = Map<String, int>.from(args['cartItems']);
+    final List<ProductModel> selectedProducts = List<ProductModel>.from(args['selectedProducts']);
+
+    // Dapatkan tanggal dan waktu sekarang
+    final DateTime now = DateTime.now();
+    final String formattedDate = '${now.day}-${now.month}-${now.year} ${now.hour}:${now.minute}:${now.second}';
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          'PEMBAYARAN BERHASIL',
+          'STRUK PEMBAYARAN',
           style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.blueGrey,
@@ -28,7 +49,7 @@ class _StrukPageState extends State<StrukPage> {
       body: Stack(
         children: [
           _buildBackground(),
-          _buildContent(context),
+          _buildContent(context, paymentMethod, totalPembayaran, cartItems, selectedProducts, formattedDate),
         ],
       ),
     );
@@ -42,7 +63,14 @@ class _StrukPageState extends State<StrukPage> {
     );
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(
+    BuildContext context,
+    String paymentMethod,
+    int totalPembayaran,
+    Map<String, int> cartItems,
+    List<ProductModel> selectedProducts,
+    String formattedDate,
+  ) {
     return Center(
       child: Container(
         width: 350,
@@ -70,21 +98,29 @@ class _StrukPageState extends State<StrukPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'TANGGAL :\nXX-XX-XX XX:XX:XX WIB\n'
+              Text(
+                'TANGGAL :\n$formattedDate WIB\n'
                 'NOMOR REFERENSI :\nID XXX XXX XXX\n',
-                style: TextStyle(fontSize: 14, color: Colors.grey),
+                style: const TextStyle(fontSize: 14, color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-              _buildItemRow('2 x BARANG 1', 'Rp20.000', 'Rp40.000'),
-              _buildItemRow('1 x BARANG 1', 'Rp20.000', 'Rp20.000'),
+              // List item transaksi
+              ...selectedProducts.map((product) {
+                int quantity = cartItems[product.id] ?? 0;
+                int totalHarga = product.price * quantity;
+                return _buildItemRow(
+                  '$quantity x ${product.name}',
+                  'Rp${product.price}',
+                  'Rp$totalHarga',
+                );
+              }).toList(),
               const Divider(height: 30, thickness: 2),
-              _buildTotalRow('TOTAL', 'Rp60.000'),
+              _buildTotalRow('TOTAL', 'Rp$totalPembayaran'),
               const SizedBox(height: 20),
-              const Text(
-                'METODE PEMBAYARAN :\nCASH',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+              Text(
+                'METODE PEMBAYARAN :\n$paymentMethod',
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
@@ -100,7 +136,7 @@ class _StrukPageState extends State<StrukPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(itemName, style: const TextStyle(fontSize: 16)),
+        Expanded(child: Text(itemName, style: const TextStyle(fontSize: 16))),
         Text(totalPrice, style: const TextStyle(fontSize: 16)),
       ],
     );

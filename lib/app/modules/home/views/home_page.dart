@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../components/bottom_nav_bar.dart';
+import '../../components/widgets/bottom_nav_bar.dart';
 import '../controllers/home_controller.dart';
-import '../widgets/button_home.dart'; // Import CustomBottomNavigationBar
+import '../../components/widgets/button_medium.dart'; // Import ButtonMedium
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -46,25 +46,25 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ButtonHome(
+                  ButtonMedium(
                     label: 'TRANSAKSI',
                     icon: Icons.attach_money,
                     routeName: '/Transaksi',
                     arguments: {'shopId': controller.shopId},
                   ),
-                  ButtonHome(
+                  ButtonMedium(
                     label: 'STOK BARANG',
                     icon: Icons.inventory,
                     routeName: '/Storage',
                     arguments: {'shopId': controller.shopId},
                   ),
-                  ButtonHome(
+                  ButtonMedium(
                     label: 'RIWAYAT',
                     icon: Icons.history,
                     routeName: '/AllActivity',
                     arguments: {'shopId': controller.shopId},
                   ),
-                  ButtonHome(
+                  ButtonMedium(
                     label: 'KELOLA AKUN PEGAWAI',
                     icon: Icons.person_add,
                     routeName: '/KelolaAkunPegawai',

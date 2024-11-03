@@ -1,12 +1,8 @@
+// views/konfirmasi_cash_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kasir_mobile_5/app/modules/components/bottom_nav_bar.dart';
-
-void main() {
-  runApp(const MaterialApp(
-    home: KonfirmasiCashPage(),
-  ));
-}
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../storage/models/product_model.dart';
 
 class KonfirmasiCashPage extends StatefulWidget {
   const KonfirmasiCashPage({super.key});
@@ -16,6 +12,79 @@ class KonfirmasiCashPage extends StatefulWidget {
 }
 
 class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
+  late String shopId;
+  late Map<String, int> cartItems;
+  late List<ProductModel> selectedProducts;
+  late int totalPembayaran;
+  late String paymentMethod;
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    final args = Get.arguments as Map<String, dynamic>?;
+
+    if (args == null ||
+        args['shopId'] == null ||
+        args['cartItems'] == null ||
+        args['selectedProducts'] == null ||
+        args['totalPembayaran'] == null ||
+        args['paymentMethod'] == null) {
+      Get.snackbar(
+        'Error',
+        'Data pembayaran tidak lengkap.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      Get.back();
+    } else {
+      shopId = args['shopId'];
+      cartItems = Map<String, int>.from(args['cartItems']);
+      selectedProducts = List<ProductModel>.from(args['selectedProducts']);
+      totalPembayaran = args['totalPembayaran'];
+      paymentMethod = args['paymentMethod'];
+    }
+  }
+
+  Future<void> processPayment() async {
+    try {
+      // Memperbarui stok produk
+      for (var product in selectedProducts) {
+        int purchasedQuantity = cartItems[product.id] ?? 0;
+        int newQuantity = product.quantity - purchasedQuantity;
+
+        await _firestore
+            .collection('shops')
+            .doc(shopId)
+            .collection('products')
+            .doc(product.id)
+            .update({'quantity': newQuantity});
+      }
+
+      // Menyimpan transaksi (opsional)
+      // Anda bisa menambahkan logika untuk menyimpan detail transaksi ke Firestore
+
+      // Navigasi ke halaman pembayaran berhasil
+      Get.offNamed('/PembayaranBerhasil', arguments: {
+        'shopId': shopId,
+        'selectedProducts': selectedProducts,
+        'cartItems': cartItems,
+        'totalPembayaran': totalPembayaran,
+        'paymentMethod': paymentMethod,
+      });
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Terjadi kesalahan saat memproses pembayaran.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +102,6 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
           _buildContent(context),
         ],
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 
@@ -124,29 +192,23 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(30),
         ),
-        child: const Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'SEBESAR :',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Rp60.000',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            const Text(
+              'SEBESAR :',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            SizedBox(height: 1),
+            Text(
+              'Rp$totalPembayaran',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),
@@ -169,8 +231,7 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
             label: 'Konfirmasi',
             color: Colors.orange,
             onPressed: () {
-
-            Get.toNamed('/PembayaranBerhasil'); // Mengganti dengan route untuk ProfilePage
+              processPayment();
             },
           ),
           const SizedBox(height: 10),
