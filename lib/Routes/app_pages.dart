@@ -4,6 +4,7 @@ import 'package:kasir_mobile_5/app/modules/home/bindings/home_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/login_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/lupa_password_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/sign_up_binding.dart';
+import 'package:kasir_mobile_5/app/modules/profile/bindings/profile_binding.dart';
 import 'package:kasir_mobile_5/app/modules/storage/bindings/storage_binding.dart';
 import 'package:kasir_mobile_5/app/modules/storage/bindings/tambah_produk_binding.dart';
 import 'package:kasir_mobile_5/app/modules/transaksi/bindings/transaksi_binding.dart';
@@ -148,11 +149,13 @@ class AppPages {
     // PROFILE
     GetPage(
       name: AppRoutes.profile,
-      page: () => const ProfilePage(),
+      page: () => ProfilePage(),
+      binding: ProfileBinding()
     ),
     GetPage(
       name: AppRoutes.changeProfile,
       page: () => const ChangeProfilePage(),
+      binding: ProfileBinding()
     ),
     GetPage(
       name: AppRoutes.changePassword,

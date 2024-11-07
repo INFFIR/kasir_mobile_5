@@ -51,7 +51,7 @@ class TransaksiController extends GetxController {
           .listen((snapshot) {
         products.value = snapshot.docs
             .map((doc) => ProductModel.fromMap(
-                doc.data() as Map<String, dynamic>, doc.id))
+                doc.data(), doc.id))
             .toList();
         // Setelah mendapatkan produk, lakukan filter awal
         filterProducts(searchQuery.value);

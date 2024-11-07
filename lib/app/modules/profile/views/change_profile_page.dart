@@ -1,40 +1,106 @@
+// lib/pages/change_profile_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kasir_mobile_5/app/modules/components/widgets/bottom_nav_bar.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import '../../components/widgets/bottom_nav_bar.dart';
+import '../controllers/profile_controller.dart';
+
 class ChangeProfilePage extends StatefulWidget {
-  const ChangeProfilePage({super.key});
+  const ChangeProfilePage({Key? key}) : super(key: key);
 
   @override
   _ChangeProfilePageState createState() => _ChangeProfilePageState();
 }
 
 class _ChangeProfilePageState extends State<ChangeProfilePage> {
+  final ProfileController _profileController = Get.find<ProfileController>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
+  File? _selectedImage;
 
-  void _changeProfile() {
-    // Logika untuk mengubah username
-    // Tambahkan logika untuk memproses dan menyimpan username di sini
+  @override
+  void initState() {
+    super.initState();
+    _usernameController.text = _profileController.username.value;
+    _bioController.text = _profileController.bio.value;
 
-    // Menampilkan pop-up dialog
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
+    // Listen to changes in the controller to update the UI
+    ever(_profileController.username, (value) {
+      _usernameController.text = value;
+    });
+    ever(_profileController.bio, (value) {
+      _bioController.text = value;
+    });
+  }
+
+  Future<void> _pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? pickedImage =
+        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImage = File(pickedImage.path);
+      });
+    }
+  }
+
+  void _changeProfile() async {
+    String username = _usernameController.text.trim();
+    String bio = _bioController.text.trim();
+
+    if (username.isEmpty) {
+      Get.dialog(
+        AlertDialog(
+          title: const Text("Input Kosong"),
+          content: const Text("Username tidak boleh kosong."),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text("OK"),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    try {
+      await _profileController.updateProfile(
+        username: username,
+        bio: bio,
+        profileImage: _selectedImage,
+      );
+
+      Get.dialog(
+        AlertDialog(
           title: const Text('Berhasil'),
           content: const Text('Profile berhasil diubah!'),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Menutup dialog
-                Get.back(); 
+                Get.back();
+                Get.back();
               },
               child: const Text('OK'),
             ),
           ],
-        );
-      },
-    );
+        ),
+      );
+    } catch (e) {
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Error'),
+          content: Text('Terjadi kesalahan: $e'),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text("OK"),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override
@@ -46,67 +112,85 @@ class _ChangeProfilePageState extends State<ChangeProfilePage> {
       ),
       body: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Image.asset(
-              'assets/background.png', // Ganti dengan path gambar Anda
-              fit: BoxFit.cover, // Agar gambar menutupi seluruh halaman
+              'assets/background.png',
+              fit: BoxFit.cover,
             ),
           ),
-          // Form and elements with white background
           Center(
-            child: SizedBox(
-              width: 350, // Tentukan lebar yang diinginkan
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
-                  borderRadius: BorderRadius.circular(12), // Sudut membulat
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min, // Agar kolom hanya sebesar konten
-                  children: [
-                    TextField(
-                      controller: _usernameController,
-                      decoration: InputDecoration(
-                        labelText: 'Masukkan Username:',
-                        filled: true,
-                        fillColor: Colors.grey.shade200.withOpacity(0.8),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
-                        ),
+            child: SingleChildScrollView(
+              child: SizedBox(
+                width: 350,
+                child: Container(
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.9),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GestureDetector(
+                        onTap: _pickImage,
+                        child: Obx(() {
+                          return CircleAvatar(
+                            radius: 50,
+                            backgroundImage: _selectedImage != null
+                                ? FileImage(_selectedImage!)
+                                : (_profileController.profilePictureUrl.value.isNotEmpty
+                                    ? NetworkImage(_profileController.profilePictureUrl.value)
+                                    : const AssetImage('assets/default.png') as ImageProvider),
+                          );
+                        }),
                       ),
-                      obscureText: false, // Username tidak perlu disembunyikan
-                    ),
-                    const SizedBox(height: 20),
-                    TextField(
-                      controller: _bioController,
-                      decoration: InputDecoration(
-                        labelText: 'Bio (Optional):',
-                        filled: true,
-                        fillColor: Colors.grey.shade200.withOpacity(0.8),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
-                        ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Tap to change profile picture',
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
-                      obscureText: false, // Bio juga tidak perlu disembunyikan
-                    ),
-                    const SizedBox(height: 60),
-                    ElevatedButton(
-                      onPressed: _changeProfile ,
-                      
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        minimumSize: const Size(double.infinity, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                      const SizedBox(height: 20),
+                      TextField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          labelText: 'Masukkan Username:',
+                          filled: true,
+                          fillColor: Colors.grey.shade200.withOpacity(0.8),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
                         ),
+                        obscureText: false,
                       ),
-                      child: const Text('Ubah Profile'),
-                    ),
-                  ],
+                      const SizedBox(height: 20),
+                      TextField(
+                        controller: _bioController,
+                        decoration: InputDecoration(
+                          labelText: 'Bio (Optional):',
+                          filled: true,
+                          fillColor: Colors.grey.shade200.withOpacity(0.8),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                        obscureText: false,
+                      ),
+                      const SizedBox(height: 60),
+                      ElevatedButton(
+                        onPressed: _changeProfile,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          minimumSize: const Size(double.infinity, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text('Ubah Profile'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

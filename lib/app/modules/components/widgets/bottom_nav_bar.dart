@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../home/controllers/home_controller.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key});
@@ -26,11 +27,42 @@ class CustomBottomNavigationBar extends StatelessWidget {
       ],
       onTap: (index) {
         if (index == 0) {
-          Get.toNamed('/Profile'); // Ganti dengan route untuk ProfilePage
+          // Navigasi ke ProfilePage
+          Get.toNamed('/Profile');
         } else if (index == 1) {
-          Get.offAllNamed('/Home'); // Ganti dengan route untuk HomePage
+          // Navigasi ke HomePage
+          if (Get.currentRoute != '/Home') {
+            // Cek apakah HomeController sudah diinisialisasi
+            if (Get.isRegistered<HomeController>()) {
+              final HomeController homeController = Get.find<HomeController>();
+              final String shopId = homeController.shopId;
+
+              // Navigasi ke Home dengan menyertakan shopId sebagai argumen
+              Get.offAllNamed(
+                '/Home',
+                arguments: {'shopId': shopId},
+              );
+            } else {
+              // Jika HomeController belum diinisialisasi, tampilkan pesan error
+              Get.snackbar(
+                'Error',
+                'HomeController tidak ditemukan. Silakan coba lagi.',
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Colors.redAccent,
+                colorText: Colors.white,
+              );
+            }
+          } else {
+            // Jika sudah berada di Home, tampilkan pesan informasi (opsional)
+            Get.snackbar(
+              'Info',
+              'Anda sudah berada di halaman Home.',
+              snackPosition: SnackPosition.TOP,
+            );
+          }
         } else if (index == 2) {
-          Get.back(); // Kembali ke halaman sebelumnya
+          // Navigasi kembali ke halaman sebelumnya
+          Get.back();
         }
       },
     );

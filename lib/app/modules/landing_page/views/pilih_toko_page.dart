@@ -165,7 +165,7 @@ class _PilihTokoPageState extends State<PilihTokoPage> {
                         },
                       ),
                       onTap: () {
-                        Get.toNamed(
+                        Get.offAllNamed(
                           '/Home',
                           arguments: {'shopId': shop.id},
                         );

@@ -38,7 +38,7 @@ class StorageController extends GetxController {
           .map((snapshot) {
         return snapshot.docs
             .map((doc) => ProductModel.fromMap(
-                doc.data() as Map<String, dynamic>, doc.id))
+                doc.data(), doc.id))
             .toList();
       });
     } catch (e) {

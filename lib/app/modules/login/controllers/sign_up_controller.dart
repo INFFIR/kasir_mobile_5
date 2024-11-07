@@ -43,6 +43,7 @@ class SignUpController extends GetxController {
         'email': email,
         'role': 'user', // Default role
         'createdAt': FieldValue.serverTimestamp(),
+        // 'bio' tidak ditambahkan di sini, akan diatur di ChangeProfilePage
       });
 
       // Tampilkan dialog sukses
