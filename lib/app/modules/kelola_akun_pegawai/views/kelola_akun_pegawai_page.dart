@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kasir_mobile_5/app/modules/components/widgets/bottom_nav_bar.dart';
-
+import 'package:kasir_mobile_5/app/modules/components/widgets/button_medium.dart';
 
 class KelolaAkunPegawaiPage extends StatelessWidget {
   const KelolaAkunPegawaiPage({super.key});
@@ -19,7 +19,7 @@ class KelolaAkunPegawaiPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-                    // Background image
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -28,147 +28,33 @@ class KelolaAkunPegawaiPage extends StatelessWidget {
               ),
             ),
           ),
-          SingleChildScrollView(
+          const SingleChildScrollView(
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 10),
-                  // Button 1: Tambah Akun
-                SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-  
-                        Get.toNamed('/DetailKaryawan'); // Mengganti dengan route untuk ProfilePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.manage_accounts,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'PEGAWAI 1 (Username)',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SizedBox(height: 10),
+                  // Button 1: Pegawai 1
+                  ButtonMedium(
+                    label: 'PEGAWAI 1 (Username)',
+                    icon: Icons.manage_accounts,
+                    routeName: '/DetailKaryawan',
                   ),
-                  const SizedBox(height: 10),
-                  // Button 2: Kelola Akun
-                  SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: ElevatedButton(
-                    onPressed: () {
-
-                        Get.toNamed('/DetailKaryawan'); // Mengganti dengan route untuk ProfilePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.manage_accounts,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'PEGAWAI 2 (Username)',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SizedBox(height: 10),
+                  // Button 2: Pegawai 2
+                  ButtonMedium(
+                    label: 'PEGAWAI 2 (Username)',
+                    icon: Icons.manage_accounts,
+                    routeName: '/DetailKaryawan',
                   ),
-                  const SizedBox(height: 10),
-                  // Button 3: Hapus Akun
-                SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-    
-                        Get.toNamed('/DetailKaryawan'); // Mengganti dengan route untuk ProfilePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.manage_accounts,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'PEGAWAI 3 (Username)',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  SizedBox(height: 10),
+                  // Button 3: Pegawai 3
+                  ButtonMedium(
+                    label: 'PEGAWAI 3 (Username)',
+                    icon: Icons.manage_accounts,
+                    routeName: '/DetailKaryawan',
                   ),
-                  const SizedBox(height: 300),
+                  SizedBox(height: 300),
                 ],
               ),
             ),
@@ -180,7 +66,6 @@ class KelolaAkunPegawaiPage extends StatelessWidget {
             child: FloatingActionButton(
               onPressed: () {
                 // Action saat tombol '+' ditekan
-
                 Get.toNamed('/TambahPegawai'); // Mengganti dengan route untuk ProfilePage
               },
               backgroundColor: const Color(0xFF28374C),

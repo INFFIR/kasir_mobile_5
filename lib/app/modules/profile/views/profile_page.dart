@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../components/widgets/bottom_nav_bar.dart';
-import '../widgets/button_profile.dart';
+import '../../components/widgets/button_small.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -73,28 +73,28 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 50),
-                    ButtonProfile(
+                    ButtonSmall(
                       icon: Icons.edit,
                       label: 'EDIT PROFILE',
                       onPressed: () {
                         Get.toNamed('/ChangeProfile');
                       },
                     ),
-                    ButtonProfile(
+                    ButtonSmall(
                       icon: Icons.lock,
                       label: 'GANTI PASSWORD',
                       onPressed: () {
                         Get.toNamed('/ChangePassword');
                       },
                     ),
-                    ButtonProfile(
+                    ButtonSmall(
                       icon: Icons.history,
                       label: 'AKTIVITAS ANDA',
                       onPressed: () {
                         Get.toNamed('/ActivityProfile');
                       },
                     ),
-                    ButtonProfile(
+                    ButtonSmall(
                       icon: Icons.logout,
                       label: 'LOG OUT',
                       buttonColor: Colors.red,

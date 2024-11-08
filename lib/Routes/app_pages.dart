@@ -1,6 +1,8 @@
 // lib/routes/app_pages.dart
 import 'package:get/get.dart';
 import 'package:kasir_mobile_5/app/modules/home/bindings/home_binding.dart';
+import 'package:kasir_mobile_5/app/modules/landing_page/bindings/pilih_tempat_kerja_binding.dart';
+import 'package:kasir_mobile_5/app/modules/landing_page/bindings/pilih_toko_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/login_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/lupa_password_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/sign_up_binding.dart';
@@ -26,7 +28,6 @@ import '../app/modules/home/views/home_page.dart';
 // KELOLA AKUN PEGAWAI
 import '../app/modules/kelola_akun_pegawai/views/activity_pegawai_page.dart';
 import '../app/modules/kelola_akun_pegawai/views/detail_karyawan_page.dart';
-import '../app/modules/kelola_akun_pegawai/views/hapus_akun_page.dart';
 import '../app/modules/kelola_akun_pegawai/views/kelola_akun_pegawai_page.dart';
 import '../app/modules/kelola_akun_pegawai/views/tambah_pegawai_page.dart';
 
@@ -84,6 +85,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.pilihToko,
       page: () =>  const PilihTokoPage(),
+      binding: PilihTokoBinding()
     ),
     GetPage(
       name: AppRoutes.buatToko,
@@ -96,6 +98,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.pilihTempatKerja,
       page: () => const PilihTempatKerjaPage(),
+      binding: PilihTempatKerjaBinding()
     ),
 
     // HOMEPAGE
@@ -122,10 +125,7 @@ class AppPages {
       name: AppRoutes.detailKaryawan,
       page: () => const DetailKaryawanPage(),
     ),
-    GetPage(
-      name: AppRoutes.hapusAkun,
-      page: () => const HapusAkunPage(),
-    ),
+
 
     // OTHER
     GetPage(

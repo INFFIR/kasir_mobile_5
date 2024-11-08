@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class ButtonProfile extends StatelessWidget {
+class ButtonSmall extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onPressed;
   final Color? buttonColor;
 
-  const ButtonProfile({
+  const ButtonSmall({
     super.key,
     required this.icon,
     required this.label,
@@ -17,7 +17,7 @@ class ButtonProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10), // Menambahkan margin 20 di setiap sisi
+      margin: const EdgeInsets.all(10), // Menambahkan margin 10 di setiap sisi
       child: SizedBox(
         height: 75,
         width: 350,

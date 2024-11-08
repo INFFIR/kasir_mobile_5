@@ -1,22 +1,29 @@
+// pages/pilih_tempat_kerja_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../controllers/pilih_tempat_kerja_controller.dart';
+import '../widgets/pilih_tempat_kerja_card.dart'; // Pastikan path ini benar
 
 class PilihTempatKerjaPage extends StatelessWidget {
   const PilihTempatKerjaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Menggunakan GetBuilder atau Obx untuk reaktif
+    final PilihTempatKerjaController controller = Get.find<PilihTempatKerjaController>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'PEKERJAAN KAMU',
+          'PEMILIHAN TEMPAT KERJA',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueGrey, // Warna header
       ),
       body: Stack(
         children: [
-                    // Background image
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -25,71 +32,38 @@ class PilihTempatKerjaPage extends StatelessWidget {
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 10),
-                  // Button 1: Tambah Akun
-                SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () {
-
-                         Get.offNamed('/Home'); // Mengganti dengan route untuk HomePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Icon(
-                                Icons.business_center,
-                                color: Color(0xFF28374C),
-                                size: 40,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Center(
-                              child: Text(
-                                'TOKO SUKSES',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF28374C),
-                                  fontSize: 24,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Obx(() {
+              if (controller.tempatKerjaList.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'Tidak ada tempat kerja tersedia.',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  const SizedBox(height: 500),
-                ],
-              ),
-            ),
+                );
+              }
+
+              return ListView.builder(
+                itemCount: controller.tempatKerjaList.length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot tempatKerja = controller.tempatKerjaList[index];
+                  return PilihTempatKerjaCard(tempatKerja: tempatKerja);
+                },
+              );
+            }),
           ),
-          // Floating Action Button (FAB) with '+' icon
+          // Floating Action Button (FAB) dengan ikon '+'
           Positioned(
             bottom: 20,
             right: 20,
             child: FloatingActionButton(
               onPressed: () {
-                // Action saat tombol '+' ditekan
-
-               Get.toNamed('/Mail'); // Mengganti dengan route untuk HomePage
+                // Aksi saat tombol '+' ditekan
+                Get.toNamed('/Mail'); // Ganti dengan route yang sesuai
               },
               backgroundColor: const Color(0xFF28374C),
               child: const Icon(Icons.add, color: Colors.white),
