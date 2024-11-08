@@ -1,9 +1,13 @@
+// controllers/edit_produk_controller.dart
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import '../../all_activity/models/history_model.dart';
+import '../../all_activity/services/history_service.dart';
 import '../models/product_model.dart';
 import '../utils/storage_exception_handler.dart';
 
@@ -12,6 +16,7 @@ class EditProdukController extends GetxController {
   late String productId;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final HistoryService _historyService = HistoryService();
 
   final TextEditingController namaController = TextEditingController();
   final TextEditingController deskripsiController = TextEditingController();
@@ -22,6 +27,9 @@ class EditProdukController extends GetxController {
   var jumlahBarang = 0.obs;
   File? imageFile;
   String? imageUrl;
+
+  // Hapus deklarasi duplikat _auth
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void onInit() {
@@ -129,6 +137,32 @@ class EditProdukController extends GetxController {
           .doc(productId)
           .update(updatedProduct.toMap());
 
+      // Mencatat aktivitas pengeditan produk dengan menyertakan 'transactionId: ""'
+      String username = _auth.currentUser?.displayName ?? 'User';
+      String email = _auth.currentUser?.email ?? 'email@example.com';
+
+      // Membuat daftar produk detail (satu produk yang diedit)
+      List<ProductDetail> productDetails = [
+        ProductDetail(
+          id: updatedProduct.id,
+          name: updatedProduct.name,
+          quantity: updatedProduct.quantity,
+          price: updatedProduct.price,
+        ),
+      ];
+
+      History history = History(
+        id: '',
+        username: username,
+        email: email,
+        timestamp: DateTime.now(),
+        activity: 'Mengedit produk: ${updatedProduct.name}',
+        transactionId: '', // Mengisi transactionId dengan string kosong
+        products: productDetails, // Sertakan produk
+      );
+
+      await _historyService.addHistory(shopId, history);
+
       Get.snackbar('Berhasil', 'Produk berhasil diperbarui',
           backgroundColor: Colors.green, colorText: Colors.white);
     } catch (e) {
@@ -138,16 +172,62 @@ class EditProdukController extends GetxController {
 
   Future<void> deleteProduct() async {
     try {
-      await _firestore
+      // Mendapatkan data produk sebelum dihapus untuk mencatat histori
+      DocumentSnapshot doc = await _firestore
           .collection('shops')
           .doc(shopId)
           .collection('products')
           .doc(productId)
-          .delete();
+          .get();
 
-      Get.back(); // Kembali ke halaman sebelumnya setelah penghapusan
-      Get.snackbar('Berhasil', 'Produk berhasil dihapus',
-          backgroundColor: Colors.green, colorText: Colors.white);
+      if (doc.exists) {
+        ProductModel product =
+            ProductModel.fromMap(doc.data() as Map<String, dynamic>, doc.id);
+
+        await _firestore
+            .collection('shops')
+            .doc(shopId)
+            .collection('products')
+            .doc(productId)
+            .delete();
+
+        // Mencatat aktivitas penghapusan produk dengan menyertakan 'transactionId: ""'
+        String username = _auth.currentUser?.displayName ?? 'User';
+        String email = _auth.currentUser?.email ?? 'email@example.com';
+
+        List<ProductDetail> productDetails = [
+          ProductDetail(
+            id: product.id,
+            name: product.name,
+            quantity: product.quantity,
+            price: product.price,
+          ),
+        ];
+
+        History history = History(
+          id: '',
+          username: username,
+          email: email,
+          timestamp: DateTime.now(),
+          activity: 'Menghapus produk: ${product.name}',
+          transactionId: '', // Mengisi transactionId dengan string kosong
+          products: productDetails, // Sertakan produk
+        );
+
+        await _historyService.addHistory(shopId, history);
+
+        Get.back(); // Kembali ke halaman sebelumnya setelah penghapusan
+        Get.snackbar('Berhasil', 'Produk berhasil dihapus',
+            backgroundColor: Colors.green, colorText: Colors.white);
+      } else {
+        Get.snackbar(
+          'Error',
+          'Produk tidak ditemukan.',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent,
+          colorText: Colors.white,
+        );
+      }
     } catch (e) {
       handleException(e);
     }

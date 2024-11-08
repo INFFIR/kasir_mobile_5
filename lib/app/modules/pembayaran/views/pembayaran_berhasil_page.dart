@@ -1,10 +1,16 @@
 // views/pembayaran_berhasil_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../all_activity/services/history_service.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PembayaranBerhasilPage extends StatelessWidget {
-  const PembayaranBerhasilPage({super.key});
+  final HistoryService _historyService = HistoryService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // Hapus keyword 'const' dari konstruktor
+  PembayaranBerhasilPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,8 @@ class PembayaranBerhasilPage extends StatelessWidget {
         args['selectedProducts'] == null ||
         args['cartItems'] == null ||
         args['totalPembayaran'] == null ||
-        args['paymentMethod'] == null) {
+        args['paymentMethod'] == null ||
+        args['transactionId'] == null) {
       Get.snackbar(
         'Error',
         'Data transaksi tidak lengkap.',
@@ -27,8 +34,13 @@ class PembayaranBerhasilPage extends StatelessWidget {
       return Container();
     }
 
+    final String shopId = args['shopId'];
     final String paymentMethod = args['paymentMethod'];
     final int totalPembayaran = args['totalPembayaran'];
+    final String transactionId = args['transactionId'];
+
+    // Mencatat aktivitas transaksi di sini jika belum dicatat di controller
+    // Namun, dalam contoh sebelumnya sudah dicatat di controller
 
     return Scaffold(
       appBar: AppBar(
@@ -42,13 +54,12 @@ class PembayaranBerhasilPage extends StatelessWidget {
       body: Stack(
         children: [
           _buildBackground(),
-          _buildContent(context, paymentMethod, totalPembayaran),
+          _buildContent(context, paymentMethod, totalPembayaran, transactionId),
         ],
       ),
     );
   }
 
-  // Method to build the background of the page
   Widget _buildBackground() {
     return Container(
       decoration: const BoxDecoration(
@@ -60,8 +71,8 @@ class PembayaranBerhasilPage extends StatelessWidget {
     );
   }
 
-  // Method to build the main content of the page
-  Widget _buildContent(BuildContext context, String paymentMethod, int totalPembayaran) {
+  Widget _buildContent(
+      BuildContext context, String paymentMethod, int totalPembayaran, String transactionId) {
     return Center(
       child: Container(
         width: 350,
@@ -102,14 +113,13 @@ class PembayaranBerhasilPage extends StatelessWidget {
             const SizedBox(height: 40),
             _buildTotalPaymentSection(totalPembayaran),
             const SizedBox(height: 30),
-            _buildButtonSection(context),
+            _buildButtonSection(context, transactionId),
           ],
         ),
       ),
     );
   }
 
-  // Method to build the total payment section
   Widget _buildTotalPaymentSection(int totalPembayaran) {
     return Center(
       child: Container(
@@ -143,8 +153,7 @@ class PembayaranBerhasilPage extends StatelessWidget {
     );
   }
 
-  // Method to build the button section
-  Widget _buildButtonSection(BuildContext context) {
+  Widget _buildButtonSection(BuildContext context, String transactionId) {
     return Column(
       children: [
         _buildActionButton(
@@ -152,8 +161,10 @@ class PembayaranBerhasilPage extends StatelessWidget {
           label: 'LIHAT STRUK',
           color: Colors.orange,
           onPressed: () {
-            // Add your action here
-            Get.offNamed('/Struk', arguments: Get.arguments);
+            Get.toNamed('/Struk', arguments: {
+              'shopId': Get.arguments['shopId'],
+              'transactionId': transactionId,
+            });
           },
         ),
         const SizedBox(height: 10),
@@ -169,7 +180,6 @@ class PembayaranBerhasilPage extends StatelessWidget {
     );
   }
 
-  // Method to build individual action buttons
   Widget _buildActionButton({
     required BuildContext context,
     required String label,

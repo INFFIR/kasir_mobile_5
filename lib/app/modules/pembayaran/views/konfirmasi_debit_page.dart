@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../all_activity/models/history_model.dart';
+import '../../all_activity/services/history_service.dart';
 import '../../storage/models/product_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class KonfirmasiDebitPage extends StatefulWidget {
-  const KonfirmasiDebitPage({super.key});
+  KonfirmasiDebitPage({Key? key}) : super(key: key);
 
   @override
   _KonfirmasiDebitPageState createState() => _KonfirmasiDebitPageState();
@@ -20,6 +23,8 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
   late String paymentMethod;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final HistoryService _historyService = HistoryService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -64,8 +69,35 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
             .update({'quantity': newQuantity});
       }
 
-      // Menyimpan transaksi (opsional)
-      // Anda bisa menambahkan logika untuk menyimpan detail transaksi ke Firestore
+      // Membuat transactionId
+      String transactionId = _generateTransactionId();
+
+      // Mencatat aktivitas transaksi
+      String username = _auth.currentUser?.displayName ?? 'User';
+      String email = _auth.currentUser?.email ?? 'email@example.com';
+
+      // Membuat daftar produk detail
+      List<ProductDetail> productDetails = selectedProducts.map((product) {
+        return ProductDetail(
+          id: product.id,
+          name: product.name,
+          quantity: cartItems[product.id] ?? 0,
+          price: product.price,
+        );
+      }).toList();
+
+      History history = History(
+        id: '',
+        username: username,
+        email: email,
+        timestamp: DateTime.now(),
+        activity:
+            'Melakukan pembayaran debit sebesar Rp$totalPembayaran',
+        transactionId: transactionId, // Menambahkan transactionId
+        products: productDetails, // Sertakan produk
+      );
+
+      await _historyService.addHistory(shopId, history);
 
       // Navigasi ke halaman pembayaran berhasil
       Get.offNamed('/PembayaranBerhasil', arguments: {
@@ -74,6 +106,7 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
         'cartItems': cartItems,
         'totalPembayaran': totalPembayaran,
         'paymentMethod': paymentMethod,
+        'transactionId': transactionId,
       });
     } catch (e) {
       Get.snackbar(
@@ -84,6 +117,12 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
         colorText: Colors.white,
       );
     }
+  }
+
+  String _generateTransactionId() {
+    // Implementasikan logika pembuatan transactionId sesuai kebutuhan
+    // Contoh sederhana menggunakan timestamp
+    return DateTime.now().millisecondsSinceEpoch.toString();
   }
 
   @override
@@ -246,7 +285,7 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
             ),
           ),
           const SizedBox(height: 10),
-          // This is the white box containing the account number and "SALIN" button
+          // Ini adalah kotak putih yang berisi nomor rekening dan tombol "SALIN"
           Container(
             width: 350,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -271,8 +310,9 @@ class _KonfirmasiDebitPageState extends State<KonfirmasiDebitPage> {
                     const SizedBox(width: 10),
                     TextButton(
                       onPressed: () {
-                        // Add copy functionality
-                        Clipboard.setData(const ClipboardData(text: '1234567890123456'));
+                        // Menambahkan fungsi salin
+                        Clipboard.setData(
+                            const ClipboardData(text: '1234567890123456'));
                         Get.snackbar(
                           'Info',
                           'Nomor rekening telah disalin',

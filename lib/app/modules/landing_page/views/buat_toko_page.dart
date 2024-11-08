@@ -1,7 +1,10 @@
+// views/buat_toko_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../all_activity/models/history_model.dart';
+import '../../all_activity/services/history_service.dart';
 
 class BuatTokoPage extends StatefulWidget {
   const BuatTokoPage({super.key});
@@ -14,6 +17,7 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
   final TextEditingController _namaTokoController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final HistoryService _historyService = HistoryService();
 
   void _buatToko() async {
     String namaToko = _namaTokoController.text.trim();
@@ -22,18 +26,35 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
         'Error',
         'Nama toko tidak boleh kosong',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
       );
       return;
     }
 
     String userId = _auth.currentUser!.uid;
+    String username = _auth.currentUser!.displayName ?? 'User';
+    String email = _auth.currentUser!.email ?? 'email@example.com';
 
     try {
-      await _firestore.collection('shops').add({
+      DocumentReference shopRef = await _firestore.collection('shops').add({
         'name': namaToko,
         'ownerId': userId,
         'createdAt': FieldValue.serverTimestamp(),
       });
+
+      // Mencatat aktivitas pembuatan toko dengan menyertakan 'transactionId: ""'
+      History history = History(
+        id: '',
+        username: username,
+        email: email,
+        timestamp: DateTime.now(),
+        activity: 'Membuat toko baru: $namaToko',
+        transactionId: '', // Mengisi transactionId dengan string kosong
+        products: [], // Tambahkan ini
+      );
+
+      await _historyService.addHistory(shopRef.id, history);
 
       if (!mounted) return;
 
@@ -61,6 +82,8 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
         'Error',
         'Gagal membuat toko: $e',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
       );
     }
   }
@@ -91,8 +114,7 @@ class _BuatTokoPageState extends State<BuatTokoPage> {
               child: Container(
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: Colors.white
-                      .withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
+                  color: Colors.white.withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
                   borderRadius: BorderRadius.circular(12), // Sudut membulat
                 ),
                 child: Column(

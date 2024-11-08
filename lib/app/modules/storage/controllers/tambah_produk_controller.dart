@@ -1,9 +1,13 @@
+// controllers/tambah_produk_controller.dart
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import '../../all_activity/models/history_model.dart';
+import '../../all_activity/services/history_service.dart';
 import '../models/product_model.dart';
 import '../utils/storage_exception_handler.dart';
 
@@ -11,6 +15,7 @@ class TambahProdukController extends GetxController {
   late String shopId;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final HistoryService _historyService = HistoryService();
 
   final TextEditingController namaController = TextEditingController();
   final TextEditingController deskripsiController = TextEditingController();
@@ -19,6 +24,9 @@ class TambahProdukController extends GetxController {
 
   File? imageFile;
   String? imageUrl;
+
+  // Hapus deklarasi duplikat _auth
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void onInit() {
@@ -98,6 +106,32 @@ class TambahProdukController extends GetxController {
           .collection('products')
           .doc(productId)
           .set(newProduct.toMap());
+
+      // Mencatat aktivitas penambahan produk dengan menyertakan 'transactionId: ""'
+      String username = _auth.currentUser?.displayName ?? 'User';
+      String email = _auth.currentUser?.email ?? 'email@example.com';
+
+      // Membuat daftar produk detail (satu produk yang ditambahkan)
+      List<ProductDetail> productDetails = [
+        ProductDetail(
+          id: newProduct.id,
+          name: newProduct.name,
+          quantity: newProduct.quantity,
+          price: newProduct.price,
+        ),
+      ];
+
+      History history = History(
+        id: '',
+        username: username,
+        email: email,
+        timestamp: DateTime.now(),
+        activity: 'Menambahkan produk baru: ${newProduct.name}',
+        transactionId: '', // Mengisi transactionId dengan string kosong
+        products: productDetails, // Sertakan produk
+      );
+
+      await _historyService.addHistory(shopId, history);
 
       Get.back();
       Get.snackbar('Berhasil', 'Produk berhasil ditambahkan',

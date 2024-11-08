@@ -11,6 +11,7 @@ import 'package:kasir_mobile_5/app/modules/transaksi/bindings/transaksi_binding.
 
 // IMPORT SEMUA HALAMAN
 // LOGIN
+
 import '../app/modules/login/views/login_page.dart';
 import '../app/modules/login/views/lupa_password_page.dart';
 import '../app/modules/login/views/sign_up_page.dart';
@@ -32,7 +33,7 @@ import '../app/modules/kelola_akun_pegawai/views/kelola_akun_pegawai_page.dart';
 import '../app/modules/kelola_akun_pegawai/views/tambah_pegawai_page.dart';
 
 // OTHER
-import '../app/modules/others/views/all_activity_page.dart';
+import '../app/modules/all_activity/views/all_activity_page.dart';
 import '../app/modules/others/views/mail_open_page.dart';
 import '../app/modules/others/views/mail_page.dart';
 
@@ -135,7 +136,7 @@ class AppPages {
     // OTHER
     GetPage(
       name: AppRoutes.allActivity,
-      page: () => const AllActivityPage(),
+      page: () => AllActivityPage(),
     ),
     GetPage(
       name: AppRoutes.mailOpen,
@@ -194,11 +195,11 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.konfirmasiCash,
-      page: () => const KonfirmasiCashPage(),
+      page: () => KonfirmasiCashPage(),
     ),
     GetPage(
       name: AppRoutes.konfirmasiDebit,
-      page: () => const KonfirmasiDebitPage(),
+      page: () => KonfirmasiDebitPage(),
     ),
     GetPage(
       name: AppRoutes.memilihPembayaran,
@@ -206,11 +207,11 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.pembayaranBerhasil,
-      page: () => const PembayaranBerhasilPage(),
+      page: () => PembayaranBerhasilPage(),
     ),
     GetPage(
       name: AppRoutes.struk,
-      page: () => const StrukPage(),
+      page: () => StrukPage(),
     ),
     GetPage(
       name: AppRoutes.transaksi,

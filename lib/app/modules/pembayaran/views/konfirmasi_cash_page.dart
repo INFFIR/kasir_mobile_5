@@ -2,10 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../all_activity/models/history_model.dart';
+import '../../all_activity/services/history_service.dart';
 import '../../storage/models/product_model.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 class KonfirmasiCashPage extends StatefulWidget {
-  const KonfirmasiCashPage({super.key});
+  KonfirmasiCashPage({Key? key}) : super(key: key);
 
   @override
   _KonfirmasiCashPageState createState() => _KonfirmasiCashPageState();
@@ -19,6 +23,8 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
   late String paymentMethod;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final HistoryService _historyService = HistoryService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -63,8 +69,35 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
             .update({'quantity': newQuantity});
       }
 
-      // Menyimpan transaksi (opsional)
-      // Anda bisa menambahkan logika untuk menyimpan detail transaksi ke Firestore
+      // Membuat transactionId
+      String transactionId = _generateTransactionId();
+
+      // Mencatat aktivitas transaksi
+      String username = _auth.currentUser?.displayName ?? 'User';
+      String email = _auth.currentUser?.email ?? 'email@example.com';
+
+      // Membuat daftar produk detail
+      List<ProductDetail> productDetails = selectedProducts.map((product) {
+        return ProductDetail(
+          id: product.id,
+          name: product.name,
+          quantity: cartItems[product.id] ?? 0,
+          price: product.price,
+        );
+      }).toList();
+
+      History history = History(
+        id: '',
+        username: username,
+        email: email,
+        timestamp: DateTime.now(),
+        activity:
+            'Melakukan pembayaran cash sebesar Rp$totalPembayaran',
+        transactionId: transactionId, // Menambahkan transactionId
+        products: productDetails, // Sertakan produk
+      );
+
+      await _historyService.addHistory(shopId, history);
 
       // Navigasi ke halaman pembayaran berhasil
       Get.offNamed('/PembayaranBerhasil', arguments: {
@@ -73,6 +106,7 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
         'cartItems': cartItems,
         'totalPembayaran': totalPembayaran,
         'paymentMethod': paymentMethod,
+        'transactionId': transactionId,
       });
     } catch (e) {
       Get.snackbar(
@@ -83,6 +117,12 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
         colorText: Colors.white,
       );
     }
+  }
+
+  String _generateTransactionId() {
+    // Implementasikan logika pembuatan transactionId sesuai kebutuhan
+    // Contoh sederhana menggunakan timestamp
+    return DateTime.now().millisecondsSinceEpoch.toString();
   }
 
   @override
@@ -228,7 +268,7 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
         children: [
           _buildActionButton(
             context: context,
-            label: 'Konfirmasi',
+            label: 'KONFIRMASI PEMBAYARAN',
             color: Colors.orange,
             onPressed: () {
               processPayment();
@@ -237,7 +277,7 @@ class _KonfirmasiCashPageState extends State<KonfirmasiCashPage> {
           const SizedBox(height: 10),
           _buildActionButton(
             context: context,
-            label: 'Batal',
+            label: 'BATALKAN',
             color: Colors.red,
             onPressed: () {
               Navigator.pop(context);
