@@ -9,7 +9,7 @@ import '../../storage/models/product_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class KonfirmasiDebitPage extends StatefulWidget {
-  KonfirmasiDebitPage({Key? key}) : super(key: key);
+  const KonfirmasiDebitPage({super.key});
 
   @override
   _KonfirmasiDebitPageState createState() => _KonfirmasiDebitPageState();

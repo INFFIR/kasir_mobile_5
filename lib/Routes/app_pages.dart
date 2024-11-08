@@ -18,8 +18,6 @@ import '../app/modules/login/views/sign_up_page.dart';
 import '../app/modules/landing_page/views/pilih_mode_page.dart';
 import '../app/modules/landing_page/views/pilih_toko_page.dart';
 import '../app/modules/landing_page/views/buat_toko_page.dart';
-import '../app/modules/landing_page/views/buka_undangan_page.dart';
-import '../app/modules/landing_page/views/terima_undangan_page.dart';
 import '../app/modules/landing_page/views/pilih_tempat_kerja_page.dart';
 
 // HOMEPAGE
@@ -34,10 +32,11 @@ import '../app/modules/kelola_akun_pegawai/views/tambah_pegawai_page.dart';
 
 // OTHER
 import '../app/modules/all_activity/views/all_activity_page.dart';
-import '../app/modules/others/views/mail_open_page.dart';
-import '../app/modules/others/views/mail_page.dart';
+import '../app/modules/mail/views/mail_open_page.dart';
+import '../app/modules/mail/views/mail_page.dart';
 
 // PROFILE
+import '../app/modules/mail/views/terima_undangan_page.dart';
 import '../app/modules/profile/views/activity_page.dart';
 import '../app/modules/profile/views/change_password_page.dart';
 import '../app/modules/profile/views/change_profile_page.dart';
@@ -46,7 +45,6 @@ import '../app/modules/profile/views/profile_page.dart';
 // STORAGE
 import '../app/modules/storage/bindings/edit_produk_binding.dart';
 import '../app/modules/storage/views/edit_produk_page.dart';
-import '../app/modules/storage/views/hapus_produk_page.dart';
 import '../app/modules/storage/views/storage_page.dart';
 import '../app/modules/storage/views/tambah_produk_page.dart';
 
@@ -90,10 +88,6 @@ class AppPages {
     GetPage(
       name: AppRoutes.buatToko,
       page: () =>  const BuatTokoPage(),
-    ),
-    GetPage(
-      name: AppRoutes.bukaUndangan,
-      page: () => const BukaUndanganPage(),
     ),
     GetPage(
       name: AppRoutes.terimaUndangan,
@@ -179,10 +173,6 @@ class AppPages {
       binding: EditProdukBinding(),
     ),
     GetPage(
-      name: AppRoutes.hapusProduk,
-      page: () => const HapusProdukPage(),
-    ),
-    GetPage(
       name: AppRoutes.tambahProduk,
       page: () => const TambahProdukPage(),
       binding: TambahProdukBinding(),
@@ -195,11 +185,11 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.konfirmasiCash,
-      page: () => KonfirmasiCashPage(),
+      page: () => const KonfirmasiCashPage(),
     ),
     GetPage(
       name: AppRoutes.konfirmasiDebit,
-      page: () => KonfirmasiDebitPage(),
+      page: () => const KonfirmasiDebitPage(),
     ),
     GetPage(
       name: AppRoutes.memilihPembayaran,

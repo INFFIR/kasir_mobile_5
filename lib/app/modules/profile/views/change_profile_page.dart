@@ -7,7 +7,7 @@ import '../../components/widgets/bottom_nav_bar.dart';
 import '../controllers/profile_controller.dart';
 
 class ChangeProfilePage extends StatefulWidget {
-  const ChangeProfilePage({Key? key}) : super(key: key);
+  const ChangeProfilePage({super.key});
 
   @override
   _ChangeProfilePageState createState() => _ChangeProfilePageState();

@@ -9,7 +9,7 @@ import '../../storage/models/product_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class KonfirmasiCashPage extends StatefulWidget {
-  KonfirmasiCashPage({Key? key}) : super(key: key);
+  const KonfirmasiCashPage({super.key});
 
   @override
   _KonfirmasiCashPageState createState() => _KonfirmasiCashPageState();

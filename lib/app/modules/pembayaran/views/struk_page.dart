@@ -9,7 +9,7 @@ class StrukPage extends StatelessWidget {
   final HistoryService _historyService = HistoryService();
 
   // Hapus keyword 'const' dari konstruktor
-  StrukPage({Key? key}) : super(key: key);
+  StrukPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -135,9 +135,9 @@ class StrukPage extends StatelessWidget {
                 // Daftar produk yang dibeli
                 ListView.separated(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: products.length,
-                  separatorBuilder: (context, index) => Divider(),
+                  separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) {
                     final product = products[index];
                     return ListTile(

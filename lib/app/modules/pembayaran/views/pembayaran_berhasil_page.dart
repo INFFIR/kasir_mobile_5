@@ -10,7 +10,7 @@ class PembayaranBerhasilPage extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Hapus keyword 'const' dari konstruktor
-  PembayaranBerhasilPage({Key? key}) : super(key: key);
+  PembayaranBerhasilPage({super.key});
 
   @override
   Widget build(BuildContext context) {
