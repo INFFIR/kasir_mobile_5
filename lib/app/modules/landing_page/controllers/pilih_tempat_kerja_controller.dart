@@ -1,12 +1,11 @@
-// controllers/pilih_tempat_kerja_controller.dart
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PilihTempatKerjaController extends GetxController {
-  // Reference ke koleksi 'tempat_kerja' di Firestore
-  final CollectionReference tempatKerjaCollection =
-      FirebaseFirestore.instance.collection('tempat_kerja');
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final String userId = FirebaseAuth.instance.currentUser!.uid;
 
   // Observable list untuk menyimpan data tempat kerja
   var tempatKerjaList = <DocumentSnapshot>[].obs;
@@ -19,31 +18,28 @@ class PilihTempatKerjaController extends GetxController {
 
   // Mengambil data tempat kerja dari Firestore secara real-time
   void fetchTempatKerja() {
-    tempatKerjaCollection.snapshots().listen((QuerySnapshot snapshot) {
-      tempatKerjaList.value = snapshot.docs;
+    _firestore
+        .collection('employee_shops')
+        .where('userId', isEqualTo: userId)
+        .snapshots()
+        .listen((QuerySnapshot snapshot) async {
+      List<DocumentSnapshot> shops = [];
+      for (var doc in snapshot.docs) {
+        DocumentSnapshot shopData =
+            await _firestore.collection('shops').doc(doc['shopId']).get();
+        shops.add(shopData);
+      }
+      tempatKerjaList.value = shops;
     });
   }
 
-  // Menampilkan dialog konfirmasi sebelum menghapus tempat kerja
-  void showDeleteConfirmation(BuildContext context, String tempatKerjaId, String tempatKerjaName) {
-    Get.defaultDialog(
-      title: "Hapus Tempat Kerja",
-      middleText: "Apakah kamu yakin ingin menghapus tempat kerja '$tempatKerjaName'?",
-      textConfirm: "Ya",
-      textCancel: "Tidak",
-      confirmTextColor: Colors.white,
-      onConfirm: () {
-        deleteTempatKerja(tempatKerjaId);
-        Get.back();
-      },
-      onCancel: () {},
-    );
-  }
-
-  // Menghapus tempat kerja dari Firestore
-  Future<void> deleteTempatKerja(String tempatKerjaId) async {
+  // Menghapus tempat kerja
+  Future<void> deleteTempatKerja(String shopId) async {
     try {
-      await tempatKerjaCollection.doc(tempatKerjaId).delete();
+      await _firestore
+          .collection('employee_shops')
+          .doc(userId + '_' + shopId)
+          .delete();
       Get.snackbar("Berhasil", "Tempat kerja berhasil dihapus",
           snackPosition: SnackPosition.BOTTOM);
     } catch (e) {

@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 class PilihTokoController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -20,6 +20,16 @@ class PilihTokoController extends GetxController {
   // Method to delete a shop
   Future<void> deleteShop(String shopId) async {
     try {
+      // Hapus data terkait toko, seperti employee_shops
+      await _firestore
+          .collection('employee_shops')
+          .where('shopId', isEqualTo: shopId)
+          .get()
+          .then((snapshot) {
+        for (var doc in snapshot.docs) {
+          doc.reference.delete();
+        }
+      });
       await _firestore.collection('shops').doc(shopId).delete();
       Get.snackbar(
         'Berhasil',

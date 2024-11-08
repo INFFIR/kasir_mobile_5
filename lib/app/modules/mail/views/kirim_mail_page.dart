@@ -1,7 +1,8 @@
-// KirimMailPage.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kasir_mobile_5/app/modules/components/widgets/bottom_nav_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class KirimMailPage extends StatefulWidget {
   final String? initialRecipient;
@@ -22,13 +23,14 @@ class _KirimMailPageState extends State<KirimMailPage> {
   late TextEditingController _subjekController;
   late TextEditingController _pesanController;
 
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   void initState() {
     super.initState();
-    _penerimaController =
-        TextEditingController(text: widget.initialRecipient ?? '');
-    _subjekController =
-        TextEditingController(text: widget.initialSubject ?? '');
+    _penerimaController = TextEditingController(text: widget.initialRecipient ?? '');
+    _subjekController = TextEditingController(text: widget.initialSubject ?? '');
     _pesanController = TextEditingController();
   }
 
@@ -57,9 +59,9 @@ class _KirimMailPageState extends State<KirimMailPage> {
       return;
     }
 
-    // Optional: Add email format validation
+    // Validasi format email
     final emailRegex = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     if (!emailRegex.hasMatch(penerima)) {
       Get.snackbar(
         'Error',
@@ -71,33 +73,70 @@ class _KirimMailPageState extends State<KirimMailPage> {
       return;
     }
 
-    // Logika untuk mengirim email
-    // Anda dapat mengintegrasikan dengan backend atau layanan email di sini
+    try {
+      // Cari penerima berdasarkan email
+      QuerySnapshot userSnapshot = await _firestore
+          .collection('users')
+          .where('email', isEqualTo: penerima)
+          .limit(1)
+          .get();
 
-    // Menampilkan pop-up dialog setelah berhasil mengirim
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Berhasil'),
-          content: const Text('Email telah dikirimkan!'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Menutup dialog
-                Get.back(); // Kembali ke halaman sebelumnya
-              },
-              child: const Text('OK'),
-            ),
-          ],
+      if (userSnapshot.docs.isEmpty) {
+        Get.snackbar(
+          'Error',
+          'Pengguna dengan email tersebut tidak ditemukan',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent,
+          colorText: Colors.white,
         );
-      },
-    );
+        return;
+      }
 
-    // Optional: Reset form after sending
-    // _penerimaController.clear();
-    // _subjekController.clear();
-    // _pesanController.clear();
+      String recipientId = userSnapshot.docs.first.id;
+      String senderId = _auth.currentUser!.uid;
+      String senderName = _auth.currentUser!.displayName ?? 'Pengguna';
+      String senderEmail = _auth.currentUser!.email ?? '';
+
+      // Mengirim email (menyimpan ke koleksi 'mails' di Firestore)
+      await _firestore.collection('mails').add({
+        'senderId': senderId,
+        'senderName': senderName,
+        'senderEmail': senderEmail,
+        'recipientId': recipientId,
+        'recipientEmail': penerima,
+        'subject': subjek,
+        'content': pesan,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
+      // Menampilkan pop-up dialog setelah berhasil mengirim
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Berhasil'),
+            content: const Text('Email telah dikirimkan!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Menutup dialog
+                  Get.back(); // Kembali ke halaman sebelumnya
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Gagal mengirim email: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+    }
   }
 
   @override
@@ -123,6 +162,7 @@ class _KirimMailPageState extends State<KirimMailPage> {
                 ),
               ),
               keyboardType: TextInputType.emailAddress,
+              readOnly: widget.initialRecipient != null,
             ),
             const SizedBox(height: 20),
             TextField(
@@ -138,18 +178,22 @@ class _KirimMailPageState extends State<KirimMailPage> {
               ),
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: _pesanController,
-              decoration: InputDecoration(
-                labelText: 'Pesan',
-                filled: true,
-                fillColor: Colors.grey.shade200,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
+            Expanded(
+              child: TextField(
+                controller: _pesanController,
+                decoration: InputDecoration(
+                  labelText: 'Pesan',
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  alignLabelWithHint: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
+                maxLines: null,
+                expands: true,
               ),
-              maxLines: 5,
             ),
             const SizedBox(height: 20),
             ElevatedButton(

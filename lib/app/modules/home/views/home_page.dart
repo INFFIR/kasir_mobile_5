@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../components/widgets/bottom_nav_bar.dart';
 import '../controllers/home_controller.dart';
-import '../../components/widgets/button_medium.dart'; // Import ButtonMedium
+import '../../components/widgets/button_medium.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -41,40 +41,46 @@ class HomePage extends StatelessWidget {
             ),
           ),
           // Content
-          SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ButtonMedium(
-                    label: 'TRANSAKSI',
-                    icon: Icons.attach_money,
-                    routeName: '/Transaksi',
-                    arguments: {'shopId': controller.shopId},
-                  ),
-                  ButtonMedium(
-                    label: 'STOK BARANG',
-                    icon: Icons.inventory,
-                    routeName: '/Storage',
-                    arguments: {'shopId': controller.shopId},
-                  ),
-                  ButtonMedium(
-                    label: 'RIWAYAT',
-                    icon: Icons.history,
-                    routeName: '/AllActivity',
-                    arguments: {'shopId': controller.shopId},
-                  ),
-                  ButtonMedium(
-                    label: 'KELOLA AKUN PEGAWAI',
-                    icon: Icons.person_add,
-                    routeName: '/KelolaAkunPegawai',
-                    arguments: {'shopId': controller.shopId},
-                  ),
-                  const SizedBox(height: 200),
-                ],
+          Obx(() {
+            final String userRole = controller.userRole.value;
+
+            return SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ButtonMedium(
+                      label: 'TRANSAKSI',
+                      icon: Icons.attach_money,
+                      routeName: '/Transaksi',
+                      arguments: {'shopId': controller.shopId},
+                    ),
+                    ButtonMedium(
+                      label: 'STOK BARANG',
+                      icon: Icons.inventory,
+                      routeName: '/Storage',
+                      arguments: {'shopId': controller.shopId},
+                    ),
+                    ButtonMedium(
+                      label: 'RIWAYAT',
+                      icon: Icons.history,
+                      routeName: '/AllActivity',
+                      arguments: {'shopId': controller.shopId},
+                    ),
+                    // Tampilkan menu kelola pegawai hanya untuk pemilik toko
+                    if (userRole == 'owner')
+                      ButtonMedium(
+                        label: 'KELOLA AKUN PEGAWAI',
+                        icon: Icons.person_add,
+                        routeName: '/KelolaAkunPegawai',
+                        arguments: {'shopId': controller.shopId},
+                      ),
+                    const SizedBox(height: 200),
+                  ],
+                ),
               ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
       bottomNavigationBar: const CustomBottomNavigationBar(),

@@ -9,12 +9,6 @@ class PilihTokoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ensure the binding is applied
-    // This is usually handled in your route definitions
-    // If not, you can apply it here using:
-    // PilihTokoBinding().dependencies();
-
-    // Access the controller
     final PilihTokoController controller = Get.find<PilihTokoController>();
 
     return Scaffold(
@@ -31,12 +25,11 @@ class PilihTokoPage extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'), // Ensure this asset exists
+                image: AssetImage('assets/background.png'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          // StreamBuilder to listen to shops data
           StreamBuilder<QuerySnapshot>(
             stream: controller.shops,
             builder: (context, snapshot) {
@@ -55,7 +48,18 @@ class PilihTokoPage extends StatelessWidget {
                 itemCount: shops.length,
                 itemBuilder: (context, index) {
                   var shop = shops[index];
-                  return PilihTokoCard(shop: shop);
+                  return PilihTokoCard(
+                    shop: shop,
+                    onTap: () {
+                      Get.offAllNamed(
+                        '/Home',
+                        arguments: {'shopId': shop.id},
+                      );
+                    },
+                    onDelete: () {
+                      controller.showDeleteConfirmation(context, shop.id, shop['name']);
+                    },
+                  );
                 },
               );
             },

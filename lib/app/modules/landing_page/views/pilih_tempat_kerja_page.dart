@@ -1,16 +1,13 @@
-// pages/pilih_tempat_kerja_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../controllers/pilih_tempat_kerja_controller.dart';
-import '../widgets/pilih_tempat_kerja_card.dart'; // Pastikan path ini benar
+import '../widgets/pilih_tempat_kerja_card.dart';
 
 class PilihTempatKerjaPage extends StatelessWidget {
   const PilihTempatKerjaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Menggunakan GetBuilder atau Obx untuk reaktif
     final PilihTempatKerjaController controller = Get.find<PilihTempatKerjaController>();
 
     return Scaffold(
@@ -19,7 +16,7 @@ class PilihTempatKerjaPage extends StatelessWidget {
           'PEMILIHAN TEMPAT KERJA',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blueGrey, // Warna header
+        backgroundColor: Colors.blueGrey,
       ),
       body: Stack(
         children: [
@@ -27,8 +24,8 @@ class PilihTempatKerjaPage extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'), // Ganti dengan path gambar Anda
-                fit: BoxFit.cover, // Mengatur agar gambar menutupi seluruh halaman
+                image: AssetImage('assets/background.png'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -50,8 +47,19 @@ class PilihTempatKerjaPage extends StatelessWidget {
               return ListView.builder(
                 itemCount: controller.tempatKerjaList.length,
                 itemBuilder: (context, index) {
-                  DocumentSnapshot tempatKerja = controller.tempatKerjaList[index];
-                  return PilihTempatKerjaCard(tempatKerja: tempatKerja);
+                  var shopData = controller.tempatKerjaList[index];
+                  return PilihTempatKerjaCard(
+                    tempatKerja: shopData,
+                    onTap: () {
+                      Get.offAllNamed(
+                        '/Home',
+                        arguments: {'shopId': shopData.id},
+                      );
+                    },
+                    onDelete: () {
+                      controller.deleteTempatKerja(shopData.id);
+                    },
+                  );
                 },
               );
             }),
@@ -62,11 +70,10 @@ class PilihTempatKerjaPage extends StatelessWidget {
             right: 20,
             child: FloatingActionButton(
               onPressed: () {
-                // Aksi saat tombol '+' ditekan
-                Get.toNamed('/Mail'); // Ganti dengan route yang sesuai
+                Get.toNamed('/Mail');
               },
               backgroundColor: const Color(0xFF28374C),
-              child: const Icon(Icons.add, color: Colors.white),
+              child: const Icon(Icons.mail, color: Colors.white),
             ),
           ),
         ],

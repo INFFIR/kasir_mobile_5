@@ -1,4 +1,3 @@
-// MailButtonWidget.dart
 import 'package:flutter/material.dart';
 
 class MailButtonWidget extends StatelessWidget {

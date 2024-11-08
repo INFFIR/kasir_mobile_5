@@ -94,7 +94,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.terimaUndangan,
-      page: () => const TerimaUndanganPage(),
+      page: () => const TerimaUndanganPage(invitationId: '',),
     ),
     GetPage(
       name: AppRoutes.pilihTempatKerja,

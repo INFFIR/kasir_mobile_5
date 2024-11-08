@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kasir_mobile_5/app/modules/components/widgets/bottom_nav_bar.dart';
-import 'package:kasir_mobile_5/app/modules/components/widgets/button_medium.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../components/widgets/bottom_nav_bar.dart';
+import '../widgets/kelola_akun_pegawai_card.dart'; // Menggunakan card terpisah
 
 class KelolaAkunPegawaiPage extends StatelessWidget {
   const KelolaAkunPegawaiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String shopId = Get.arguments['shopId']; // Dapatkan shopId dari arguments
+
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Menghilangkan tombol back di pojok kiri atas
+        automaticallyImplyLeading: false,
         title: const Text(
           'KELOLA AKUN PEGAWAI',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.blueGrey, // Warna header
+        backgroundColor: Colors.blueGrey,
       ),
       body: Stack(
         children: [
@@ -23,50 +26,47 @@ class KelolaAkunPegawaiPage extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.png'), // Ganti dengan path gambar Anda
-                fit: BoxFit.cover, // Mengatur agar gambar menutupi seluruh halaman
+                image: AssetImage('assets/background.png'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          const SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 10),
-                  // Button 1: Pegawai 1
-                  ButtonMedium(
-                    label: 'PEGAWAI 1 (Username)',
-                    icon: Icons.manage_accounts,
-                    routeName: '/DetailKaryawan',
-                  ),
-                  SizedBox(height: 10),
-                  // Button 2: Pegawai 2
-                  ButtonMedium(
-                    label: 'PEGAWAI 2 (Username)',
-                    icon: Icons.manage_accounts,
-                    routeName: '/DetailKaryawan',
-                  ),
-                  SizedBox(height: 10),
-                  // Button 3: Pegawai 3
-                  ButtonMedium(
-                    label: 'PEGAWAI 3 (Username)',
-                    icon: Icons.manage_accounts,
-                    routeName: '/DetailKaryawan',
-                  ),
-                  SizedBox(height: 300),
-                ],
-              ),
-            ),
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('employee_shops')
+                .where('shopId', isEqualTo: shopId)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              }
+              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                return const Center(child: Text('Belum ada pegawai.'));
+              }
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  var employeeData = snapshot.data!.docs[index];
+                  return KelolaAkunPegawaiCard(
+                    employeeData: employeeData,
+                    onTap: () {
+                      Get.toNamed('/DetailKaryawan', arguments: {
+                        'employeeId': employeeData['userId'],
+                        'shopId': shopId,
+                      });
+                    },
+                  );
+                },
+              );
+            },
           ),
-          // Floating Action Button (FAB) with '+' icon
+          // Floating Action Button (FAB) dengan ikon '+'
           Positioned(
             bottom: 20,
             right: 20,
             child: FloatingActionButton(
               onPressed: () {
-                // Action saat tombol '+' ditekan
-                Get.toNamed('/TambahPegawai'); // Mengganti dengan route untuk ProfilePage
+                Get.toNamed('/TambahPegawai', arguments: {'shopId': shopId});
               },
               backgroundColor: const Color(0xFF28374C),
               child: const Icon(Icons.add, color: Colors.white),

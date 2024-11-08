@@ -1,17 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-class PilihTempatKerjaCard extends StatelessWidget {
-  final DocumentSnapshot tempatKerja;
+class KelolaAkunPegawaiCard extends StatelessWidget {
+  final DocumentSnapshot employeeData;
   final VoidCallback onTap;
-  final VoidCallback onDelete;
 
-  const PilihTempatKerjaCard({
+  const KelolaAkunPegawaiCard({
     super.key,
-    required this.tempatKerja,
+    required this.employeeData,
     required this.onTap,
-    required this.onDelete,
   });
 
   @override
@@ -47,27 +44,37 @@ class PilihTempatKerjaCard extends StatelessWidget {
                       bottomLeft: Radius.circular(15.0),
                     ),
                   ),
-                  child: const Icon(Icons.location_city, color: contentColor, size: 40),
+                  child: const Icon(Icons.person, color: contentColor, size: 40),
                 ),
                 // Title and other content
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      tempatKerja['name'] ?? 'Tidak ada nama',
-                      style: const TextStyle(
-                        color: contentColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                    child: FutureBuilder<DocumentSnapshot>(
+                      future: FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(employeeData['userId'])
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return const Text('Error loading user data');
+                        }
+                        if (!snapshot.hasData || !snapshot.data!.exists) {
+                          return const Text('User data not found');
+                        }
+                        var userData = snapshot.data!;
+                        return Text(
+                          userData['username'] ?? 'No username',
+                          style: const TextStyle(
+                            color: contentColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        );
+                      },
                     ),
                   ),
-                ),
-                // Trailing IconButton
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red, size: 28),
-                  onPressed: onDelete,
                 ),
               ],
             ),

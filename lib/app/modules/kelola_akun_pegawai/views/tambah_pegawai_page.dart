@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kasir_mobile_5/app/modules/components/widgets/bottom_nav_bar.dart';
-
 
 class TambahPegawaiPage extends StatefulWidget {
   const TambahPegawaiPage({super.key});
@@ -11,32 +12,94 @@ class TambahPegawaiPage extends StatefulWidget {
 }
 
 class _TambahPegawaiPageState extends State<TambahPegawaiPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
 
-  void _changeUsername() {
-    // Logika untuk mengubah username
-    // Anda dapat menambahkan logika untuk memproses dan menyimpan username di sini
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-    // Menampilkan pop-up dialog
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Berhasil'),
-          content: const Text('Undangan Telah Dikirimkan!'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Menutup dialog
-                Get.back();
-              },
-              child: const Text('OK'),
-            ),
-          ],
+  void _sendInvitation() async {
+    String email = _emailController.text.trim();
+    String message = _messageController.text.trim();
+    String shopId = Get.arguments['shopId'];
+
+    if (email.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Email tidak boleh kosong',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    try {
+      // Cari user berdasarkan email
+      QuerySnapshot userSnapshot = await _firestore
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .limit(1)
+          .get();
+
+      if (userSnapshot.docs.isEmpty) {
+        Get.snackbar(
+          'Error',
+          'User dengan email tersebut tidak ditemukan',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent,
+          colorText: Colors.white,
         );
-      },
-    );
+        return;
+      }
+
+      String recipientId = userSnapshot.docs.first.id;
+      String senderId = _auth.currentUser!.uid;
+
+      // Ambil nama toko
+      DocumentSnapshot shopSnapshot =
+          await _firestore.collection('shops').doc(shopId).get();
+      String shopName = shopSnapshot['name'] ?? 'Toko';
+
+      // Kirim undangan
+      await _firestore.collection('invitations').add({
+        'senderId': senderId,
+        'recipientId': recipientId,
+        'shopId': shopId,
+        'shopName': shopName,
+        'message': message,
+        'status': 'pending',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
+      // Menampilkan pop-up dialog
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Berhasil'),
+            content: const Text('Undangan telah dikirimkan!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Menutup dialog
+                  Get.back();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Gagal mengirim undangan: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+    }
   }
 
   @override
@@ -51,9 +114,9 @@ class _TambahPegawaiPageState extends State<TambahPegawaiPage> {
         child: Column(
           children: [
             TextField(
-              controller: _usernameController,
+              controller: _emailController,
               decoration: InputDecoration(
-                labelText: 'Username :',
+                labelText: 'Email :',
                 filled: true,
                 fillColor: Colors.grey.shade200,
                 border: OutlineInputBorder(
@@ -64,7 +127,7 @@ class _TambahPegawaiPageState extends State<TambahPegawaiPage> {
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: _bioController,
+              controller: _messageController,
               decoration: InputDecoration(
                 labelText: 'Pesan (Optional) :',
                 filled: true,
@@ -78,7 +141,7 @@ class _TambahPegawaiPageState extends State<TambahPegawaiPage> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _changeUsername,
+              onPressed: _sendInvitation,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 minimumSize: const Size(double.infinity, 50),
