@@ -1,6 +1,8 @@
 // lib/routes/app_pages.dart
 import 'package:get/get.dart';
 import 'package:kasir_mobile_5/app/modules/home/bindings/home_binding.dart';
+import 'package:kasir_mobile_5/app/modules/kelola_akun_pegawai/binding/detail_karyawan_binding.dart';
+import 'package:kasir_mobile_5/app/modules/kelola_akun_pegawai/binding/kelola_akun_pegawai_binding.dart';
 import 'package:kasir_mobile_5/app/modules/landing_page/bindings/pilih_tempat_kerja_binding.dart';
 import 'package:kasir_mobile_5/app/modules/landing_page/bindings/pilih_toko_binding.dart';
 import 'package:kasir_mobile_5/app/modules/login/bindings/login_binding.dart';
@@ -113,6 +115,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.kelolaAkun,
       page: () => const KelolaAkunPegawaiPage(),
+      binding: KelolaAkunPegawaiBinding()
     ),
     GetPage(
       name: AppRoutes.tambahPegawai,
@@ -125,6 +128,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.detailKaryawan,
       page: () => const DetailKaryawanPage(),
+      binding: DetailKaryawanBinding()
     ),
 
 

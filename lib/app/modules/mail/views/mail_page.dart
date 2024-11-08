@@ -7,7 +7,6 @@ import 'mail_open_page.dart';
 import 'kirim_mail_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:math'; // Importing dart:math for min function
 
 class MailPage extends StatelessWidget {
   const MailPage({super.key});
@@ -171,7 +170,7 @@ class MailPage extends StatelessWidget {
                                   time: '${createdAt.hour}:${createdAt.minute} WIB',
                                   description: contentSnippet,
                                   onPressed: () {
-                                    Get.to(() => MailOpenPage(), arguments: {'mailId': mail.id});
+                                    Get.to(() => const MailOpenPage(), arguments: {'mailId': mail.id});
                                   },
                                 ),
                               );

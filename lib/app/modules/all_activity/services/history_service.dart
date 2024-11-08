@@ -1,6 +1,7 @@
 // all_activity/services/history_service.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/history_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HistoryService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -47,5 +48,31 @@ class HistoryService {
     } else {
       return null;
     }
+  }
+
+  // Metode baru untuk menambahkan aktivitas umum
+  Future<void> logActivity(String shopId, String activity, {String transactionId = '', List<ProductDetail>? products}) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) {
+      print('User not logged in');
+      return;
+    }
+
+    // Mendapatkan informasi user
+    DocumentSnapshot userDoc = await _firestore.collection('users').doc(currentUser.uid).get();
+    String username = userDoc['username'] ?? 'Unknown';
+    String email = userDoc['email'] ?? 'Unknown';
+
+    History history = History(
+      id: '', // Firestore akan mengenerate ID
+      username: username,
+      email: email,
+      timestamp: DateTime.now(),
+      activity: activity,
+      transactionId: transactionId,
+      products: products ?? [],
+    );
+
+    await addHistory(shopId, history);
   }
 }
