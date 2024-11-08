@@ -33,6 +33,7 @@ import '../app/modules/kelola_akun_pegawai/views/tambah_pegawai_page.dart';
 
 // OTHER
 import '../app/modules/all_activity/views/all_activity_page.dart';
+import '../app/modules/mail/views/kirim_mail_page.dart';
 import '../app/modules/mail/views/mail_open_page.dart';
 import '../app/modules/mail/views/mail_page.dart';
 
@@ -139,6 +140,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.mail,
       page: () => const MailPage(),
+    ),
+      GetPage(
+      name: AppRoutes.kirimMail,
+      page: () => const KirimMailPage(),
     ),
 
     // PROFILE

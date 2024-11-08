@@ -26,6 +26,7 @@ class AppRoutes {
   static const String allActivity = '/AllActivity';
   static const String mailOpen = '/MailOpen';
   static const String mail = '/Mail';
+  static const String kirimMail = '/KirimMail';
 
   // PROFILE
   static const String profile = '/Profile';

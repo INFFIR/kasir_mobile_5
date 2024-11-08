@@ -35,13 +35,32 @@ class _ChangeProfilePageState extends State<ChangeProfilePage> {
   }
 
   Future<void> _pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? pickedImage =
-        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
-    if (pickedImage != null) {
-      setState(() {
-        _selectedImage = File(pickedImage.path);
-      });
+    try {
+      final ImagePicker _picker = ImagePicker();
+      final XFile? pickedImage = await _picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 50,
+      );
+
+      if (pickedImage != null) {
+        setState(() {
+          _selectedImage = File(pickedImage.path);
+        });
+      }
+    } catch (e) {
+      // Handle the exception by showing a dialog or a snackbar
+      Get.dialog(
+        AlertDialog(
+          title: const Text('Error'),
+          content: Text('Failed to pick image: $e'),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
 

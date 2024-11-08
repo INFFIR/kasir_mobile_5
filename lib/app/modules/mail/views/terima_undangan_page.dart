@@ -1,39 +1,37 @@
+// TerimaUndanganPage.dart
 import 'package:flutter/material.dart';
+import 'package:kasir_mobile_5/app/modules/components/widgets/bottom_nav_bar.dart';
 import 'package:get/get.dart';
+import 'kirim_mail_page.dart';
+
 class TerimaUndanganPage extends StatelessWidget {
-  const TerimaUndanganPage({super.key});
+  final String username;
+  final String email;
+  final String subject;
+  final String date;
+  final String time;
+  final String body;
+
+  const TerimaUndanganPage({
+    super.key,
+    this.username = 'Pemilik Toko x',
+    this.email = 'pemilikx@example.com',
+    this.subject = 'Undangan Kerja Sama',
+    this.date = '29 - 9 2024',
+    this.time = '14:00 WIB',
+    this.body = """
+Kami mengundang Anda untuk bekerja sama dalam proyek pengembangan aplikasi terbaru kami. Silakan konfirmasi kehadiran Anda.
+""",
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Fungsi untuk menampilkan dialog pop-up
-    void showResponseDialog(BuildContext context, String message, Function onConfirm) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Konfirmasi"),
-            content: Text(message),
-            actions: [
-              TextButton(
-                child: const Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pop(); // Tutup dialog
-                  onConfirm(); // Panggil fungsi setelah dialog ditutup
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-
-    // Mendapatkan lebar dan tinggi layar
+    // Mendapatkan lebar layar
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MAIL'),
+        title: const Text('Terima Undangan'),
         backgroundColor: Colors.blueGrey,
       ),
       body: Stack(
@@ -41,123 +39,166 @@ class TerimaUndanganPage extends StatelessWidget {
           // Background image
           Positioned.fill(
             child: Image.asset(
-              'assets/background.png', // Ganti dengan path gambar Anda
-              fit: BoxFit.cover, // Agar gambar menutupi seluruh halaman
+              'assets/background.png',
+              fit: BoxFit.cover,
             ),
           ),
           // Container untuk konten
           Positioned(
-            top: 10, // Jarak dari atas
-            left: 10, // Jarak dari kiri
-            right: 10, // Jarak dari kanan
-            bottom: 10, // Jarak dari bawah
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: 10,
             child: SingleChildScrollView(
               child: Container(
-                margin: const EdgeInsets.all(10.0), // Jarak 10 piksel dari setiap sudut layar
-                padding: const EdgeInsets.all(16.0), // Padding di dalam kotak
+                margin: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9), // Latar belakang putih dengan sedikit transparansi
-                  borderRadius: BorderRadius.circular(12), // Sudut membulat
+                  color: Colors.white.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: Column( // Menggunakan Column untuk menampung isi
-                  crossAxisAlignment: CrossAxisAlignment.stretch, // Memastikan konten memenuhi lebar
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // Kotak untuk konten
                     Container(
-                      margin: const EdgeInsets.all(10.0), // Jarak 10 piksel dari setiap sudut layar
-                      padding: const EdgeInsets.all(16.0), // Padding di dalam kotak
-                      width: screenWidth - 20, // Mengatur lebar kotak untuk mengisi seluruh layar - margin
-                      height: screenHeight - 20, // Mengatur tinggi kotak sesuai dengan tinggi layar
+                      margin: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(16.0),
+                      width: screenWidth - 20,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF7F2FA), // Warna kotak
-                        borderRadius: BorderRadius.circular(12.0), // Sudut membulat
+                        color: const Color(0xFFF7F2FA),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // Mengatur teks di kiri
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row( // Header di dalam kotak
+                          // Header Undangan
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Pemilik Toko x',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Mengubah warna teks menjadi hitam agar terlihat
-                                ),
+                              // Left Side: Username and Email
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    username,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    email,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                '29 - 9 2024 14 : 00 WIB',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // Mengubah warna teks menjadi hitam agar terlihat
-                                ),
+                              // Right Side: Date and Time
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    date,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  Text(
+                                    time,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          SizedBox(height: 10), // Jarak antara header dan teks
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Text(
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?", // Isi teks
-                                style: TextStyle(color: Colors.black),
-                              ),
+                          const SizedBox(height: 10),
+                          // Subject
+                          Text(
+                            subject,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                             ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 10),
+                          // Body
+                          Text(
+                            body,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          // Tombol Terima dan Tolak
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Logika untuk menerima undangan
+                                  Get.snackbar(
+                                    'Berhasil',
+                                    'Anda telah menerima undangan.',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.green,
+                                    colorText: Colors.white,
+                                  );
+                                  // Navigasi ke KirimMailPage untuk membalas undangan
+                                  Get.to(() => KirimMailPage(
+                                        initialRecipient: email,
+                                        initialSubject: 'Re: $subject',
+                                      ));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 12),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                child: const Text('Terima'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Logika untuk menolak undangan
+                                  Get.snackbar(
+                                    'Dibatalkan',
+                                    'Anda telah menolak undangan.',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                  );
+                                  // Navigasi kembali atau ke halaman lain jika diperlukan
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 12),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                child: const Text('Tolak'),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10), // Jarak antar kotak
-                    // Tombol 1 (Konfirmasi)
-                    ElevatedButton(
-                      onPressed: () {
-                        showResponseDialog(context, 'Undangan telah diterima!', () {
-                          // Navigasi setelah pop-up ditutup
-
-                               Get.offNamed('/PilihTempatKerja'); // Mengganti dengan route untuk HomePage
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green, // Ubah warna tombol menjadi hijau
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: const Text(
-                        'Terima Undangan',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white, // Ubah warna teks menjadi putih
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10), // Jarak antara kedua tombol
-                    // Tombol 2 (Tolak) yang ditumpuk di bawah
-                    ElevatedButton(
-                      onPressed: () {
-                        showResponseDialog(context, 'Undangan telah ditolak!', () {
-                          // Navigasi setelah pop-up ditutup
-
-                            Get.offNamed('/PilihTempatKerja'); // Mengganti dengan route untuk HomePage
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red, // Warna tombol tetap merah
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: const Text(
-                        'Tolak',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white, // Ubah warna teks menjadi putih
-                        ),
-                      ),
-                    ),
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),
@@ -165,6 +206,7 @@ class TerimaUndanganPage extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }
