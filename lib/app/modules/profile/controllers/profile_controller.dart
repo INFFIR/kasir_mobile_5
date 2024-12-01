@@ -92,18 +92,18 @@ class ProfileController extends GetxController {
           final fileName = '${user.uid}$fileExt';
 
           try {
-            await _supabase.storage.from('avatars').remove([fileName]);
+            await _supabase.storage.from('Profile').remove([fileName]);
             _logger.d("Old profile picture removed");
           } catch (e) {
             _logger.d("No old profile picture to remove or error: $e");
           }
 
           final response = await _supabase.storage
-              .from('kasir_mobile')
+              .from('Profile')
               .upload(fileName, profileImage);
 
           final imageUrl = await _supabase.storage
-              .from('kasir_mobile')
+              .from('Profile')
               .createSignedUrl(fileName, 60 * 60 * 24 * 365 * 10);
 
           dataToUpdate['profilePicture'] = imageUrl;
