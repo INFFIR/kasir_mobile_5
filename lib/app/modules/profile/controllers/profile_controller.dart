@@ -1,10 +1,11 @@
 // lib/controllers/profile_controller.dart
 import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 import 'dart:io';
-import 'package:logger/logger.dart'; // Import the logger package
+import 'package:logger/logger.dart';
+import 'package:path/path.dart' as path;
 
 class ProfileController extends GetxController {
   var username = ''.obs;
@@ -12,19 +13,19 @@ class ProfileController extends GetxController {
   var email = ''.obs;
   var profilePictureUrl = ''.obs;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final supabase.SupabaseClient _supabase = supabase.Supabase.instance.client;
 
   // Initialize the logger
   final Logger _logger = Logger(
     printer: PrettyPrinter(
-      methodCount: 0, // No method calls in the log
-      errorMethodCount: 5, // Show 5 method calls if there's an error
-      lineLength: 50, // Width of the log
-      colors: true, // Colorful log messages
-      printEmojis: true, // Print emojis
-      dateTimeFormat: DateTimeFormat.none, // Updated from printTime
+      methodCount: 0,
+      errorMethodCount: 5,
+      lineLength: 50,
+      colors: true,
+      printEmojis: true,
+      dateTimeFormat: DateTimeFormat.none,
     ),
   );
 
@@ -35,9 +36,9 @@ class ProfileController extends GetxController {
   }
 
   Future<void> fetchUserProfile() async {
-    User? user = _auth.currentUser;
+    auth.User? user = _auth.currentUser;
     if (user != null) {
-      _logger.d("Fetching user profile for UID: ${user.uid}"); // Debugging
+      _logger.d("Fetching user profile for UID: ${user.uid}");
       try {
         DocumentSnapshot userDoc =
             await _firestore.collection('users').doc(user.uid).get();
@@ -55,9 +56,9 @@ class ProfileController extends GetxController {
               data?['email']?.isNotEmpty == true ? data!['email'] : 'No email';
           profilePictureUrl.value = data?['profilePicture']?.isNotEmpty == true
               ? data!['profilePicture']
-              : ''; // Kosongkan jika tidak ada gambar
+              : '';
         } else {
-          _logger.w("Dokumen pengguna tidak ditemukan di Firestore."); // Warning
+          _logger.w("Dokumen pengguna tidak ditemukan di Firestore.");
           setDefaultValues();
         }
       } catch (e, stacktrace) {
@@ -79,7 +80,7 @@ class ProfileController extends GetxController {
   }
 
   Future<void> updateProfile({String? username, String? bio, File? profileImage}) async {
-    User? user = _auth.currentUser;
+    auth.User? user = _auth.currentUser;
     if (user != null) {
       Map<String, dynamic> dataToUpdate = {};
       if (username != null) dataToUpdate['username'] = username;
@@ -87,15 +88,31 @@ class ProfileController extends GetxController {
 
       if (profileImage != null) {
         try {
-          Reference storageRef =
-              _storage.ref().child('profile_pictures').child('${user.uid}.jpg');
-          UploadTask uploadTask = storageRef.putFile(profileImage);
-          TaskSnapshot snapshot = await uploadTask;
-          String downloadUrl = await snapshot.ref.getDownloadURL();
-          dataToUpdate['profilePicture'] = downloadUrl;
-          _logger.d("Profile picture uploaded. URL: $downloadUrl"); // Debugging
+          final fileExt = path.extension(profileImage.path);
+          final fileName = '${user.uid}$fileExt';
+
+          try {
+            await _supabase.storage.from('Profile').remove([fileName]);
+            _logger.d("Old profile picture removed");
+          } catch (e) {
+            _logger.d("No old profile picture to remove or error: $e");
+          }
+
+          final response = await _supabase.storage
+              .from('Profile')
+              .upload(fileName, profileImage);
+
+          final imageUrl = await _supabase.storage
+              .from('Profile')
+              .createSignedUrl(fileName, 60 * 60 * 24 * 365 * 10);
+
+          dataToUpdate['profilePicture'] = imageUrl;
+          _logger.d("Profile picture uploaded to Supabase. URL: $imageUrl");
+
         } catch (e, stacktrace) {
-          _logger.e("Error uploading profile picture: $e", error: e, stackTrace: stacktrace);
+          _logger.e("Error uploading profile picture to Supabase: $e",
+              error: e, stackTrace: stacktrace);
+          throw Exception("Failed to upload profile picture: $e");
         }
       }
 
@@ -123,9 +140,9 @@ class ProfileController extends GetxController {
   }
 
   Future<void> changePassword(String oldPassword, String newPassword) async {
-    User? user = _auth.currentUser;
+    auth.User? user = _auth.currentUser;
     if (user != null) {
-      AuthCredential credential = EmailAuthProvider.credential(
+      auth.AuthCredential credential = auth.EmailAuthProvider.credential(
           email: user.email!, password: oldPassword);
       try {
         await user.reauthenticateWithCredential(credential);

@@ -1,5 +1,93 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    package="com.example.app">
+
+    <!-- Permission untuk Akses Internet -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    
+    <!-- Permission untuk Akses Jaringan -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    
+    <!-- Permission untuk Mengakses Penyimpanan -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
+    <!-- Permission untuk Akses Lokasi -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    
+    <!-- Permission untuk Kamera -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    
+    <!-- Permission untuk Menggunakan Mikrofon -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    
+    <!-- Permission untuk Telepon (Dialer) -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    
+    <!-- Permission untuk Mengakses Kontak -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    
+    <!-- Permission untuk Mengakses Kalender -->
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+    
+    <!-- Permission untuk Akses Pesan (SMS) -->
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_MMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH"/>
+    
+    <!-- Permission untuk Mengakses Sensor -->
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
+    
+    <!-- Permission untuk Mengakses Bluetooth -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+    
+    <!-- Permission untuk Menggunakan Wi-Fi -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    
+    <!-- Permission untuk Menggunakan NFC -->
+    <uses-permission android:name="android.permission.NFC"/>
+    
+    <!-- Permission untuk Mengakses Penyimpanan di Versi Android lebih Baru -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    
+    <!-- Permission untuk Wake Lock -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    
+    <!-- Permission untuk Mengakses Status Baterai -->
+    <uses-permission android:name="android.permission.BATTERY_STATS"/>
+    
+    <!-- Permission untuk Akses Aplikasi yang Terinstal -->
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE"/>
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    
+    <!-- Permission untuk Akses Fitur Background Location -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    
+    <!-- Permission untuk Mengakses Vibrasi -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    
+    <!-- Permission untuk Menggunakan Fingerprint dan Biometric -->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    
+    <!-- Permission untuk Mengakses Kamera dan Penyimpanan (Misalnya untuk Foto) -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    
+    <!-- Permission untuk Mengakses Aktivitas Layar -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
     <application
         android:label="kasir_mobile_5"
         android:name="${applicationName}"

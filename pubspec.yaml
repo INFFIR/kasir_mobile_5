@@ -19,6 +19,8 @@ dependencies:
   shared_preferences: ^2.3.2
   firebase_storage: ^12.3.4
   logger: ^2.4.0
+  supabase_flutter: ^2.8.1
+
 
 dev_dependencies:
   flutter_test:
