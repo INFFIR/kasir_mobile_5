@@ -1,8 +1,6 @@
 // controllers/edit_produk_controller.dart
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +8,10 @@ import '../../all_activity/models/history_model.dart';
 import '../../all_activity/services/history_service.dart';
 import '../models/product_model.dart';
 import '../utils/storage_exception_handler.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:logger/logger.dart';
+import 'package:path/path.dart' as path;
+import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 class EditProdukController extends GetxController {
   late String shopId;
@@ -17,6 +19,22 @@ class EditProdukController extends GetxController {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final HistoryService _historyService = HistoryService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // Initialize Supabase client
+  final supabase.SupabaseClient _supabase = supabase.Supabase.instance.client;
+
+  // Initialize the logger
+  final Logger _logger = Logger(
+    printer: PrettyPrinter(
+      methodCount: 0,
+      errorMethodCount: 5,
+      lineLength: 50,
+      colors: true,
+      printEmojis: true,
+      dateTimeFormat: DateTimeFormat.none,
+    ),
+  );
 
   final TextEditingController namaController = TextEditingController();
   final TextEditingController deskripsiController = TextEditingController();
@@ -27,9 +45,6 @@ class EditProdukController extends GetxController {
   var jumlahBarang = 0.obs;
   File? imageFile;
   String? imageUrl;
-
-  // Hapus deklarasi duplikat _auth
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void onInit() {
@@ -100,15 +115,43 @@ class EditProdukController extends GetxController {
   Future<void> uploadImage() async {
     if (imageFile != null) {
       try {
-        String fileName = '${productId}_${DateTime.now()}';
-        Reference ref = FirebaseStorage.instance
-            .ref()
-            .child('product_images')
-            .child(fileName);
-        await ref.putFile(imageFile!);
-        imageUrl = await ref.getDownloadURL();
-      } catch (e) {
-        handleException(e);
+        final fileExt = path.extension(imageFile!.path);
+        final fileName = '${productId}_${DateTime.now()}$fileExt';
+
+        // Remove old image if exists
+        if (imageUrl != null && imageUrl!.isNotEmpty) {
+          // Extract file name from the URL
+          Uri uri = Uri.parse(imageUrl!);
+          String? oldFileName = uri.pathSegments.isNotEmpty
+              ? uri.pathSegments.last
+              : null;
+          if (oldFileName != null) {
+            try {
+              await _supabase.storage.from('product_images').remove([oldFileName]);
+              _logger.d("Old product image removed");
+            } catch (e) {
+              _logger.d("No old product image to remove or error: $e");
+            }
+          }
+        }
+
+        // Upload new image
+        final response = await _supabase.storage
+            .from('product_images')
+            .upload(fileName, imageFile!);
+
+        // Get the signed URL
+        final signedUrl = await _supabase.storage
+            .from('product_images')
+            .createSignedUrl(fileName, 60 * 60 * 24 * 365 * 10); // 10 years
+
+        imageUrl = signedUrl;
+        _logger.d("Product image uploaded to Supabase. URL: $imageUrl");
+
+      } catch (e, stacktrace) {
+        _logger.e("Error uploading product image to Supabase: $e",
+            error: e, stackTrace: stacktrace);
+        throw Exception("Failed to upload product image: $e");
       }
     }
   }
@@ -183,6 +226,22 @@ class EditProdukController extends GetxController {
       if (doc.exists) {
         ProductModel product =
             ProductModel.fromMap(doc.data() as Map<String, dynamic>, doc.id);
+
+        // Remove image from Supabase if exists
+        if (product.imageUrl.isNotEmpty) {
+          Uri uri = Uri.parse(product.imageUrl);
+          String? fileName = uri.pathSegments.isNotEmpty
+              ? uri.pathSegments.last
+              : null;
+          if (fileName != null) {
+            try {
+              await _supabase.storage.from('product_images').remove([fileName]);
+              _logger.d("Product image removed from Supabase");
+            } catch (e) {
+              _logger.d("No product image to remove or error: $e");
+            }
+          }
+        }
 
         await _firestore
             .collection('shops')
